@@ -65,7 +65,7 @@ public class SignUpPanel extends JPanel {
         emailLabel.setHorizontalAlignment(JLabel.CENTER);
         this.add(emailLabel);
 
-        // Full Name Text Field
+        // Email Text Field
         emailText = new JTextField();
         emailText.setBackground(BKGD_DARK_GRAY);
         emailText.setForeground(Color.white);
