@@ -25,6 +25,7 @@ import java.util.Calendar;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.border.LineBorder;
@@ -36,6 +37,7 @@ import javax.swing.border.LineBorder;
  * @version 1.0
  */
 public class SudokuGameApp extends JFrame {
+    private int FailCount = 0;
 
     // Local Model-View Link Variables
     private final SudokuGame model;
@@ -213,6 +215,19 @@ public class SudokuGameApp extends JFrame {
              */
             @Override
             public void keyTyped(KeyEvent evt) {
+                
+                if(FailCount  == 2 ){
+                    int response = JOptionPane.showConfirmDialog(null, "Do you want to save your changes?");
+                    if (response == JOptionPane.YES_OPTION) {
+                        System.out.println("User clicked Yes");
+                    } else if (response == JOptionPane.NO_OPTION) {
+                        System.out.println("User clicked No");
+                    } else if (response == JOptionPane.CANCEL_OPTION) {
+                        System.out.println("User clicked Cancel");
+                    } else if (response == JOptionPane.CLOSED_OPTION) {
+                        System.out.println("User closed the dialog");
+                    }
+                }
                 Cell cell = (Cell) evt.getSource();
                 // Disregard entry if not 1-9 or text already exists
                 if (!String.valueOf(evt.getKeyChar()).matches("^[1-9]$") || cell.getText().length() == 1) {
@@ -221,7 +236,8 @@ public class SudokuGameApp extends JFrame {
                 } else {
                     // Check if input meets contraints
                     if (!model.getPuzzle().meetsConstraints(cell, Integer.valueOf(String.valueOf(evt.getKeyChar()).trim()))) {
-                        System.err.println("VALUE " + evt.getKeyChar() + " AT " + cell.getPosition() + " DOES NOT MEET SUDOKU CONTRAINTS");
+                        FailCount ++;
+                        System.err.println("VALUE " + evt.getKeyChar() + " AT " + cell.getPosition() + " DOES NOT MEET SUDOKU CONTRAINTS" + FailCount);  
                         cell.setText("");
                         cell.setUserValue(0);
                         evt.consume();

@@ -13,7 +13,7 @@ import javax.swing.JPanel;
  * @author masahiro
  * @version 1.0
  */
-public class WelcomeImage extends JPanel {
+public class ManualImage extends JPanel {
 
     // Welcome Image Attributes
     private BufferedImage background;
@@ -24,9 +24,9 @@ public class WelcomeImage extends JPanel {
      * @param width the width of the image
      * @param height the hight of the image
      */
-    public WelcomeImage(int width, int height) {
+    public ManualImage(int width, int height) {
         try {
-            this.background = ImageIO.read(getClass().getResource("/LoginBG.png"));
+            this.background = ImageIO.read(getClass().getResource("/ManualBG.png"));
             setPreferredSize(new Dimension(width, width));
         } catch (Exception ex) {
             System.err.println("Error Welcome Image: " + ex);

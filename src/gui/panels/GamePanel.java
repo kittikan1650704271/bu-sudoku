@@ -47,9 +47,11 @@ public class GamePanel extends JPanel {
         // Banner
         JPanel banner = new JPanel();
         banner.setLayout(new BoxLayout(banner, BoxLayout.LINE_AXIS));
-        banner.setPreferredSize(new Dimension(1000, 115));
+        banner.setBounds(0,0, 115, 115);
+        banner.setPreferredSize(new Dimension(115, 115));
         banner.setBackground(BKGD_DARK_GRAY);
         banner.setAlignmentX(CENTER_ALIGNMENT);
+        
         
             // Sudoku Logo
             LogoImage jP1 = new LogoImage(115, 115);
@@ -60,31 +62,33 @@ public class GamePanel extends JPanel {
             
             // Spacing
             banner.add(Box.createRigidArea(new Dimension(5,0)));
-//            this.add(jP1, BorderLayout.NORTH);
+            banner.add(jP1, BorderLayout.NORTH);
             
             // Dynamic Banner Content
             JPanel jP2 = new JPanel();
             jP2.setBackground(BKGD_DARK_GRAY);
             jP2.setPreferredSize(new Dimension(200, 100));
+            jP2.setBounds(800,25,200,115);
             jP2.setLayout(new GridLayout(2,0));
+            //jP2.setLocation(800, 50);
             
                 timeLabel = new JLabel();
                 timeLabel.setFont(new Font("Avenir", Font.PLAIN, 36));
                 timeLabel.setForeground(Color.WHITE);
                 timeLabel.setVerticalAlignment(JLabel.BOTTOM);
-                timeLabel.setHorizontalAlignment(JLabel.RIGHT);
+                timeLabel.setHorizontalAlignment(JLabel.CENTER);
                 jP2.add(timeLabel);
 
                 levelTitle = new JLabel();
                 levelTitle.setFont(new Font("Avenir", Font.PLAIN, 24));
                 levelTitle.setForeground(Color.WHITE);
                 levelTitle.setVerticalAlignment(JLabel.TOP);
-                levelTitle.setHorizontalAlignment(JLabel.RIGHT);
+                levelTitle.setHorizontalAlignment(JLabel.CENTER);
                 jP2.add(levelTitle);
                 
-            this.add(jP2, BorderLayout.NORTH);
-            banner.add(Box.createRigidArea(new Dimension(15,0)));
-        //this.add(banner, BorderLayout.NORTH);
+            //this.add(jP2, BorderLayout.NORTH);
+            //banner.add(Box.createRigidArea(new Dimension(15,0)));
+            //this.add(banner, BorderLayout.NORTH);
 
         // Main Content
         JPanel main = new JPanel();
@@ -119,7 +123,15 @@ public class GamePanel extends JPanel {
             grid.setForeground(Color.white);
             grid.setBounds(285,0,400,400);
             grid.setLocation(260, 50);
-        this.add(jP1, BorderLayout.NORTH);
+        //this.add(jP1);
+        this.add(jP2);
+//        JPanel redPanel = new JPanel();
+//        redPanel.setBackground(Color.red);
+//        redPanel.setBounds(800,0,200,115);
+//        this.add(redPanel);
+        
+        
+        this.add(banner);
         this.add(grid);
         this.add(main);
     }    

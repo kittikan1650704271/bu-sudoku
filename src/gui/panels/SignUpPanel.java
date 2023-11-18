@@ -36,14 +36,14 @@ public class SignUpPanel extends JPanel {
         this.setBackground(BKGD_DARK_GRAY);
 
         // Title Label
-        JLabel actionLabel = new JLabel("Sign Up or Sign In");
+        JLabel actionLabel = new JLabel("Sign Up");
         actionLabel.setFont(new Font("Avenir", Font.PLAIN, 24));
         actionLabel.setForeground(Color.white);
         actionLabel.setHorizontalAlignment(JLabel.CENTER);
         this.add(actionLabel);
 
         // Full Name Label
-        JLabel fullnameLabel = new JLabel("Full Name");
+        JLabel fullnameLabel = new JLabel("Username");
         fullnameLabel.setFont(new Font("Halvetica Neue", Font.PLAIN, 14));
         fullnameLabel.setForeground(Color.white);
         fullnameLabel.setHorizontalAlignment(JLabel.CENTER);

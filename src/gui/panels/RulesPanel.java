@@ -65,7 +65,7 @@ public class RulesPanel extends JPanel {
             backBtn = new AppJButton("Take me Back", 24, APP_PINK, BKGD_DARK_GRAY);
             content.add(backBtn, BorderLayout.SOUTH);
 
-        this.add(new WelcomeImage(500, 550));
+        this.add(new ManualImage(500, 550));
         this.add(content);
 
     }
