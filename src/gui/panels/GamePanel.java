@@ -33,8 +33,10 @@ public class GamePanel extends JPanel {
     private final JButton viewRulesBtn;
     private final JButton hintBtn;
     private final JPanel grid;
+    private final JPanel[] heart = new JPanel[3];
     private JLabel levelTitle;
     private JLabel timeLabel;
+    private final HeartImage[] jP3 = new HeartImage[3];
     
     /**
      * Constructs a Game Panel.
@@ -123,6 +125,31 @@ public class GamePanel extends JPanel {
             grid.setForeground(Color.white);
             grid.setBounds(285,0,400,400);
             grid.setLocation(260, 50);
+            
+            for(int i = 0 ; i < 3; i++){
+            // Heart Logo
+            jP3[i] = new HeartImage(32, 32);
+            jP3[i].setPreferredSize(new Dimension(32, 96));
+            jP3[i].setMaximumSize(new Dimension(32, 96));
+            //jP3.setAlignmentY(CENTER_ALIGNMENT);
+            
+            //Heart Panel
+            
+                heart[i] = new JPanel();
+                heart[i].setLayout(new BoxLayout(heart[i], BoxLayout.LINE_AXIS));
+                heart[i].setBounds(675,50+(i * 35), 32, 32);
+                //heart[i].setPreferredSize(new Dimension(32, 32));
+                heart[i].setBackground(BKGD_DARK_GRAY);
+                //heart.setAlignmentX(CENTER_ALIGNMENT);
+                //heart.add(Box.createRigidArea(new Dimension(5,0)));
+                heart[i].add(jP3[i]);
+                this.add(heart[i]);
+                System.out.println(i);
+            }
+            
+            
+            
+            
         //this.add(jP1);
         this.add(jP2);
 //        JPanel redPanel = new JPanel();
