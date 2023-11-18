@@ -42,6 +42,7 @@ public class GamePanel extends JPanel {
     public GamePanel() {
         
         this.setLayout(new BorderLayout());
+        
 
         // Banner
         JPanel banner = new JPanel();
@@ -59,7 +60,7 @@ public class GamePanel extends JPanel {
             
             // Spacing
             banner.add(Box.createRigidArea(new Dimension(5,0)));
-            banner.add(jP1);
+//            this.add(jP1, BorderLayout.NORTH);
             
             // Dynamic Banner Content
             JPanel jP2 = new JPanel();
@@ -81,9 +82,9 @@ public class GamePanel extends JPanel {
                 levelTitle.setHorizontalAlignment(JLabel.RIGHT);
                 jP2.add(levelTitle);
                 
-            banner.add(jP2);
+            this.add(jP2, BorderLayout.NORTH);
             banner.add(Box.createRigidArea(new Dimension(15,0)));
-        this.add(banner, BorderLayout.NORTH);
+        //this.add(banner, BorderLayout.NORTH);
 
         // Main Content
         JPanel main = new JPanel();
@@ -117,8 +118,9 @@ public class GamePanel extends JPanel {
             grid.setBackground(BKGD_DARK_GRAY.darker());
             grid.setForeground(Color.white);
             grid.setBounds(285,0,400,400);
-            
-        main.add(grid);         
+            grid.setLocation(260, 50);
+        this.add(jP1, BorderLayout.NORTH);
+        this.add(grid);
         this.add(main);
     }    
     
