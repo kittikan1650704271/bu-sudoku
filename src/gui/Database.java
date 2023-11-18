@@ -69,10 +69,7 @@ public final class Database {
                 System.out.println("Players table was created.");
 
                 // Load sample data into Players table
-                statement.executeUpdate("INSERT INTO Players (FULLNAME, EMAIL, PASSWORD, SCORE) VALUES "
-                        + "('Emily Example', 'emily@example.com', 'example', 30), "
-                        + "('Thomas Tester', 'test@example.com', 'test', 20), "
-                        + "('Jane Doe', 'doe@example.com', 'jane', 10)");
+                statement.executeUpdate("INSERT INTO Players (FULLNAME, EMAIL, PASSWORD, SCORE) VALUES ");
                 System.out.println("Sample data was added to 'Players' table.");
             }
         } catch (SQLException ex) {

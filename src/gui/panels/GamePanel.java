@@ -148,8 +148,6 @@ public class GamePanel extends JPanel {
             }
             
             
-            
-            
         //this.add(jP1);
         this.add(jP2);
 //        JPanel redPanel = new JPanel();

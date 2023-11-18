@@ -431,13 +431,13 @@ public class SudokuGameApp extends JFrame {
             // Add subgrid separators
             CellPosition pos = cell.getPosition();
             if (pos.getColumn() == 2 || pos.getColumn() == 5) {
-                cell.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 2, new Color(146, 208, 80)));
+                cell.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 2, new Color(255, 153, 255)));
             } else if (pos.getRow() == 2 || pos.getRow() == 5) {
-                cell.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(146, 208, 80)));
+                cell.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(255, 153, 255)));
             }
             if ((pos.getColumn() == 2 && pos.getRow() == 2) || (pos.getColumn() == 5 && pos.getRow() == 5)
                     || (pos.getColumn() == 2 && pos.getRow() == 5) || (pos.getColumn() == 5 && pos.getRow() == 2)) {
-                cell.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 2, new Color(146, 208, 80)));
+                cell.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 2, new Color(255, 153, 255)));
             }
 
             // Validate User's Cell Input + Mouse Listeners
