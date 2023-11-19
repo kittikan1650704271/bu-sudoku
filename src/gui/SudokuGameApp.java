@@ -100,6 +100,7 @@ public class SudokuGameApp extends JFrame{
         this.view.getWelcomePanel().getSignUpPanel().getSigninButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                soundBGM.playSound("click_stereo",-10);
                 view.getWelcomePanel().getCardLayoutManager().next(view.getWelcomePanel().getSlider());
             }
         });
@@ -107,13 +108,13 @@ public class SudokuGameApp extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 signInEvt();
-                soundBGM.stopSound();
-                soundBGM.playSound("open",-10);
+                
             }
         });
         this.view.getWelcomePanel().getSignInPanel().getSignupButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                soundBGM.playSound("click_stereo",-10);
                 view.getWelcomePanel().getCardLayoutManager().next(view.getWelcomePanel().getSlider());
             }
         });
@@ -129,6 +130,7 @@ public class SudokuGameApp extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 newGame();
+                soundBGM.playSound("click_stereo", -10);
 //                view.getGamePanel().showHeart();
             }
                        
@@ -136,6 +138,7 @@ public class SudokuGameApp extends JFrame{
         this.view.getHomePanel().getViewRulesBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                soundBGM.playSound("click_stereo", -10);
                 rulesCaller = "home"; // -> Rules was called from the 'home' panel, so return to it when done
                 view.getCardLayoutManager().show(view.getContent(), "rules");
             }
@@ -143,6 +146,7 @@ public class SudokuGameApp extends JFrame{
         this.view.getHomePanel().getSignoutBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                soundBGM.playSound("click_stereo", -10);
                 Object[] options = {"Yes, sign out", "No way!"};
                 int result = JOptionPane.showOptionDialog(getParent(), "Are you sure you want to sign out?", "Leaving Already?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if (result == 0) {
@@ -163,6 +167,7 @@ public class SudokuGameApp extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // User wants a hint, check if game has unused hints
+                soundBGM.playSound("click_stereo", -10);
                 if (model.getHintsUsed() < model.getPuzzle().getDifficulty().getMaxHints()) {
                     model.getPuzzle().hint(false);
                     model.setHintsUsed(model.getHintsUsed() + 1);
@@ -180,6 +185,7 @@ public class SudokuGameApp extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Show Rules Panel
+                soundBGM.playSound("click_stereo", -10);
                 rulesCaller = "game"; // -> Rules was called from the 'game' panel, so return to it when done
                 view.getCardLayoutManager().show(view.getContent(), "rules");
             }
@@ -187,15 +193,18 @@ public class SudokuGameApp extends JFrame{
         this.view.getRulesPanel().getBackBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                soundBGM.playSound("click_stereo", -10);
                 view.getCardLayoutManager().show(view.getContent(), rulesCaller); // -> Return to caller panel
             }
         });
         this.view.getGamePanel().getEndGameBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                soundBGM.playSound("click_stereo", -10);
                 Object[] options = {"That's it", "Cancel"};
                 int result = JOptionPane.showOptionDialog(getParent(), "Are you sure you want to end the game?\n\nThis Sudoku is best played in one sitting,\nand can't be continued later.", "Exit?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if (result == 0) {
+                    
                     view.getCardLayoutManager().show(view.getContent(), "home");
                     destroyGameInstance();
                 }
@@ -399,6 +408,8 @@ public class SudokuGameApp extends JFrame{
                     view.getWelcomePanel().getSignInPanel().clear();
                     // Show Home Screen
                     refreshHomePanel();
+                    soundBGM.stopSound();
+                    soundBGM.playSound("open",-10);
                     view.getCardLayoutManager().show(view.getContent(), "home");
                 } else {
                     Object[] options = {"OK"};
