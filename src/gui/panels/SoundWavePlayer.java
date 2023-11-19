@@ -25,6 +25,7 @@ public class SoundWavePlayer {
     
     public void playSound(String music,float sound_level) {
         try {
+            System.out.println("ARE YOU PLAYED?");
             String base = "resources/sound/";
             File wavFile = new File(base + music + ".wav");
 

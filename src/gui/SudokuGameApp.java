@@ -237,6 +237,7 @@ public class SudokuGameApp extends JFrame{
                         FailCount ++;
                         view.getGamePanel().setFailed_count(FailCount);
                         System.out.println("this is view fail "+view.getGamePanel().getFailed_count());
+                        soundBGM.playSound("pop", -10);
                         view.getGamePanel().changeHeart();
                         
                         if(FailCount  == 3 ){
