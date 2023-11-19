@@ -36,7 +36,7 @@ public class GamePanel extends JPanel  {
     private final JButton viewRulesBtn;
     private final JButton hintBtn;
     private final JPanel grid;
-    private int resetHeart;
+    private Boolean resetHeart = false;
     private int failed_count = 0;
     public final JPanel[] heart = new JPanel[3];
     private final HeartImage[] jP3 = new HeartImage[3];
@@ -173,8 +173,8 @@ public class GamePanel extends JPanel  {
             if(failed_count > 0 && failed_count < 4){
                 heart[failed_count-1].setVisible(false);
             }
-            if(resetHeart == 1){
-                    Timer timer = new Timer(100, new ActionListener() {
+            if(resetHeart){
+                    Timer timer = new Timer(600, new ActionListener() {
                     private int count = 2;
 
                     @Override
@@ -279,13 +279,15 @@ public class GamePanel extends JPanel  {
         this.Heart = Heart;
     }
 
-    public int getResetHeart() {
+    public Boolean getResetHeart() {
         return resetHeart;
     }
 
-    public void setResetHeart(int resetHeart) {
+    public void setResetHeart(Boolean resetHeart) {
         this.resetHeart = resetHeart;
     }
+
+    
     
     
     

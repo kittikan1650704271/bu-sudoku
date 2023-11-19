@@ -1,58 +1,55 @@
 package gui.panels;
 
 import javax.sound.sampled.*;
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
 public class SoundWavePlayer {
 
-    public static void main() {
-        // Specify the path to your sound file (e.g., .wav)
-        String soundFilePath = "H:\\wav\\a place i call home.wav";
-
-        // Create a new SoundWavePlayer object and play the sound
-        SoundWavePlayer player = new SoundWavePlayer();
-        player.playSound(soundFilePath);
-    }
-
-    public void playSound(String soundFilePath) {
+    public void playSound(String music) {
         try {
-            File soundFile = new File(soundFilePath);
+            String base = "resources/sound/";
+            File wavFile = new File(base+music+".wav");
 
-            if (!soundFile.exists()) {
-                System.out.println("File not found: " + soundFilePath);
-                return;
-            }
+            // Set up AudioInputStream
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(wavFile);
 
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            // Set up AudioFormat
             AudioFormat audioFormat = audioInputStream.getFormat();
 
-            DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
+            // Set up DataLine.Info
+            DataLine.Info dataLineInfo = new DataLine.Info(Clip.class, audioFormat);
 
-            if (!AudioSystem.isLineSupported(info)) {
-                System.out.println("Audio line is not supported");
-                return;
-            }
+            // Get a Clip
+            Clip clip = (Clip) AudioSystem.getLine(dataLineInfo);
 
-            SourceDataLine line = (SourceDataLine) AudioSystem.getLine(info);
-            line.open(audioFormat);
-            line.start();
+            // Open the audioInputStream to the clip
+            clip.open(audioInputStream);
 
-            int bufferSize = (int) audioFormat.getSampleRate() * audioFormat.getFrameSize();
-            byte[] buffer = new byte[bufferSize];
+            // Create a FloatControl for volume adjustment
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 
-            int bytesRead;
+            // Set the volume level (in decibels)
+            float volume = 0.0f; // Adjust this value to set the desired volume
+            gainControl.setValue(volume);
 
-            while ((bytesRead = audioInputStream.read(buffer, 0, buffer.length)) != -1) {
-                line.write(buffer, 0, bytesRead);
-            }
+            // Start playing the clip
+            clip.start();
 
-            line.drain();
-            line.close();
+            // Show a message dialog to prevent the program from exiting immediately
+//            JOptionPane.showMessageDialog(null, "Click OK to exit.");
+//
+            // Stop the clip and close the input stream
+            clip.stop();
+            clip.close();
             audioInputStream.close();
 
-        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
+    }
+    public void stopMusic(){
+        
     }
 }

@@ -1,5 +1,6 @@
 package gui;
 
+import gui.panels.SoundWavePlayer;
 import gui.model.Player;
 import static gui.SudokuGame.APP_PINK;
 import static gui.SudokuGame.BKGD_DARK_GRAY;
@@ -47,6 +48,7 @@ import javax.swing.border.LineBorder;
  */
 public class SudokuGameApp extends JFrame{
     // Local Model-View Link Variables
+    private SoundWavePlayer soundBGM;
     private int levelScore;
     private int FailCount = 0;
     private final SudokuGame model;
@@ -68,6 +70,8 @@ public class SudokuGameApp extends JFrame{
         super(name);
         this.model = new SudokuGame();
         this.view = new SudokuGamePanel();
+        this.soundBGM = new SoundWavePlayer();
+        this.soundBGM.playSound("ADO_Music");
 
         getContentPane().add(this.view);
         setSize(1000, 550);
@@ -228,8 +232,6 @@ public class SudokuGameApp extends JFrame{
                                 System.out.println("User clicked Yes");
                                 
                                 //Re-game
-                                view.getGamePanel().setResetHeart(1);
-                                view.getGamePanel().changeHeart();
                                 destroyGameInstance();                               
                                 newGame();                          
    
@@ -241,6 +243,9 @@ public class SudokuGameApp extends JFrame{
                                 view.getCardLayoutManager().show(view.getContent(), "home");
                             }
                         FailCount = 0;
+                        view.getGamePanel().setResetHeart(true);
+                        view.getGamePanel().changeHeart();
+                        view.getGamePanel().setResetHeart(false);
                         }
                         System.err.println("VALUE " + evt.getKeyChar() + " AT " + cell.getPosition() + " DOES NOT MEET SUDOKU CONTRAINTS" + FailCount);  
                         cell.setText("");
@@ -368,6 +373,7 @@ public class SudokuGameApp extends JFrame{
         JFrame frame = new SudokuGameApp("BU Sudoku");
         //ImageIcon img = new ImageIcon("logo.png");
         //frame.setIconImage(img.getImage());
+        
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
