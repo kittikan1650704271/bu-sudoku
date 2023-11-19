@@ -56,6 +56,7 @@ public class SudokuGamePanel extends JPanel {
         // Add Content
         this.add(content);
     }
+    
 
     /**
      * @return the welcomePanel

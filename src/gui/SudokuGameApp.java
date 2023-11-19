@@ -48,7 +48,6 @@ public class SudokuGameApp extends JFrame{
     private String rulesCaller; // -> Tells us where the back button on the rules pane should redirect to based on its caller
     private final KeyListener cellKeyListener;
     private final MouseListener cellMouseListener;
-    private GamePanel gamepanel;
 
     /**
      * Constructs the Sudoku Game Frame
@@ -60,6 +59,7 @@ public class SudokuGameApp extends JFrame{
         super(name);
         this.model = new SudokuGame();
         this.view = new SudokuGamePanel();
+        this.view.getGamePanel().createGamePanel();
 
         getContentPane().add(this.view);
         setSize(1000, 550);
@@ -69,6 +69,7 @@ public class SudokuGameApp extends JFrame{
         for (Difficulty diff : Difficulty.values()) {
             view.getHomePanel().getLevelSelectionModel().addElement(diff);
         }
+        
         
         // Window Action Listeners
         this.addWindowListener(new WindowAdapter() {
@@ -153,7 +154,7 @@ public class SudokuGameApp extends JFrame{
                     update();
                     System.err.println("HINT USED: " + model.getStringHintsUsed());
                     if (model.getHintsUsed() == model.getPuzzle().getDifficulty().getMaxHints()) {
-                        view.getGamePanel().getHintBtn().setEnabled(false);
+                        view.getGamePanel().getHintBtn().setEnabled(true);
                         JOptionPane.showOptionDialog(getParent(), "Let's not make it too easy!\nThat was the last hint for this game.\n\nDid you Know?\nSudokus can likely prevent Alzheimer's disease\nand Dementia, so don't make it too easy.", "Out of Hints", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
                     }
                     checkGridCompletion();
@@ -185,6 +186,7 @@ public class SudokuGameApp extends JFrame{
                 }
             }
         });
+        
 
         // Cell Listener Adapters
         this.cellKeyListener = new KeyAdapter() {
@@ -211,9 +213,11 @@ public class SudokuGameApp extends JFrame{
                         System.out.println("this is view fail "+view.getGamePanel().getFailed_count());
 //                        GamePanel callmethod = new GamePanel();
 //                        callmethod.removeHeart();
+                        System.out.println(this);
+                        view.getGamePanel().removeHeart();
+                        
                         view.getCardLayoutManager().show(view.getContent(), "home");
                         view.getCardLayoutManager().show(view.getContent(), "game");
-                        view.getGamePanel().removeHeart();
                         System.out.println("remove");
                         
                         
@@ -223,21 +227,25 @@ public class SudokuGameApp extends JFrame{
                                                       0, 2, null, options, options[0]);
                             if (selection == 0) {
                                 System.out.println("User clicked Yes");
-                                
+                                //view.getContent().get
                                 //Re-game
-                                destroyGameInstance();                               
-                                newGame();                          
+//                                System.out.println(this);
+                                view.getGamePanel().fillHeart();
+                                view.getCardLayoutManager().show(view.getContent(), "home");
+                                view.getCardLayoutManager().show(view.getContent(), "game");
+                                destroyGameInstance();
                                 
-                                
+                                newGame();
+
                             } else if (selection == 1) {
                                 System.out.println("User clicked No");
                                 //Sending back to Homepage
                                 destroyGameInstance();
                                 refreshHomePanel();
+                                view.getGamePanel().fillHeart();
                                 view.getCardLayoutManager().show(view.getContent(), "home");
                             }
                         FailCount = 0;
-                        view.getGamePanel().showHeart();
                         }
                         System.err.println("VALUE " + evt.getKeyChar() + " AT " + cell.getPosition() + " DOES NOT MEET SUDOKU CONTRAINTS" + FailCount);  
                         cell.setText("");
@@ -250,6 +258,7 @@ public class SudokuGameApp extends JFrame{
                 }
             }
         };
+        
         this.cellMouseListener = new MouseAdapter() {
             // Cell Hover Attribute
             private Color preActionColor;
@@ -331,6 +340,7 @@ public class SudokuGameApp extends JFrame{
         Generator puzzle = new Generator();
         puzzle.generateGrid(level);
         model.setPuzzle(puzzle.getGrid());
+        
 
         // Configure View
         view.getGamePanel().setViewCellList(model.getPuzzle().getCellList());
@@ -351,6 +361,7 @@ public class SudokuGameApp extends JFrame{
             }));
             model.getTimer().setInitialDelay(0);
             model.getTimer().start();
+            
         }
 
     /**

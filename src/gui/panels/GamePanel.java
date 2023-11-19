@@ -39,6 +39,43 @@ public class GamePanel extends JPanel  {
     private final JButton hintBtn;
     private final JPanel grid;
     private int failed_count = 0;
+    private JPanel banner;
+    private LogoImage jP1;
+    private JPanel jP2;
+    private JPanel main;
+
+    public JPanel getBanner() {
+        return banner;
+    }
+
+    public void setBanner(JPanel banner) {
+        this.banner = banner;
+    }
+
+    public LogoImage getjP1() {
+        return jP1;
+    }
+
+    public void setjP1(LogoImage jP1) {
+        this.jP1 = jP1;
+    }
+
+    public JPanel getMain() {
+        return main;
+    }
+
+    public void setMain(JPanel main) {
+        this.main = main;
+    }
+
+    public JPanel getjP2() {
+        return jP2;
+    }
+
+    public void setjP2(JPanel jP2) {
+        this.jP2 = jP2;
+    }
+    private final JPanel actions;
 
     public int getFailed_count() {
         return failed_count;
@@ -63,82 +100,91 @@ public class GamePanel extends JPanel  {
         
         this.setLayout(new BorderLayout());
         // Banner
-        JPanel banner = new JPanel();
-        banner.setLayout(new BoxLayout(banner, BoxLayout.LINE_AXIS));
-        banner.setBounds(0,0, 115, 115);
-        banner.setPreferredSize(new Dimension(115, 115));
-        banner.setBackground(BKGD_DARK_GRAY);
-        banner.setAlignmentX(CENTER_ALIGNMENT);
+        this.banner = new JPanel();
+        this.banner.setLayout(new BoxLayout(this.banner, BoxLayout.LINE_AXIS));
+        this.banner.setBounds(0,0, 115, 115);
+        this.banner.setPreferredSize(new Dimension(115, 115));
+        this.banner.setBackground(BKGD_DARK_GRAY);
+        this.banner.setAlignmentX(CENTER_ALIGNMENT);
         
         
             // Sudoku Logo
-            LogoImage jP1 = new LogoImage(115, 115);
-            jP1.setBackground(BKGD_DARK_GRAY);
-            jP1.setPreferredSize(new Dimension(115, 115));
-            jP1.setMaximumSize(new Dimension(115, 115));
-            jP1.setAlignmentY(CENTER_ALIGNMENT);
+            this.jP1 = new LogoImage(115, 115);
+            this.jP1.setBackground(BKGD_DARK_GRAY);
+            this.jP1.setPreferredSize(new Dimension(115, 115));
+            this.jP1.setMaximumSize(new Dimension(115, 115));
+            this.jP1.setAlignmentY(CENTER_ALIGNMENT);
             
             // Spacing
-            banner.add(Box.createRigidArea(new Dimension(5,0)));
-            banner.add(jP1, BorderLayout.NORTH);
+            this.banner.add(Box.createRigidArea(new Dimension(5,0)));
+            this.banner.add(jP1, BorderLayout.NORTH);
             
             // Dynamic Banner Content
-            JPanel jP2 = new JPanel();
-            jP2.setBackground(BKGD_DARK_GRAY);
-            jP2.setPreferredSize(new Dimension(200, 100));
-            jP2.setBounds(800,25,200,115);
-            jP2.setLayout(new GridLayout(2,0));
+            this.jP2 = new JPanel();
+            this.jP2.setBackground(BKGD_DARK_GRAY);
+            this.jP2.setPreferredSize(new Dimension(200, 100));
+            this.jP2.setBounds(800,25,200,115);
+            this.jP2.setLayout(new GridLayout(2,0));
             //jP2.setLocation(800, 50);
             
-                timeLabel = new JLabel();
-                timeLabel.setFont(new Font("Avenir", Font.PLAIN, 36));
-                timeLabel.setForeground(Color.WHITE);
-                timeLabel.setVerticalAlignment(JLabel.BOTTOM);
-                timeLabel.setHorizontalAlignment(JLabel.CENTER);
-                jP2.add(timeLabel);
+                this.timeLabel = new JLabel();
+                this.timeLabel.setFont(new Font("Avenir", Font.PLAIN, 36));
+                this.timeLabel.setForeground(Color.WHITE);
+                this.timeLabel.setVerticalAlignment(JLabel.BOTTOM);
+                this.timeLabel.setHorizontalAlignment(JLabel.CENTER);
+                this.jP2.add(this.timeLabel);
 
-                levelTitle = new JLabel();
-                levelTitle.setFont(new Font("Avenir", Font.PLAIN, 24));
-                levelTitle.setForeground(Color.WHITE);
-                levelTitle.setVerticalAlignment(JLabel.TOP);
-                levelTitle.setHorizontalAlignment(JLabel.CENTER);
-                jP2.add(levelTitle);    
+                this.levelTitle = new JLabel();
+                this.levelTitle.setFont(new Font("Avenir", Font.PLAIN, 24));
+                this.levelTitle.setForeground(Color.WHITE);
+                this.levelTitle.setVerticalAlignment(JLabel.TOP);
+                this.levelTitle.setHorizontalAlignment(JLabel.CENTER);
+                this.jP2.add(this.levelTitle);    
 
         // Main Content
-        JPanel main = new JPanel();
-        main.setLayout(null);
-        main.setBackground(BKGD_DARK_GRAY);           
+        this.main = new JPanel();
+        this.main.setLayout(null);
+        this.main.setBackground(BKGD_DARK_GRAY);           
                        
-            JPanel actions = new JPanel();
-            actions.setLayout(new GridLayout(3,1));
-            actions.setSize(135, 90);
-            actions.setLocation(0, 400 - actions.getHeight());
+            this.actions = new JPanel();
+            this.actions.setLayout(new GridLayout(3,1));
+            this.actions.setSize(135, 90);
+            this.actions.setLocation(0, 400 - this.actions.getHeight());
 
                 // Get Hint Button
-                hintBtn = new AppJButton("HINT", 14, BKGD_LIGHT_GRAY, APP_PINK);
-                actions.add(hintBtn);
+                this.hintBtn = new AppJButton("HINT", 14, BKGD_LIGHT_GRAY, APP_PINK);
+                this.actions.add(this.hintBtn);
             
                 // View Rules Button
-                viewRulesBtn = new AppJButton("VIEW RULES", 14, BKGD_LIGHT_GRAY, APP_PINK);
-                actions.add(viewRulesBtn);
+                this.viewRulesBtn = new AppJButton("VIEW RULES", 14, BKGD_LIGHT_GRAY, APP_PINK);
+                this.actions.add(this.viewRulesBtn);
             
                 // Sign Out Button
-                endGameBtn = new AppJButton("END GAME", 14, BKGD_LIGHT_GRAY, APP_PINK);
-                actions.add(endGameBtn);
-            main.add(actions, BorderLayout.WEST);
+                this.endGameBtn = new AppJButton("END GAME", 14, BKGD_LIGHT_GRAY, APP_PINK);
+                this.actions.add(this.endGameBtn);
+            this.main.add(this.actions, BorderLayout.WEST);
             
             // Game Grid Panel
-            grid = new JPanel();
-            grid.setLayout(new GridLayout(9, 9));
-            grid.setPreferredSize(new Dimension(120, 120));
-            grid.setMaximumSize(new Dimension(433, 433));
-            grid.setBorder(new LineBorder(APP_PINK, 2));
-            grid.setBackground(BKGD_DARK_GRAY.darker());
-            grid.setForeground(Color.white);
-            grid.setBounds(285,0,400,400);
-            grid.setLocation(260, 50);
-            
-            
+            this.grid = new JPanel();
+            this.grid.setLayout(new GridLayout(9, 9));
+            this.grid.setPreferredSize(new Dimension(120, 120));
+            this.grid.setMaximumSize(new Dimension(433, 433));
+            this.grid.setBorder(new LineBorder(APP_PINK, 2));
+            this.grid.setBackground(BKGD_DARK_GRAY.darker());
+            this.grid.setForeground(Color.white);
+            this.grid.setBounds(285,0,400,400);
+            this.grid.setLocation(260, 50);
+
+//        showHeart();
+//        //removeHeart();
+//
+//        this.add(jP2);
+//        this.add(banner);
+//        this.add(grid);
+//        this.add(main);
+        
+    }
+    public void createGamePanel(){
         showHeart();
         //removeHeart();
 
@@ -146,44 +192,45 @@ public class GamePanel extends JPanel  {
         this.add(banner);
         this.add(grid);
         this.add(main);
-    }    
-    
+    }
+
     public void showHeart() {
+        System.out.print(this);
         for(int i = 0 ; i < 3; i++){
             // Heart Logo
-            jP3[i] = new HeartImage(32, 32);
-            jP3[i].setPreferredSize(new Dimension(32, 96));
-            jP3[i].setMaximumSize(new Dimension(32, 96));
+            this.jP3[i] = new HeartImage(32, 32);
+            this.jP3[i].setPreferredSize(new Dimension(32, 96));
+            this.jP3[i].setMaximumSize(new Dimension(32, 96));
             // Empty_Heart Logo
-            jP4[i] = new EmptyHeartImage(32, 32);
-            jP4[i].setPreferredSize(new Dimension(32, 96));
-            jP4[i].setMaximumSize(new Dimension(32, 96));
+            this.jP4[i] = new EmptyHeartImage(32, 32);
+            this.jP4[i].setPreferredSize(new Dimension(32, 96));
+            this.jP4[i].setMaximumSize(new Dimension(32, 96));
             //Heart Panel
-                heart[i] = new JPanel();
-                heart[i].setLayout(new BoxLayout(heart[i], BoxLayout.LINE_AXIS));
-                heart[i].setBounds(675,50+(i * 35), 32, 32);
-                heart[i].setBackground(BKGD_DARK_GRAY);
-                heart[i].add(jP3[i]);
+                this.heart[i] = new JPanel();
+                this.heart[i].setLayout(new BoxLayout(heart[i], BoxLayout.LINE_AXIS));
+                this.heart[i].setBounds(675,50+(i * 35), 32, 32);
+                this.heart[i].setBackground(BKGD_DARK_GRAY);
+                this.heart[i].add(jP3[i]);
                 this.add(heart[i]);
             //Empty_Heart Panel
-                Empty_heart[i] = new JPanel();
-                Empty_heart[i].setLayout(new BoxLayout(Empty_heart[i], BoxLayout.LINE_AXIS));
-                Empty_heart[i].setBounds(675,50+(i * 35), 32, 32);
-                Empty_heart[i].setBackground(BKGD_DARK_GRAY);
-                Empty_heart[i].add(jP4[i]);
+                this.Empty_heart[i] = new JPanel();
+                this.Empty_heart[i].setLayout(new BoxLayout(Empty_heart[i], BoxLayout.LINE_AXIS));
+                this.Empty_heart[i].setBounds(675,50+(i * 35), 32, 32);
+                this.Empty_heart[i].setBackground(BKGD_DARK_GRAY);
+                this.Empty_heart[i].add(jP4[i]);
                 this.add(Empty_heart[i]);
             }
     }
     
     public void removeHeart() {
            if(failed_count > 0 && failed_count < 4){
-                    this.remove(heart[failed_count-1]);
-            }
-           else{
-               for(int i = 0;i < 3; i++){
-                    this.remove(Empty_heart[i]);
-               }
+                    heart[failed_count-1].setVisible(false);
+                }
            }
+    public void fillHeart(){
+        for(int i = 0; i < 3; i++){
+                   heart[i].setVisible(true);
+               }
     }
     
     
