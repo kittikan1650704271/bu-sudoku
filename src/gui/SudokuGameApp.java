@@ -146,10 +146,13 @@ public class SudokuGameApp extends JFrame{
         this.view.getHomePanel().getSignoutBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                soundBGM.stopSound();
                 soundBGM.playSound("click_stereo", -10);
                 Object[] options = {"Yes, sign out", "No way!"};
                 int result = JOptionPane.showOptionDialog(getParent(), "Are you sure you want to sign out?", "Leaving Already?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if (result == 0) {
+                    soundBGM.stopSound();
+                    soundBGM.shuffleLoopSound(-10);
                     soundBGM.playSound("close4", -10);
                     view.getCardLayoutManager().show(view.getContent(), "welcome");
                     model.setPlayer(null);
@@ -410,6 +413,7 @@ public class SudokuGameApp extends JFrame{
                     refreshHomePanel();
                     soundBGM.stopSound();
                     soundBGM.playSound("open",-10);
+                    soundBGM.shuffleLoopSound(-10);
                     view.getCardLayoutManager().show(view.getContent(), "home");
                 } else {
                     Object[] options = {"OK"};
