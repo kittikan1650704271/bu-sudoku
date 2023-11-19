@@ -4,7 +4,6 @@ import gui.AppJButton;
 import static gui.SudokuGame.APP_PINK;
 import static gui.SudokuGame.BKGD_DARK_GRAY;
 import static gui.SudokuGame.BKGD_LIGHT_GRAY;
-import gui.SudokuGameApp;
 import static java.awt.Component.CENTER_ALIGNMENT;
 import gui.model.Cell;
 import java.awt.BorderLayout;
@@ -12,15 +11,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
@@ -39,43 +34,6 @@ public class GamePanel extends JPanel  {
     private final JButton hintBtn;
     private final JPanel grid;
     private int failed_count = 0;
-    private JPanel banner;
-    private LogoImage jP1;
-    private JPanel jP2;
-    private JPanel main;
-
-    public JPanel getBanner() {
-        return banner;
-    }
-
-    public void setBanner(JPanel banner) {
-        this.banner = banner;
-    }
-
-    public LogoImage getjP1() {
-        return jP1;
-    }
-
-    public void setjP1(LogoImage jP1) {
-        this.jP1 = jP1;
-    }
-
-    public JPanel getMain() {
-        return main;
-    }
-
-    public void setMain(JPanel main) {
-        this.main = main;
-    }
-
-    public JPanel getjP2() {
-        return jP2;
-    }
-
-    public void setjP2(JPanel jP2) {
-        this.jP2 = jP2;
-    }
-    private final JPanel actions;
 
     public int getFailed_count() {
         return failed_count;
@@ -91,148 +49,136 @@ public class GamePanel extends JPanel  {
     
     private JLabel levelTitle;
     private JLabel timeLabel;
+    private JLabel Heart;
     
     
     /**
      * Constructs a Game Panel.
      */
     public GamePanel() {
-        
         this.setLayout(new BorderLayout());
         // Banner
-        this.banner = new JPanel();
-        this.banner.setLayout(new BoxLayout(this.banner, BoxLayout.LINE_AXIS));
-        this.banner.setBounds(0,0, 115, 115);
-        this.banner.setPreferredSize(new Dimension(115, 115));
-        this.banner.setBackground(BKGD_DARK_GRAY);
-        this.banner.setAlignmentX(CENTER_ALIGNMENT);
+        JPanel banner = new JPanel();
+        banner.setLayout(new BoxLayout(banner, BoxLayout.LINE_AXIS));
+        banner.setBounds(0,0, 115, 115);
+        banner.setPreferredSize(new Dimension(115, 115));
+        banner.setBackground(BKGD_DARK_GRAY);
+        banner.setAlignmentX(CENTER_ALIGNMENT);
         
         
             // Sudoku Logo
-            this.jP1 = new LogoImage(115, 115);
-            this.jP1.setBackground(BKGD_DARK_GRAY);
-            this.jP1.setPreferredSize(new Dimension(115, 115));
-            this.jP1.setMaximumSize(new Dimension(115, 115));
-            this.jP1.setAlignmentY(CENTER_ALIGNMENT);
+            LogoImage jP1 = new LogoImage(115, 115);
+            jP1.setBackground(BKGD_DARK_GRAY);
+            jP1.setPreferredSize(new Dimension(115, 115));
+            jP1.setMaximumSize(new Dimension(115, 115));
+            jP1.setAlignmentY(CENTER_ALIGNMENT);
             
             // Spacing
-            this.banner.add(Box.createRigidArea(new Dimension(5,0)));
-            this.banner.add(jP1, BorderLayout.NORTH);
+            banner.add(Box.createRigidArea(new Dimension(5,0)));
+            banner.add(jP1, BorderLayout.NORTH);
             
             // Dynamic Banner Content
-            this.jP2 = new JPanel();
-            this.jP2.setBackground(BKGD_DARK_GRAY);
-            this.jP2.setPreferredSize(new Dimension(200, 100));
-            this.jP2.setBounds(800,25,200,115);
-            this.jP2.setLayout(new GridLayout(2,0));
+            JPanel jP2 = new JPanel();
+            jP2.setBackground(BKGD_DARK_GRAY);
+            jP2.setPreferredSize(new Dimension(200, 100));
+            jP2.setBounds(800,25,200,115);
+            jP2.setLayout(new GridLayout(2,0));
             //jP2.setLocation(800, 50);
             
-                this.timeLabel = new JLabel();
-                this.timeLabel.setFont(new Font("Avenir", Font.PLAIN, 36));
-                this.timeLabel.setForeground(Color.WHITE);
-                this.timeLabel.setVerticalAlignment(JLabel.BOTTOM);
-                this.timeLabel.setHorizontalAlignment(JLabel.CENTER);
-                this.jP2.add(this.timeLabel);
+                timeLabel = new JLabel();
+                timeLabel.setFont(new Font("Avenir", Font.PLAIN, 36));
+                timeLabel.setForeground(Color.WHITE);
+                timeLabel.setVerticalAlignment(JLabel.BOTTOM);
+                timeLabel.setHorizontalAlignment(JLabel.CENTER);
+                jP2.add(timeLabel);
 
-                this.levelTitle = new JLabel();
-                this.levelTitle.setFont(new Font("Avenir", Font.PLAIN, 24));
-                this.levelTitle.setForeground(Color.WHITE);
-                this.levelTitle.setVerticalAlignment(JLabel.TOP);
-                this.levelTitle.setHorizontalAlignment(JLabel.CENTER);
-                this.jP2.add(this.levelTitle);    
-
+                levelTitle = new JLabel();
+                levelTitle.setFont(new Font("Avenir", Font.PLAIN, 24));
+                levelTitle.setForeground(Color.WHITE);
+                levelTitle.setVerticalAlignment(JLabel.TOP);
+                levelTitle.setHorizontalAlignment(JLabel.CENTER);
+                jP2.add(levelTitle);
+                
         // Main Content
-        this.main = new JPanel();
-        this.main.setLayout(null);
-        this.main.setBackground(BKGD_DARK_GRAY);           
+        JPanel main = new JPanel();
+        main.setLayout(null);
+        main.setBackground(BKGD_DARK_GRAY);           
                        
-            this.actions = new JPanel();
-            this.actions.setLayout(new GridLayout(3,1));
-            this.actions.setSize(135, 90);
-            this.actions.setLocation(0, 400 - this.actions.getHeight());
+            JPanel actions = new JPanel();
+            actions.setLayout(new GridLayout(3,1));
+            actions.setSize(135, 90);
+            actions.setLocation(0, 400 - actions.getHeight());
 
                 // Get Hint Button
-                this.hintBtn = new AppJButton("HINT", 14, BKGD_LIGHT_GRAY, APP_PINK);
-                this.actions.add(this.hintBtn);
+                hintBtn = new AppJButton("HINT", 14, BKGD_LIGHT_GRAY, APP_PINK);
+                actions.add(hintBtn);
             
                 // View Rules Button
-                this.viewRulesBtn = new AppJButton("VIEW RULES", 14, BKGD_LIGHT_GRAY, APP_PINK);
-                this.actions.add(this.viewRulesBtn);
+                viewRulesBtn = new AppJButton("VIEW RULES", 14, BKGD_LIGHT_GRAY, APP_PINK);
+                actions.add(viewRulesBtn);
             
                 // Sign Out Button
-                this.endGameBtn = new AppJButton("END GAME", 14, BKGD_LIGHT_GRAY, APP_PINK);
-                this.actions.add(this.endGameBtn);
-            this.main.add(this.actions, BorderLayout.WEST);
+                endGameBtn = new AppJButton("END GAME", 14, BKGD_LIGHT_GRAY, APP_PINK);
+                actions.add(endGameBtn);
+            main.add(actions, BorderLayout.WEST);
             
             // Game Grid Panel
-            this.grid = new JPanel();
-            this.grid.setLayout(new GridLayout(9, 9));
-            this.grid.setPreferredSize(new Dimension(120, 120));
-            this.grid.setMaximumSize(new Dimension(433, 433));
-            this.grid.setBorder(new LineBorder(APP_PINK, 2));
-            this.grid.setBackground(BKGD_DARK_GRAY.darker());
-            this.grid.setForeground(Color.white);
-            this.grid.setBounds(285,0,400,400);
-            this.grid.setLocation(260, 50);
-
-//        showHeart();
-//        //removeHeart();
-//
-//        this.add(jP2);
-//        this.add(banner);
-//        this.add(grid);
-//        this.add(main);
-        
-    }
-    public void createGamePanel(){
+            grid = new JPanel();
+            grid.setLayout(new GridLayout(9, 9));
+            grid.setPreferredSize(new Dimension(120, 120));
+            grid.setMaximumSize(new Dimension(433, 433));
+            grid.setBorder(new LineBorder(APP_PINK, 2));
+            grid.setBackground(BKGD_DARK_GRAY.darker());
+            grid.setForeground(Color.white);
+            grid.setBounds(285,0,400,400);
+            grid.setLocation(260, 50);
+            
         showHeart();
-        //removeHeart();
 
         this.add(jP2);
         this.add(banner);
         this.add(grid);
         this.add(main);
-    }
-
+    }    
+    
     public void showHeart() {
-        System.out.print(this);
         for(int i = 0 ; i < 3; i++){
             // Heart Logo
-            this.jP3[i] = new HeartImage(32, 32);
-            this.jP3[i].setPreferredSize(new Dimension(32, 96));
-            this.jP3[i].setMaximumSize(new Dimension(32, 96));
+            jP3[i] = new HeartImage(32, 32);
+            jP3[i].setPreferredSize(new Dimension(32, 96));
+            jP3[i].setMaximumSize(new Dimension(32, 96));
             // Empty_Heart Logo
-            this.jP4[i] = new EmptyHeartImage(32, 32);
-            this.jP4[i].setPreferredSize(new Dimension(32, 96));
-            this.jP4[i].setMaximumSize(new Dimension(32, 96));
+            jP4[i] = new EmptyHeartImage(32, 32);
+            jP4[i].setPreferredSize(new Dimension(32, 96));
+            jP4[i].setMaximumSize(new Dimension(32, 96));
             //Heart Panel
-                this.heart[i] = new JPanel();
-                this.heart[i].setLayout(new BoxLayout(heart[i], BoxLayout.LINE_AXIS));
-                this.heart[i].setBounds(675,50+(i * 35), 32, 32);
-                this.heart[i].setBackground(BKGD_DARK_GRAY);
-                this.heart[i].add(jP3[i]);
+                heart[i] = new JPanel();
+                heart[i].setLayout(new BoxLayout(heart[i], BoxLayout.LINE_AXIS));
+                heart[i].setBounds(675,50+(i * 35), 32, 32);
+                heart[i].setBackground(BKGD_DARK_GRAY);
+                heart[i].add(jP3[i]);
                 this.add(heart[i]);
             //Empty_Heart Panel
-                this.Empty_heart[i] = new JPanel();
-                this.Empty_heart[i].setLayout(new BoxLayout(Empty_heart[i], BoxLayout.LINE_AXIS));
-                this.Empty_heart[i].setBounds(675,50+(i * 35), 32, 32);
-                this.Empty_heart[i].setBackground(BKGD_DARK_GRAY);
-                this.Empty_heart[i].add(jP4[i]);
+                Empty_heart[i] = new JPanel();
+                Empty_heart[i].setLayout(new BoxLayout(Empty_heart[i], BoxLayout.LINE_AXIS));
+                Empty_heart[i].setBounds(675,50+(i * 35), 32, 32);
+                Empty_heart[i].setBackground(BKGD_DARK_GRAY);
+                Empty_heart[i].add(jP4[i]);
                 this.add(Empty_heart[i]);
             }
     }
     
-    public void removeHeart() {
+    public void changeHeart() {
            if(failed_count > 0 && failed_count < 4){
-                    heart[failed_count-1].setVisible(false);
-                }
-           }
-    public void fillHeart(){
-        for(int i = 0; i < 3; i++){
+                heart[failed_count-1].setVisible(false);
+            }
+           if(failed_count == 3){
+               for (int i = 0; i < 3; i++){
                    heart[i].setVisible(true);
                }
+           }
+           repaint();
     }
-    
     
     /**
      * @return the endGameBtn

@@ -9,8 +9,11 @@ import gui.model.Cell;
 import gui.model.CellPosition;
 import gui.model.Difficulty;
 import gui.model.Generator;
+import gui.panels.EmptyHeartImage;
 import gui.panels.GamePanel;
+import gui.panels.HeartImage;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +28,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
@@ -32,6 +36,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.border.LineBorder;
+
+
 
 /**
  * This is the Sudoku Game (CONTROLLER).
@@ -48,6 +54,9 @@ public class SudokuGameApp extends JFrame{
     private String rulesCaller; // -> Tells us where the back button on the rules pane should redirect to based on its caller
     private final KeyListener cellKeyListener;
     private final MouseListener cellMouseListener;
+    private GamePanel gamepanel;
+    
+
 
     /**
      * Constructs the Sudoku Game Frame
@@ -59,7 +68,6 @@ public class SudokuGameApp extends JFrame{
         super(name);
         this.model = new SudokuGame();
         this.view = new SudokuGamePanel();
-        this.view.getGamePanel().createGamePanel();
 
         getContentPane().add(this.view);
         setSize(1000, 550);
@@ -69,7 +77,6 @@ public class SudokuGameApp extends JFrame{
         for (Difficulty diff : Difficulty.values()) {
             view.getHomePanel().getLevelSelectionModel().addElement(diff);
         }
-        
         
         // Window Action Listeners
         this.addWindowListener(new WindowAdapter() {
@@ -116,6 +123,7 @@ public class SudokuGameApp extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 newGame();
+//                view.getGamePanel().showHeart();
             }
                        
         });
@@ -154,7 +162,7 @@ public class SudokuGameApp extends JFrame{
                     update();
                     System.err.println("HINT USED: " + model.getStringHintsUsed());
                     if (model.getHintsUsed() == model.getPuzzle().getDifficulty().getMaxHints()) {
-                        view.getGamePanel().getHintBtn().setEnabled(true);
+                        view.getGamePanel().getHintBtn().setEnabled(false);
                         JOptionPane.showOptionDialog(getParent(), "Let's not make it too easy!\nThat was the last hint for this game.\n\nDid you Know?\nSudokus can likely prevent Alzheimer's disease\nand Dementia, so don't make it too easy.", "Out of Hints", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
                     }
                     checkGridCompletion();
@@ -186,7 +194,6 @@ public class SudokuGameApp extends JFrame{
                 }
             }
         });
-        
 
         // Cell Listener Adapters
         this.cellKeyListener = new KeyAdapter() {
@@ -211,15 +218,7 @@ public class SudokuGameApp extends JFrame{
                         FailCount ++;
                         view.getGamePanel().setFailed_count(FailCount);
                         System.out.println("this is view fail "+view.getGamePanel().getFailed_count());
-//                        GamePanel callmethod = new GamePanel();
-//                        callmethod.removeHeart();
-                        System.out.println(this);
-                        view.getGamePanel().removeHeart();
-                        
-                        view.getCardLayoutManager().show(view.getContent(), "home");
-                        view.getCardLayoutManager().show(view.getContent(), "game");
-                        System.out.println("remove");
-                        
+                        view.getGamePanel().changeHeart();
                         
                         if(FailCount  == 3 ){
                             String[] options = { "Yes, Come on baby!", "No, I'm scare~"};
@@ -227,22 +226,16 @@ public class SudokuGameApp extends JFrame{
                                                       0, 2, null, options, options[0]);
                             if (selection == 0) {
                                 System.out.println("User clicked Yes");
-                                //view.getContent().get
-                                //Re-game
-//                                System.out.println(this);
-                                view.getGamePanel().fillHeart();
-                                view.getCardLayoutManager().show(view.getContent(), "home");
-                                view.getCardLayoutManager().show(view.getContent(), "game");
-                                destroyGameInstance();
                                 
-                                newGame();
-
+                                //Re-game
+                                destroyGameInstance();                               
+                                newGame();                          
+   
                             } else if (selection == 1) {
                                 System.out.println("User clicked No");
                                 //Sending back to Homepage
                                 destroyGameInstance();
                                 refreshHomePanel();
-                                view.getGamePanel().fillHeart();
                                 view.getCardLayoutManager().show(view.getContent(), "home");
                             }
                         FailCount = 0;
@@ -258,7 +251,6 @@ public class SudokuGameApp extends JFrame{
                 }
             }
         };
-        
         this.cellMouseListener = new MouseAdapter() {
             // Cell Hover Attribute
             private Color preActionColor;
@@ -340,7 +332,6 @@ public class SudokuGameApp extends JFrame{
         Generator puzzle = new Generator();
         puzzle.generateGrid(level);
         model.setPuzzle(puzzle.getGrid());
-        
 
         // Configure View
         view.getGamePanel().setViewCellList(model.getPuzzle().getCellList());
@@ -349,6 +340,8 @@ public class SudokuGameApp extends JFrame{
 
         // Switch to Game Panel
         view.getCardLayoutManager().show(view.getContent(), "game");
+        
+        
 
         // Set up Game Timer & Start
         long start = Calendar.getInstance().getTimeInMillis() / 1000;
@@ -361,8 +354,8 @@ public class SudokuGameApp extends JFrame{
             }));
             model.getTimer().setInitialDelay(0);
             model.getTimer().start();
-            
         }
+
 
     /**
      * Application entry point.
