@@ -11,12 +11,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 
 /**
@@ -140,7 +143,9 @@ public class GamePanel extends JPanel  {
         this.add(grid);
         this.add(main);
     }    
-    
+    /**
+     * Add heart to Game Panel.
+     */
     public void showHeart() {
         for(int i = 0 ; i < 3; i++){
             // Heart Logo
@@ -167,17 +172,34 @@ public class GamePanel extends JPanel  {
                 this.add(Empty_heart[i]);
             }
     }
-    
+    /**
+     * Change heart to empty heart.
+     */
     public void changeHeart() {
-           if(failed_count > 0 && failed_count < 4){
+            //Set heart visible false heart
+            if(failed_count > 0 && failed_count < 4){
                 heart[failed_count-1].setVisible(false);
             }
-           if(failed_count == 3){
-               for (int i = 0; i < 3; i++){
-                   heart[i].setVisible(true);
-               }
-           }
-           repaint();
+            if(failed_count == 3){
+//                for (int i = 0; i < 3; i++){
+//                    heart[i].setVisible(true);
+                    Timer timer = new Timer(600, new ActionListener() {
+                    private int count = 2;
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (count >= 0) {
+                            heart[count].setVisible(true);
+                            count--;
+                        } else {
+                            ((Timer) e.getSource()).stop(); // Stop the timer after 5 iterations
+                        }
+                    }
+                });
+                timer.start();
+            }         
+            // Trigger a repaint to update the panel
+            repaint();
     }
     
     /**
