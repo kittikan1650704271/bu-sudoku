@@ -9,6 +9,7 @@ import java.util.Random;
 
 public class SoundWavePlayer {
     private Clip clip;
+    private Clip clip1;
     private List<String> soundList = new ArrayList<>();
     
     public SoundWavePlayer() {
@@ -71,31 +72,31 @@ public class SoundWavePlayer {
             DataLine.Info dataLineInfo = new DataLine.Info(Clip.class, audioFormat);
 
             // Get a Clip
-            clip = (Clip) AudioSystem.getLine(dataLineInfo);
+            clip1 = (Clip) AudioSystem.getLine(dataLineInfo);
 
             // Open the audioInputStream to the clip
-            clip.open(audioInputStream);
+            clip1.open(audioInputStream);
 
             // Create a FloatControl for volume adjustment
-            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            FloatControl gainControl = (FloatControl) clip1.getControl(FloatControl.Type.MASTER_GAIN);
 
             // Set the volume level (in decibels)
             float volume = sound_level; // Adjust this value to set the desired volume
             gainControl.setValue(volume);
             
-            clip.addLineListener(new LineListener() {
+            clip1.addLineListener(new LineListener() {
                 @Override
                 public void update(LineEvent event) {
                     if (event.getType() == LineEvent.Type.STOP) {
                         // When the clip stops, rewind and start playing again for looping
-                        clip.setFramePosition(1);
-                        clip.start();
+                        clip1.setFramePosition(1);
+                        clip1.start();
                     }
                 }
             });
             
             // Start playing the clip
-            clip.start();
+            clip1.start();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
