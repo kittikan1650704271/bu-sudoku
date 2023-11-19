@@ -48,7 +48,7 @@ public class SudokuGameApp extends JFrame{
     private String rulesCaller; // -> Tells us where the back button on the rules pane should redirect to based on its caller
     private final KeyListener cellKeyListener;
     private final MouseListener cellMouseListener;
-    private JPanel redPanel;
+    private GamePanel gamepanel;
 
     /**
      * Constructs the Sudoku Game Frame
@@ -207,10 +207,15 @@ public class SudokuGameApp extends JFrame{
                     // Check if input meets contraints
                     if (!model.getPuzzle().meetsConstraints(cell, Integer.valueOf(String.valueOf(evt.getKeyChar()).trim()))) {
                         FailCount ++;
+                        view.getGamePanel().setFailed_count(FailCount);
+                        System.out.println("this is view fail "+view.getGamePanel().getFailed_count());
 //                        GamePanel callmethod = new GamePanel();
 //                        callmethod.removeHeart();
+                        view.getCardLayoutManager().show(view.getContent(), "home");
+                        view.getCardLayoutManager().show(view.getContent(), "game");
                         view.getGamePanel().removeHeart();
                         System.out.println("remove");
+                        
                         
                         if(FailCount  == 3 ){
                             String[] options = { "Yes, Come on baby!", "No, I'm scare~"};
@@ -220,16 +225,19 @@ public class SudokuGameApp extends JFrame{
                                 System.out.println("User clicked Yes");
                                 
                                 //Re-game
-                                destroyGameInstance();
-                                newGame();
+                                destroyGameInstance();                               
+                                newGame();                          
+                                
                                 
                             } else if (selection == 1) {
                                 System.out.println("User clicked No");
                                 //Sending back to Homepage
+                                destroyGameInstance();
                                 refreshHomePanel();
                                 view.getCardLayoutManager().show(view.getContent(), "home");
                             }
                         FailCount = 0;
+                        view.getGamePanel().showHeart();
                         }
                         System.err.println("VALUE " + evt.getKeyChar() + " AT " + cell.getPosition() + " DOES NOT MEET SUDOKU CONTRAINTS" + FailCount);  
                         cell.setText("");
@@ -579,6 +587,7 @@ public class SudokuGameApp extends JFrame{
      */
     private void destroyGameInstance() {
         // Destroy Game
+        FailCount = 0;
         this.model.setPuzzle(null);
         this.model.setHintsUsed(0);
         this.model.getTimer().stop();

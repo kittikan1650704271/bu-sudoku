@@ -33,12 +33,20 @@ import javax.swing.border.LineBorder;
 public class GamePanel extends JPanel  {
     
     // Game Panel Attributes
-    private int failed_count = 0;
     private List<Cell> viewCellList;
     private final JButton endGameBtn;
     private final JButton viewRulesBtn;
     private final JButton hintBtn;
     private final JPanel grid;
+    private int failed_count = 0;
+
+    public int getFailed_count() {
+        return failed_count;
+    }
+
+    public void setFailed_count(int failed_count) {
+        this.failed_count = failed_count;
+    }
     public final JPanel[] heart = new JPanel[3];
     private final HeartImage[] jP3 = new HeartImage[3];
     public final JPanel[] Empty_heart = new JPanel[3];
@@ -132,7 +140,7 @@ public class GamePanel extends JPanel  {
             
             
         showHeart();
-//        removeHeart();
+        //removeHeart();
 
         this.add(jP2);
         this.add(banner);
@@ -168,24 +176,16 @@ public class GamePanel extends JPanel  {
     }
     
     public void removeHeart() {
-        System.out.println("this is fial "+failed_count);
-            if(failed_count < 2){
-                try{
-                    this.remove(heart[failed_count]);
-                }
-                catch(Exception e){
-                    System.out.println(e);
-                }
+           if(failed_count > 0 && failed_count < 4){
+                    this.remove(heart[failed_count-1]);
             }
+           else{
+               for(int i = 0;i < 3; i++){
+                    this.remove(Empty_heart[i]);
+               }
+           }
     }
     
-    public int getFailed_count() {
-        return failed_count;
-    }
-
-    public void setFailed_count(int failed_count) {
-        this.failed_count = failed_count;
-    }
     
     /**
      * @return the endGameBtn
