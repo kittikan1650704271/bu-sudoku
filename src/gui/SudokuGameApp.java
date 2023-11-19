@@ -501,7 +501,7 @@ public class SudokuGameApp extends JFrame{
     }
 
     /**
-     * Updates the table model with players' scores
+     * Updates the table model with players scores
      *
      * @param tableContent the list of players to include
      */
