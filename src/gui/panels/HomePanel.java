@@ -22,6 +22,10 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Home Panel View of Sudoku Game
  * 
@@ -34,18 +38,21 @@ public class HomePanel extends JPanel {
     private final JButton signoutBtn;
     private final JButton newGameBtn;
     private final JButton viewRulesBtn;
+//    private final SoundWavePlayer;
     private JTable highscores;
     private DefaultTableModel tableModel;
     private DefaultComboBoxModel levelSelectionModel = new DefaultComboBoxModel();
     private final JComboBox levelSelector;
     private JLabel nameLabel;
     
+    
+    
     /**
      * Constructs a Home Panel View.
      */
     public HomePanel() {
         this.setLayout(new BorderLayout());
-
+        
         // Banner
         JPanel banner = new JPanel();
         banner.setLayout(new BoxLayout(banner, BoxLayout.LINE_AXIS));
@@ -171,7 +178,7 @@ public class HomePanel extends JPanel {
 
         this.add(main);
     }
-    
+
     /**
      * @return the signoutBtn
      */
@@ -241,4 +248,5 @@ public class HomePanel extends JPanel {
     public DefaultComboBoxModel getLevelSelectionModel() {
         return levelSelectionModel;
     }
+    
 }

@@ -56,6 +56,7 @@ public class SignInPanel extends JPanel {
         nameText.setHorizontalAlignment(JLabel.CENTER);
         nameText.setFont(new Font("Halvetica Neue", Font.PLAIN, 14));
         nameText.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, APP_PINK));
+        
         this.add(nameText);
 
         // Password Label

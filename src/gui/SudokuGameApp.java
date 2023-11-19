@@ -9,6 +9,7 @@ import gui.model.Cell;
 import gui.model.CellPosition;
 import gui.model.Difficulty;
 import gui.model.Generator;
+import gui.panels.GamePanel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -199,10 +200,17 @@ public class SudokuGameApp extends JFrame{
                 if (!String.valueOf(evt.getKeyChar()).matches("^[1-9]$") || cell.getText().length() == 1) {
                     System.out.println("Input: " + evt.getKeyChar() + " was rejected.");
                     evt.consume();
+                    
+
+                       
                 } else {
                     // Check if input meets contraints
                     if (!model.getPuzzle().meetsConstraints(cell, Integer.valueOf(String.valueOf(evt.getKeyChar()).trim()))) {
                         FailCount ++;
+//                        GamePanel callmethod = new GamePanel();
+//                        callmethod.removeHeart();
+                        view.getGamePanel().removeHeart();
+                        System.out.println("remove");
                         
                         if(FailCount  == 3 ){
                             String[] options = { "Yes, Come on baby!", "No, I'm scare~"};
@@ -428,6 +436,7 @@ public class SudokuGameApp extends JFrame{
         view.getHomePanel().getTableModel().setRowCount(0);
         updateHighscores(model.getHighscores());
     }
+    
 
     /**
      * View update event handler.

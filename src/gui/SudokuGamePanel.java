@@ -98,4 +98,6 @@ public class SudokuGamePanel extends JPanel {
     public RulesPanel getRulesPanel() {
         return rulesPanel;
     }
+
+    
 }

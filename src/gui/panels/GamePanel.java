@@ -41,7 +41,6 @@ public class GamePanel extends JPanel  {
     private final JPanel grid;
     public final JPanel[] heart = new JPanel[3];
     private final HeartImage[] jP3 = new HeartImage[3];
-    
     public final JPanel[] Empty_heart = new JPanel[3];
     private final EmptyHeartImage[] jP4 = new EmptyHeartImage[3];
     
@@ -95,11 +94,7 @@ public class GamePanel extends JPanel  {
                 levelTitle.setForeground(Color.WHITE);
                 levelTitle.setVerticalAlignment(JLabel.TOP);
                 levelTitle.setHorizontalAlignment(JLabel.CENTER);
-                jP2.add(levelTitle);
-                
-            //this.add(jP2, BorderLayout.NORTH);
-            //banner.add(Box.createRigidArea(new Dimension(15,0)));
-            //this.add(banner, BorderLayout.NORTH);
+                jP2.add(levelTitle);    
 
         // Main Content
         JPanel main = new JPanel();
@@ -135,50 +130,45 @@ public class GamePanel extends JPanel  {
             grid.setBounds(285,0,400,400);
             grid.setLocation(260, 50);
             
-            for(int i = 0 ; i < 3; i++){
+            
+        showHeart();
+//        removeHeart();
+
+        this.add(jP2);
+        this.add(banner);
+        this.add(grid);
+        this.add(main);
+    }    
+    
+    public void showHeart() {
+        for(int i = 0 ; i < 3; i++){
             // Heart Logo
             jP3[i] = new HeartImage(32, 32);
             jP3[i].setPreferredSize(new Dimension(32, 96));
             jP3[i].setMaximumSize(new Dimension(32, 96));
-            //jP3.setAlignmentY(CENTER_ALIGNMENT);
-            
-            
+            // Empty_Heart Logo
+            jP4[i] = new EmptyHeartImage(32, 32);
+            jP4[i].setPreferredSize(new Dimension(32, 96));
+            jP4[i].setMaximumSize(new Dimension(32, 96));
             //Heart Panel
                 heart[i] = new JPanel();
                 heart[i].setLayout(new BoxLayout(heart[i], BoxLayout.LINE_AXIS));
                 heart[i].setBounds(675,50+(i * 35), 32, 32);
                 heart[i].setBackground(BKGD_DARK_GRAY);
-                //heart[i].setPreferredSize(new Dimension(32, 32));
-                //heart.setAlignmentX(CENTER_ALIGNMENT);
-                //heart.add(Box.createRigidArea(new Dimension(5,0)));
                 heart[i].add(jP3[i]);
                 this.add(heart[i]);
-                System.out.println(i);
-            }
-            
-            
-            for(int i = 0 ; i < 3; i++){
-            // Empty_Heart Logo
-            jP4[i] = new EmptyHeartImage(32, 32);
-            jP4[i].setPreferredSize(new Dimension(32, 96));
-            jP4[i].setMaximumSize(new Dimension(32, 96));
-            //jP3.setAlignmentY(CENTER_ALIGNMENT);
-            
-            
             //Empty_Heart Panel
                 Empty_heart[i] = new JPanel();
                 Empty_heart[i].setLayout(new BoxLayout(Empty_heart[i], BoxLayout.LINE_AXIS));
                 Empty_heart[i].setBounds(675,50+(i * 35), 32, 32);
                 Empty_heart[i].setBackground(BKGD_DARK_GRAY);
-                //heart[i].setPreferredSize(new Dimension(32, 32));
-                //heart.setAlignmentX(CENTER_ALIGNMENT);
-                //heart.add(Box.createRigidArea(new Dimension(5,0)));
                 Empty_heart[i].add(jP4[i]);
                 this.add(Empty_heart[i]);
-                System.out.println(i);
             }
-            //this is how to remove
-            System.out.println("this is fial "+failed_count);
+    }
+    
+    public void removeHeart() {
+        System.out.println("this is fial "+failed_count);
             if(failed_count < 2){
                 try{
                     this.remove(heart[failed_count]);
@@ -187,20 +177,8 @@ public class GamePanel extends JPanel  {
                     System.out.println(e);
                 }
             }
-
-        //this.add(jP1);
-        this.add(jP2);
-//        JPanel redPanel = new JPanel();
-//        redPanel.setBackground(Color.red);
-//        redPanel.setBounds(800,0,200,115);
-//        this.add(redPanel);
-        
-        
-        this.add(banner);
-        this.add(grid);
-        this.add(main);
-    }    
-
+    }
+    
     public int getFailed_count() {
         return failed_count;
     }
