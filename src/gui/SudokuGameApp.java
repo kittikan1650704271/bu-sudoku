@@ -228,6 +228,8 @@ public class SudokuGameApp extends JFrame{
                                 System.out.println("User clicked Yes");
                                 
                                 //Re-game
+                                view.getGamePanel().setResetHeart(1);
+                                view.getGamePanel().changeHeart();
                                 destroyGameInstance();                               
                                 newGame();                          
    
@@ -608,8 +610,5 @@ public class SudokuGameApp extends JFrame{
 
     public void setFailCount(int FailCount) {
         this.FailCount = FailCount;
-    }
-
-    
-    
+    }   
 }

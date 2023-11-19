@@ -36,15 +36,8 @@ public class GamePanel extends JPanel  {
     private final JButton viewRulesBtn;
     private final JButton hintBtn;
     private final JPanel grid;
+    private int resetHeart;
     private int failed_count = 0;
-
-    public int getFailed_count() {
-        return failed_count;
-    }
-
-    public void setFailed_count(int failed_count) {
-        this.failed_count = failed_count;
-    }
     public final JPanel[] heart = new JPanel[3];
     private final HeartImage[] jP3 = new HeartImage[3];
     public final JPanel[] Empty_heart = new JPanel[3];
@@ -180,10 +173,8 @@ public class GamePanel extends JPanel  {
             if(failed_count > 0 && failed_count < 4){
                 heart[failed_count-1].setVisible(false);
             }
-            if(failed_count == 3){
-//                for (int i = 0; i < 3; i++){
-//                    heart[i].setVisible(true);
-                    Timer timer = new Timer(600, new ActionListener() {
+            if(resetHeart == 1){
+                    Timer timer = new Timer(100, new ActionListener() {
                     private int count = 2;
 
                     @Override
@@ -271,4 +262,31 @@ public class GamePanel extends JPanel  {
     public void setViewCellList(List<Cell> viewCellList) {
         this.viewCellList = viewCellList;
     }
+    
+    public int getFailed_count() {
+        return failed_count;
+    }
+
+    public void setFailed_count(int failed_count) {
+        this.failed_count = failed_count;
+    }
+
+    public JLabel getHeart() {
+        return Heart;
+    }
+
+    public void setHeart(JLabel Heart) {
+        this.Heart = Heart;
+    }
+
+    public int getResetHeart() {
+        return resetHeart;
+    }
+
+    public void setResetHeart(int resetHeart) {
+        this.resetHeart = resetHeart;
+    }
+    
+    
+    
 }
