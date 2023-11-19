@@ -250,6 +250,20 @@ public class SudokuGameApp extends JFrame{
                                 System.out.println("User clicked Yes");
                                 
                                 //Re-game
+                                Timer timer = new Timer(300, new ActionListener() {
+                                private int count = 2;
+
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    if (count >= 0) {
+                                        soundBGM.playSound("drink", -10);
+                                        count--;
+                                    } else {
+                                        ((Timer) e.getSource()).stop(); // Stop the timer after 5 iterations
+                                    }
+                                }
+                            });
+                            timer.start();
                                 destroyGameInstance();                               
                                 newGame();                          
    
@@ -263,20 +277,6 @@ public class SudokuGameApp extends JFrame{
                         FailCount = 0;
                         view.getGamePanel().setResetHeart(true);
                         view.getGamePanel().changeHeart();
-                        Timer timer = new Timer(300, new ActionListener() {
-                        private int count = 2;
-
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            if (count >= 0) {
-                                soundBGM.playSound("drink", -10);
-                                count--;
-                            } else {
-                                ((Timer) e.getSource()).stop(); // Stop the timer after 5 iterations
-                            }
-                        }
-                    });
-                    timer.start();
                         view.getGamePanel().setResetHeart(false);
                         }
                         System.err.println("VALUE " + evt.getKeyChar() + " AT " + cell.getPosition() + " DOES NOT MEET SUDOKU CONTRAINTS" + FailCount);  
@@ -603,6 +603,8 @@ public class SudokuGameApp extends JFrame{
      * Events which fire at completion of Sudoku grid
      */
     private void puzzleCompleted() {
+        //play challenge_complete sound
+        soundBGM.playSound("challenge_complete", -10);
         // Stop timer
         this.model.getTimer().stop();
         String gameTime = view.getGamePanel().getTimeLabel().getText();
@@ -620,7 +622,11 @@ public class SudokuGameApp extends JFrame{
         this.model.increaseScore(scoreCalculate(levelScore, convertToDecimalTime(gameTime)) );
         Object[] options = {"Great!"};
         JOptionPane.showOptionDialog(this, "You have solved the Puzzle.\n\nGame Time: " + gameTime + "\nHints Used: " + this.model.getStringHintsUsed() + "\n\nYour new score: " + this.model.getPlayer().getScore() + " points.", "Congratulations!", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null);
-
+        //reset heart
+        view.getGamePanel().setResetHeart(true);
+        view.getGamePanel().changeHeart();
+        view.getGamePanel().setResetHeart(false);
+        soundBGM.playSound("click_stereo", -10);
         // Return Home
         refreshHomePanel();
         view.getCardLayoutManager().show(view.getContent(), "home");
