@@ -10,7 +10,18 @@ import java.util.Random;
 public class SoundWavePlayer {
     private Clip clip;
     private List<String> soundList = new ArrayList<>();
-
+    
+    public SoundWavePlayer() {
+        // Initialize the list of sound filenames
+        soundList.add("bgm1");
+        soundList.add("bgm2");
+        soundList.add("bgm3");
+        soundList.add("bgm4");
+        soundList.add("bgm5");
+        soundList.add("bgm6");
+        // Add more sounds as needed
+    }
+    
     public void playSound(String music,float sound_level) {
         try {
             String base = "resources/sound/";
@@ -98,10 +109,6 @@ public class SoundWavePlayer {
     }
     
     public void shuffleSound(float sound_level) {
-        // Initialize the list of sound filenames
-        //soundList.add("sbg");
-        //soundList.add("ADO_Music");
-        soundList.add("bgm1");
         // Play a random sound from the list
         if (!soundList.isEmpty()) {
             Random random = new Random();
@@ -113,10 +120,6 @@ public class SoundWavePlayer {
     }
     
     public void shuffleLoopSound(float sound_level) {
-        // Initialize the list of sound filenames
-        soundList.add("bgm1");
-        soundList.add("bgm2");
-        
         // Play a random sound from the list
         if (!soundList.isEmpty()) {
             Random random = new Random();
