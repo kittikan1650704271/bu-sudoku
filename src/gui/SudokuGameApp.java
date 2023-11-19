@@ -285,10 +285,16 @@ public class SudokuGameApp extends JFrame{
                         evt.consume();
                     } else {
                         cell.setUserValue(Integer.valueOf(String.valueOf(evt.getKeyChar()).trim()));
+                        //Play draw number sound
+                        soundBGM.playSound("drawmap1", -10);
+                        
                     }
                     checkGridCompletion();
+                    
                 }
+                
             }
+            
         };
         this.cellMouseListener = new MouseAdapter() {
             // Cell Hover Attribute
