@@ -25,6 +25,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
+import javax.swing.table.TableRowSorter;
 
 /**
  * Home Panel View of Sudoku Game
@@ -164,8 +168,18 @@ public class HomePanel extends JPanel {
                 highscores.setForeground(APP_PINK);
                 highscores.setShowVerticalLines(false);
                 highscores.setShowHorizontalLines(false);
-                highscores.getRowSorter().toggleSortOrder(0);
-                
+//                highscores.getRowSorter().toggleSortOrder(0);
+
+                // Create a TableRowSorter and set the sort order to descending for the first column (column 0)
+                TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tableModel);
+                sorter.setComparator(0, (o1, o2) -> {
+                    Integer score1 = Integer.parseInt(o1.toString());
+                    Integer score2 = Integer.parseInt(o2.toString());
+                    return score2.compareTo(score1);
+                });
+                sorter.setSortKeys(List.of(new RowSorter.SortKey(0, SortOrder.DESCENDING)));
+                highscores.setRowSorter(sorter);
+        
                 JScrollPane scores = new JScrollPane(highscores);
                 scores.setLocation(100, 50);
                 scores.setSize(300, 270);
