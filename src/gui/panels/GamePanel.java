@@ -193,7 +193,7 @@ public class GamePanel extends JPanel  {
                 
             }
             if(resetHeart){
-                    Timer timer = new Timer(600, new ActionListener() {
+                    Timer timer = new Timer(300, new ActionListener() {
                     private int count = 2;
 
                     @Override

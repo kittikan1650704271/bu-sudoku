@@ -207,7 +207,9 @@ public class SudokuGameApp extends JFrame{
                 Object[] options = {"That's it", "Cancel"};
                 int result = JOptionPane.showOptionDialog(getParent(), "Are you sure you want to end the game?\n\nThis Sudoku is best played in one sitting,\nand can't be continued later.", "Exit?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if (result == 0) {
-                    
+                    view.getGamePanel().setResetHeart(true);
+                    view.getGamePanel().changeHeart();
+                    view.getGamePanel().setResetHeart(false);
                     view.getCardLayoutManager().show(view.getContent(), "home");
                     destroyGameInstance();
                 }
@@ -261,6 +263,20 @@ public class SudokuGameApp extends JFrame{
                         FailCount = 0;
                         view.getGamePanel().setResetHeart(true);
                         view.getGamePanel().changeHeart();
+                        Timer timer = new Timer(300, new ActionListener() {
+                        private int count = 2;
+
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            if (count >= 0) {
+                                soundBGM.playSound("drink", -10);
+                                count--;
+                            } else {
+                                ((Timer) e.getSource()).stop(); // Stop the timer after 5 iterations
+                            }
+                        }
+                    });
+                    timer.start();
                         view.getGamePanel().setResetHeart(false);
                         }
                         System.err.println("VALUE " + evt.getKeyChar() + " AT " + cell.getPosition() + " DOES NOT MEET SUDOKU CONTRAINTS" + FailCount);  
