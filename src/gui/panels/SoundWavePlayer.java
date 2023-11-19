@@ -1,16 +1,16 @@
 package gui.panels;
 
 import javax.sound.sampled.*;
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
 public class SoundWavePlayer {
+    private Clip clip;
 
     public void playSound(String music) {
         try {
             String base = "resources/sound/";
-            File wavFile = new File(base+music+".wav");
+            File wavFile = new File(base + music + ".wav");
 
             // Set up AudioInputStream
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(wavFile);
@@ -22,7 +22,7 @@ public class SoundWavePlayer {
             DataLine.Info dataLineInfo = new DataLine.Info(Clip.class, audioFormat);
 
             // Get a Clip
-            Clip clip = (Clip) AudioSystem.getLine(dataLineInfo);
+            clip = (Clip) AudioSystem.getLine(dataLineInfo);
 
             // Open the audioInputStream to the clip
             clip.open(audioInputStream);
@@ -36,20 +36,15 @@ public class SoundWavePlayer {
 
             // Start playing the clip
             clip.start();
-
-            // Show a message dialog to prevent the program from exiting immediately
-//            JOptionPane.showMessageDialog(null, "Click OK to exit.");
-//
-            // Stop the clip and close the input stream
-            clip.stop();
-            clip.close();
-            audioInputStream.close();
-
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
     }
-    public void stopMusic(){
-        
+
+    public void stopSound() {
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+            clip.close();
+        }
     }
 }

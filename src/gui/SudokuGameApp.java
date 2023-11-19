@@ -107,6 +107,7 @@ public class SudokuGameApp extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 signInEvt();
+                soundBGM.stopSound();
             }
         });
         this.view.getWelcomePanel().getSignInPanel().getSignupButton().addActionListener(new ActionListener() {
