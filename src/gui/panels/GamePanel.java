@@ -42,7 +42,7 @@ public class GamePanel extends JPanel  {
     private final HeartImage[] jP3 = new HeartImage[3];
     public final JPanel[] Empty_heart = new JPanel[3];
     private final EmptyHeartImage[] jP4 = new EmptyHeartImage[3];
-    
+    private JPanel redPanel;
     private JLabel levelTitle;
     private JLabel timeLabel;
     private JLabel Heart;
@@ -168,10 +168,29 @@ public class GamePanel extends JPanel  {
     /**
      * Change heart to empty heart.
      */
+    
     public void changeHeart() {
             //Set heart visible false heart
             if(failed_count > 0 && failed_count < 4){
                 heart[failed_count-1].setVisible(false);
+                Timer timer = new Timer(65, new ActionListener() {
+                    private int count = 1;
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (count >= 0) {
+                            grid.setBorder(new LineBorder(Color.red, 2));
+                            count--;
+                        } 
+                        else {
+                            grid.setBorder(new LineBorder(APP_PINK, 2));
+                            ((Timer) e.getSource()).stop(); // Stop the timer after 5 iterations
+                        }
+                    }
+                });
+                timer.start();
+                
+                
             }
             if(resetHeart){
                     Timer timer = new Timer(600, new ActionListener() {

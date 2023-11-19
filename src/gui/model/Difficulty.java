@@ -14,7 +14,7 @@ public enum Difficulty {
     // NOTE: The higher the number of blank cells, the longer it takes to produce a unique solution.
     EASY(20, 99,500),
     NORMAL(35, 3,700),
-    HARD(43, 3,1000);
+    HARD(43, 99,1000);
     
 
     // Difficulty Attributes
