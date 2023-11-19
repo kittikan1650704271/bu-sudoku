@@ -4,6 +4,7 @@ import gui.model.Player;
 import static gui.SudokuGame.APP_PINK;
 import static gui.SudokuGame.BKGD_DARK_GRAY;
 import static gui.SudokuGame.BKGD_LIGHT_GRAY;
+import gui.panels.SignInPanel;
 import gui.model.Cell;
 import gui.model.CellPosition;
 import gui.model.Difficulty;
@@ -26,6 +27,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.border.LineBorder;
@@ -36,7 +38,7 @@ import javax.swing.border.LineBorder;
  * @author masahiro
  * @version 1.0
  */
-public class SudokuGameApp extends JFrame {
+public class SudokuGameApp extends JFrame{
     // Local Model-View Link Variables
     private int levelScore;
     private int FailCount = 0;
@@ -45,6 +47,7 @@ public class SudokuGameApp extends JFrame {
     private String rulesCaller; // -> Tells us where the back button on the rules pane should redirect to based on its caller
     private final KeyListener cellKeyListener;
     private final MouseListener cellMouseListener;
+    private JPanel redPanel;
 
     /**
      * Constructs the Sudoku Game Frame
@@ -191,7 +194,6 @@ public class SudokuGameApp extends JFrame {
              */
             @Override
             public void keyTyped(KeyEvent evt) {
-                
                 Cell cell = (Cell) evt.getSource();
                 // Disregard entry if not 1-9 or text already exists
                 if (!String.valueOf(evt.getKeyChar()).matches("^[1-9]$") || cell.getText().length() == 1) {
@@ -201,6 +203,7 @@ public class SudokuGameApp extends JFrame {
                     // Check if input meets contraints
                     if (!model.getPuzzle().meetsConstraints(cell, Integer.valueOf(String.valueOf(evt.getKeyChar()).trim()))) {
                         FailCount ++;
+                        
                         if(FailCount  == 3 ){
                             String[] options = { "Yes, Come on baby!", "No, I'm scare~"};
                             int selection = JOptionPane.showOptionDialog(null, "Do you want to retry?:", "Lose Game", 
@@ -230,7 +233,6 @@ public class SudokuGameApp extends JFrame {
                     checkGridCompletion();
                 }
             }
-
         };
         this.cellMouseListener = new MouseAdapter() {
             // Cell Hover Attribute
@@ -577,4 +579,15 @@ public class SudokuGameApp extends JFrame {
             this.view.getGamePanel().getGrid().remove(cell);
         }
     }
+
+    public int getFailCount() {
+        return FailCount;
+    }
+
+    public void setFailCount(int FailCount) {
+        this.FailCount = FailCount;
+    }
+
+    
+    
 }

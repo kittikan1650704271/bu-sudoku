@@ -26,7 +26,7 @@ public class EmptyHeartImage extends JPanel {
      */
     public EmptyHeartImage(int width, int height) {
         try {
-            this.background = ImageIO.read(getClass().getResource("/LoginBG.png"));
+            this.background = ImageIO.read(getClass().getResource("/Empty_heart_sprite_resized.png"));
             setPreferredSize(new Dimension(width, width));
         } catch (Exception ex) {
             System.err.println("Error Welcome Image: " + ex);

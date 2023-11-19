@@ -4,6 +4,7 @@ import gui.AppJButton;
 import static gui.SudokuGame.APP_PINK;
 import static gui.SudokuGame.BKGD_DARK_GRAY;
 import static gui.SudokuGame.BKGD_LIGHT_GRAY;
+import gui.SudokuGameApp;
 import static java.awt.Component.CENTER_ALIGNMENT;
 import gui.model.Cell;
 import java.awt.BorderLayout;
@@ -11,11 +12,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
@@ -25,18 +30,24 @@ import javax.swing.border.LineBorder;
  * @author masahiro
  * @version 1.0
  */
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel  {
     
     // Game Panel Attributes
+    private int failed_count = 0;
     private List<Cell> viewCellList;
     private final JButton endGameBtn;
     private final JButton viewRulesBtn;
     private final JButton hintBtn;
     private final JPanel grid;
-    private final JPanel[] heart = new JPanel[3];
+    public final JPanel[] heart = new JPanel[3];
+    private final HeartImage[] jP3 = new HeartImage[3];
+    
+    public final JPanel[] Empty_heart = new JPanel[3];
+    private final EmptyHeartImage[] jP4 = new EmptyHeartImage[3];
+    
     private JLabel levelTitle;
     private JLabel timeLabel;
-    private final HeartImage[] jP3 = new HeartImage[3];
+    
     
     /**
      * Constructs a Game Panel.
@@ -44,8 +55,6 @@ public class GamePanel extends JPanel {
     public GamePanel() {
         
         this.setLayout(new BorderLayout());
-        
-
         // Banner
         JPanel banner = new JPanel();
         banner.setLayout(new BoxLayout(banner, BoxLayout.LINE_AXIS));
@@ -133,13 +142,13 @@ public class GamePanel extends JPanel {
             jP3[i].setMaximumSize(new Dimension(32, 96));
             //jP3.setAlignmentY(CENTER_ALIGNMENT);
             
-            //Heart Panel
             
+            //Heart Panel
                 heart[i] = new JPanel();
                 heart[i].setLayout(new BoxLayout(heart[i], BoxLayout.LINE_AXIS));
                 heart[i].setBounds(675,50+(i * 35), 32, 32);
-                //heart[i].setPreferredSize(new Dimension(32, 32));
                 heart[i].setBackground(BKGD_DARK_GRAY);
+                //heart[i].setPreferredSize(new Dimension(32, 32));
                 //heart.setAlignmentX(CENTER_ALIGNMENT);
                 //heart.add(Box.createRigidArea(new Dimension(5,0)));
                 heart[i].add(jP3[i]);
@@ -148,6 +157,37 @@ public class GamePanel extends JPanel {
             }
             
             
+            for(int i = 0 ; i < 3; i++){
+            // Empty_Heart Logo
+            jP4[i] = new EmptyHeartImage(32, 32);
+            jP4[i].setPreferredSize(new Dimension(32, 96));
+            jP4[i].setMaximumSize(new Dimension(32, 96));
+            //jP3.setAlignmentY(CENTER_ALIGNMENT);
+            
+            
+            //Empty_Heart Panel
+                Empty_heart[i] = new JPanel();
+                Empty_heart[i].setLayout(new BoxLayout(Empty_heart[i], BoxLayout.LINE_AXIS));
+                Empty_heart[i].setBounds(675,50+(i * 35), 32, 32);
+                Empty_heart[i].setBackground(BKGD_DARK_GRAY);
+                //heart[i].setPreferredSize(new Dimension(32, 32));
+                //heart.setAlignmentX(CENTER_ALIGNMENT);
+                //heart.add(Box.createRigidArea(new Dimension(5,0)));
+                Empty_heart[i].add(jP4[i]);
+                this.add(Empty_heart[i]);
+                System.out.println(i);
+            }
+            //this is how to remove
+            System.out.println("this is fial "+failed_count);
+            if(failed_count < 2){
+                try{
+                    this.remove(heart[failed_count]);
+                }
+                catch(Exception e){
+                    System.out.println(e);
+                }
+            }
+
         //this.add(jP1);
         this.add(jP2);
 //        JPanel redPanel = new JPanel();
@@ -160,6 +200,14 @@ public class GamePanel extends JPanel {
         this.add(grid);
         this.add(main);
     }    
+
+    public int getFailed_count() {
+        return failed_count;
+    }
+
+    public void setFailed_count(int failed_count) {
+        this.failed_count = failed_count;
+    }
     
     /**
      * @return the endGameBtn
