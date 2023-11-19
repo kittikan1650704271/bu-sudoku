@@ -3,9 +3,13 @@ package gui.panels;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class SoundWavePlayer {
     private Clip clip;
+    private List<String> soundList = new ArrayList<>();
 
     public void playSound(String music) {
         try {
@@ -45,6 +49,27 @@ public class SoundWavePlayer {
         if (clip != null && clip.isRunning()) {
             clip.stop();
             clip.close();
+        }
+    }
+    
+    public void shuffleSound() {
+        // Initialize the list of sound filenames
+        soundList.add("sbg");
+        soundList.add("ADO_Music");
+        // Play a random sound from the list
+        if (!soundList.isEmpty()) {
+            Random random = new Random();
+            int randomIndex = random.nextInt(soundList.size());
+            String randomSound = soundList.get(randomIndex);
+            playSound(randomSound);
+            System.out.println(randomSound);
+        }
+    }
+    
+    public void loopSound(String sound, int loopCount) {
+        // Play the specified sound or a random sound in a loop
+        for (int i = 0; i < loopCount; i++) {
+            playSound(sound);
         }
     }
 }

@@ -71,7 +71,7 @@ public class SudokuGameApp extends JFrame{
         this.model = new SudokuGame();
         this.view = new SudokuGamePanel();
         this.soundBGM = new SoundWavePlayer();
-        this.soundBGM.playSound("ADO_Music");
+        this.soundBGM.shuffleSound();
 
         getContentPane().add(this.view);
         setSize(1000, 550);
