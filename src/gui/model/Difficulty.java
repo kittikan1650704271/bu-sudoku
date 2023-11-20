@@ -12,7 +12,7 @@ public enum Difficulty {
 
     // Averages with ± 2 (variance), must be less than 64 for solution to be unique.
     // NOTE: The higher the number of blank cells, the longer it takes to produce a unique solution.
-    EASY(20, 999,500),
+    EASY(20, 3,500),
     NORMAL(35, 3,700),
     HARD(43, 3,1000);
     
