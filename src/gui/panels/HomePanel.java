@@ -4,11 +4,14 @@ import gui.AppJButton;
 import static gui.SudokuGame.color1;
 import static gui.SudokuGame.color2;
 import static gui.SudokuGame.color3;
+import gui.SudokuGameApp;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -22,7 +25,6 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
@@ -50,6 +52,10 @@ public class HomePanel extends JPanel {
     private DefaultComboBoxModel levelSelectionModel = new DefaultComboBoxModel();
 //    private final JComboBox levelSelector;
     private JLabel nameLabel;
+    private int sWidth = 1;
+    private int sHeight = 1;
+
+   
     
     
     
@@ -59,29 +65,34 @@ public class HomePanel extends JPanel {
     public HomePanel() {
         this.setLayout(new BorderLayout());
         
+//        JPanel redPanel = new JPanel();
+//        redPanel.setBackground(Color.GREEN);
+//        redPanel.setBounds(0, 0, 250, 250);
+//        this.add(redPanel);
+        
         // Banner
         JPanel banner = new JPanel();
-        banner.setLayout(new GridLayout());
+        banner.setLayout(new FlowLayout());
         banner.setBackground(Color.red);
-//        banner.setPreferredSize(new Dimension(1280, 115));
+        banner.setPreferredSize(new Dimension(1280 , 115));
         banner.setBackground(color1);
         banner.setAlignmentX(CENTER_ALIGNMENT);
         
-        JLabel label1 = new JLabel("Label 1");
-        this.add(label1,BorderLayout.NORTH);
-        
+//        JButton btn1 = new JButton("button1");
+//        banner.add(btn1);
         // Logo
         LogoImage jP1 = new LogoImage(115, 115);
         jP1.setBackground(color1);
         jP1.setPreferredSize(new Dimension(115, 115));
         jP1.setMaximumSize(new Dimension(115, 115));
         jP1.setAlignmentY(CENTER_ALIGNMENT);
+        jP1.setAlignmentX(CENTER_ALIGNMENT);
             
         // Spacing
         //banner.add(Box.createRigidArea(new Dimension(5,0)));
-        //banner.add(jP1);
+        banner.add(jP1);
         //banner.add(Box.createRigidArea(new Dimension(15,0)));
-
+        this.add(banner,BorderLayout.NORTH);
         // Dynamic Banner Content
 //            JPanel jP2 = new JPanel();
 //            jP2.setBackground(color1);
@@ -104,39 +115,56 @@ public class HomePanel extends JPanel {
 
         // Main Content
         JPanel main = new JPanel();
-        main.setLayout(null);
+        main.setLayout(new GridLayout(0,1));
 
         // Left Options
         JPanel left = new JPanel();
         left.setBackground(Color.red);
-        left.setLayout(null);
-        left.setBounds(0,0,1100,500);
+        left.setLayout(new GridLayout(0,3));
+        
+        JPanel leftPanel = new JPanel();
+        leftPanel.setBackground(color2);
+        left.add(leftPanel);
+        
                 
         JPanel game = new JPanel();
         game.setLayout(new GridLayout(3,0));
-        game.setLocation(330, 50);
-        game.setSize(300, 180);
+        //game.setLocation(330, 50);
+        game.setAlignmentX(TOP_ALIGNMENT);
+        game.setSize(600, 360);
         game.setBackground(color2);
         // New Game Button
-        newGameBtn = new AppJButton("NEW GAME", 20, color2, color3);
+        newGameBtn = new AppJButton("NEW GAME", 32, color2, color3);
         game.add(newGameBtn);
 
-        viewRulesBtn = new AppJButton("RULES", 20, color2, color3);
+        viewRulesBtn = new AppJButton("RULES", 32, color2, color3);
         game.add(viewRulesBtn);
 
-        exitBtn = new AppJButton("Exit", 20, color2, color3);
+        exitBtn = new AppJButton("Exit", 32, color2, color3);
         game.add(exitBtn);
                     
-                      // Difficulty Level
+//                    Difficulty Level
 //                    levelSelector = new JComboBox();
 //                    levelSelector.setModel(levelSelectionModel);
 //                    levelSelector.setBounds(0,200,250,250);
-                    
-        
-                    
+//                    
+//        
+//                    
 //                    game.add(levelSelector);
-                    
-                left.add(game);
+//                    
+
+
+                JPanel GameMenu = new JPanel();
+                GameMenu.setLayout(new GridLayout(4,0));
+                GameMenu.setBackground(color2);
+                
+                JLabel blank_1 = new JLabel();
+                
+                GameMenu.add(blank_1);
+                GameMenu.add(game);
+                left.add(GameMenu);
+
+                
                 
                 game = new JPanel();
                 game.setLayout(new GridLayout());
@@ -201,6 +229,7 @@ public class HomePanel extends JPanel {
                 scores.setSize(300, 270);
                 scores.setBorder(new LineBorder(Color.BLACK,0));
                 scores.getViewport().setBackground(color2);
+                
                 
                 left.add(scores);
             //main.add(right);
@@ -280,6 +309,22 @@ public class HomePanel extends JPanel {
      */
     public DefaultComboBoxModel getLevelSelectionModel() {
         return levelSelectionModel;
+    }
+    
+     public int getsWidth() {
+        return sWidth;
+    }
+
+    public void setsWidth(int sWidth) {
+        this.sWidth = sWidth;
+    }
+
+    public int getsHeight() {
+        return sHeight;
+    }
+
+    public void setsHeight(int sHeight) {
+        this.sHeight = sHeight;
     }
     
 }

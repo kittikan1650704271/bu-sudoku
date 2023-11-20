@@ -443,7 +443,7 @@ public class SudokuGameApp extends JFrame{
         //frame.setIconImage(img.getImage());
         frame.setMinimumSize(new Dimension(1050, 550));
         //frame.setUndecorated(true);
-        frame.setResizable(true);
+       frame.setResizable(true);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -523,7 +523,7 @@ public class SudokuGameApp extends JFrame{
      */
     private void refreshHomePanel() {
         // Set Player Name Text
-        view.getHomePanel().getNameLabel().setText(model.getPlayer().getFullname().toUpperCase());
+        //view.getHomePanel().getNameLabel().setText(model.getPlayer().getFullname().toUpperCase());
 
         // Update Highscore Table
         view.getHomePanel().getTableModel().setRowCount(0);
