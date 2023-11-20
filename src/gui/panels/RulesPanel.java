@@ -1,8 +1,8 @@
 package gui.panels;
 
 import gui.AppJButton;
-import static gui.SudokuGame.APP_PINK;
-import static gui.SudokuGame.BKGD_DARK_GRAY;
+import static gui.SudokuGame.color1;
+import static gui.SudokuGame.color3;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -42,12 +42,12 @@ public class RulesPanel extends JPanel {
                 + "Happy Solving!!</html>";
 
         this.setLayout(new GridLayout(1, 0));
-        this.setBackground(BKGD_DARK_GRAY);
+        this.setBackground(color1);
 
         // Main Content of Panel
         JPanel content = new JPanel();
         content.setLayout(new BorderLayout());
-        content.setBackground(BKGD_DARK_GRAY);
+        content.setBackground(color1);
 
             JLabel titleLabel = new JLabel("Game Rules");
             titleLabel.setFont(new Font("Avenir", Font.PLAIN, 24));
@@ -58,11 +58,11 @@ public class RulesPanel extends JPanel {
             JLabel text = new JLabel(this.rules);
             text.setFont(new Font("Avenir", Font.PLAIN, 14));
             text.setForeground(Color.white);
-            text.setBackground(BKGD_DARK_GRAY);
+            text.setBackground(color1);
             text.setBorder(new EmptyBorder(10, 10, 10, 10));
             content.add(text, BorderLayout.CENTER);
 
-            backBtn = new AppJButton("Take me Back", 24, APP_PINK, BKGD_DARK_GRAY);
+            backBtn = new AppJButton("Take me Back", 24, color3, color1);
             content.add(backBtn, BorderLayout.SOUTH);
 
         this.add(new ManualImage(500, 550));

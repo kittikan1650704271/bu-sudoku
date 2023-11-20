@@ -1,8 +1,8 @@
 package gui.panels;
 
 import gui.AppJButton;
-import static gui.SudokuGame.APP_PINK;
-import static gui.SudokuGame.BKGD_DARK_GRAY;
+import static gui.SudokuGame.color1;
+import static gui.SudokuGame.color3;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -33,7 +33,7 @@ public class SignUpPanel extends JPanel {
     public SignUpPanel() {
 
         this.setLayout(new GridLayout(9, 0));
-        this.setBackground(BKGD_DARK_GRAY);
+        this.setBackground(color1);
 
         // Title Label
         JLabel actionLabel = new JLabel("Sign Up");
@@ -51,11 +51,11 @@ public class SignUpPanel extends JPanel {
 
         // Full Name Text Field
         fullnameText = new JTextField();
-        fullnameText.setBackground(BKGD_DARK_GRAY);
+        fullnameText.setBackground(color1);
         fullnameText.setForeground(Color.white);
         fullnameText.setHorizontalAlignment(JLabel.CENTER);
         fullnameText.setFont(new Font("Halvetica Neue", Font.PLAIN, 14));
-        fullnameText.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, APP_PINK));
+        fullnameText.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, color3));
         this.add(fullnameText);
 
         // Email Label
@@ -67,11 +67,11 @@ public class SignUpPanel extends JPanel {
 
         // Email Text Field
         emailText = new JTextField();
-        emailText.setBackground(BKGD_DARK_GRAY);
+        emailText.setBackground(color1);
         emailText.setForeground(Color.white);
         emailText.setHorizontalAlignment(JLabel.CENTER);
         emailText.setFont(new Font("Halvetica Neue", Font.PLAIN, 14));
-        emailText.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, APP_PINK));
+        emailText.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, color3));
         this.add(emailText);
 
         // Password Label
@@ -83,19 +83,19 @@ public class SignUpPanel extends JPanel {
 
         // Password Text Field
         passwordText = new JPasswordField();
-        passwordText.setBackground(BKGD_DARK_GRAY);
+        passwordText.setBackground(color1);
         passwordText.setForeground(Color.white);
         passwordText.setHorizontalAlignment(JLabel.CENTER);
         passwordText.setFont(new Font("Halvetica Neue", Font.PLAIN, 14));
-        passwordText.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, APP_PINK));
+        passwordText.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, color3));
         this.add(passwordText);
 
         // Sign Up Button
-        signupButton = new AppJButton("Sign Up", 14, APP_PINK, BKGD_DARK_GRAY);
+        signupButton = new AppJButton("Sign Up", 14, color3, color1);
         this.add(signupButton);
 
         // Sign In Button
-        signinButton = new AppJButton("I am already registered", 10, BKGD_DARK_GRAY, APP_PINK);
+        signinButton = new AppJButton("I am already registered", 10, color1, color3);
         this.add(signinButton);
 
     }

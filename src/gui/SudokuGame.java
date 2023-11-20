@@ -15,9 +15,9 @@ import javax.swing.Timer;
 public class SudokuGame {
 
     // Sudoku App Colors
-    public static final Color BKGD_DARK_GRAY = new Color(42, 54, 63);
-    public static final Color BKGD_LIGHT_GRAY = new Color(62, 74, 83);
-    public static final Color APP_PINK = new Color(255, 153, 255);
+    public static final Color color1 = new Color(42, 54, 63);
+    public static final Color color2 = new Color(62, 74, 83);
+    public static final Color color3 = new Color(255, 153, 255);
 
     // Sudoku Model Attributes
     private final Database sudokuDB;

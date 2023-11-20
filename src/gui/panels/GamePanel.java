@@ -1,9 +1,9 @@
 package gui.panels;
 
 import gui.AppJButton;
-import static gui.SudokuGame.APP_PINK;
-import static gui.SudokuGame.BKGD_DARK_GRAY;
-import static gui.SudokuGame.BKGD_LIGHT_GRAY;
+import static gui.SudokuGame.color1;
+import static gui.SudokuGame.color2;
+import static gui.SudokuGame.color3;
 import static java.awt.Component.CENTER_ALIGNMENT;
 import gui.model.Cell;
 import java.awt.BorderLayout;
@@ -58,13 +58,13 @@ public class GamePanel extends JPanel  {
         banner.setLayout(new BoxLayout(banner, BoxLayout.LINE_AXIS));
         banner.setBounds(0,0, 115, 115);
         banner.setPreferredSize(new Dimension(115, 115));
-        banner.setBackground(BKGD_DARK_GRAY);
+        banner.setBackground(color1);
         banner.setAlignmentX(CENTER_ALIGNMENT);
         
         
             // Sudoku Logo
             LogoImage jP1 = new LogoImage(115, 115);
-            jP1.setBackground(BKGD_DARK_GRAY);
+            jP1.setBackground(color1);
             jP1.setPreferredSize(new Dimension(115, 115));
             jP1.setMaximumSize(new Dimension(115, 115));
             jP1.setAlignmentY(CENTER_ALIGNMENT);
@@ -75,7 +75,7 @@ public class GamePanel extends JPanel  {
             
             // Dynamic Banner Content
             JPanel jP2 = new JPanel();
-            jP2.setBackground(BKGD_DARK_GRAY);
+            jP2.setBackground(color1);
             jP2.setPreferredSize(new Dimension(200, 100));
             jP2.setBounds(800,25,200,115);
             jP2.setLayout(new GridLayout(2,0));
@@ -98,7 +98,7 @@ public class GamePanel extends JPanel  {
         // Main Content
         JPanel main = new JPanel();
         main.setLayout(null);
-        main.setBackground(BKGD_DARK_GRAY);           
+        main.setBackground(color1);           
                        
             JPanel actions = new JPanel();
             actions.setLayout(new GridLayout(3,1));
@@ -106,15 +106,15 @@ public class GamePanel extends JPanel  {
             actions.setLocation(0, 400 - actions.getHeight());
 
                 // Get Hint Button
-                hintBtn = new AppJButton("HINT", 14, BKGD_LIGHT_GRAY, APP_PINK);
+                hintBtn = new AppJButton("HINT", 14, color2, color3);
                 actions.add(hintBtn);
             
                 // View Rules Button
-                viewRulesBtn = new AppJButton("VIEW RULES", 14, BKGD_LIGHT_GRAY, APP_PINK);
+                viewRulesBtn = new AppJButton("VIEW RULES", 14, color2, color3);
                 actions.add(viewRulesBtn);
             
                 // Sign Out Button
-                endGameBtn = new AppJButton("END GAME", 14, BKGD_LIGHT_GRAY, APP_PINK);
+                endGameBtn = new AppJButton("END GAME", 14, color2, color3);
                 actions.add(endGameBtn);
             main.add(actions, BorderLayout.WEST);
             
@@ -123,8 +123,8 @@ public class GamePanel extends JPanel  {
             grid.setLayout(new GridLayout(9, 9));
             grid.setPreferredSize(new Dimension(120, 120));
             grid.setMaximumSize(new Dimension(433, 433));
-            grid.setBorder(new LineBorder(APP_PINK, 2));
-            grid.setBackground(BKGD_DARK_GRAY.darker());
+            grid.setBorder(new LineBorder(color3, 2));
+            grid.setBackground(color1.darker());
             grid.setForeground(Color.white);
             grid.setBounds(285,0,400,400);
             grid.setLocation(260, 50);
@@ -153,14 +153,14 @@ public class GamePanel extends JPanel  {
                 heart[i] = new JPanel();
                 heart[i].setLayout(new BoxLayout(heart[i], BoxLayout.LINE_AXIS));
                 heart[i].setBounds(675,50+(i * 35), 32, 32);
-                heart[i].setBackground(BKGD_DARK_GRAY);
+                heart[i].setBackground(color1);
                 heart[i].add(jP3[i]);
                 this.add(heart[i]);
             //Empty_Heart Panel
                 Empty_heart[i] = new JPanel();
                 Empty_heart[i].setLayout(new BoxLayout(Empty_heart[i], BoxLayout.LINE_AXIS));
                 Empty_heart[i].setBounds(675,50+(i * 35), 32, 32);
-                Empty_heart[i].setBackground(BKGD_DARK_GRAY);
+                Empty_heart[i].setBackground(color1);
                 Empty_heart[i].add(jP4[i]);
                 this.add(Empty_heart[i]);
             }
@@ -183,7 +183,7 @@ public class GamePanel extends JPanel  {
                             count--;
                         } 
                         else {
-                            grid.setBorder(new LineBorder(APP_PINK, 2));
+                            grid.setBorder(new LineBorder(color3, 2));
                             ((Timer) e.getSource()).stop(); // Stop the timer after 5 iterations
                         }
                     }

@@ -1,9 +1,9 @@
 package gui.panels;
 
 import gui.AppJButton;
-import static gui.SudokuGame.APP_PINK;
-import static gui.SudokuGame.BKGD_DARK_GRAY;
-import static gui.SudokuGame.BKGD_LIGHT_GRAY;
+import static gui.SudokuGame.color1;
+import static gui.SudokuGame.color2;
+import static gui.SudokuGame.color3;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -61,12 +61,12 @@ public class HomePanel extends JPanel {
         JPanel banner = new JPanel();
         banner.setLayout(new BoxLayout(banner, BoxLayout.LINE_AXIS));
         banner.setPreferredSize(new Dimension(1000, 115));
-        banner.setBackground(BKGD_DARK_GRAY);
+        banner.setBackground(color1);
         banner.setAlignmentX(CENTER_ALIGNMENT);
             
             // Logo
             LogoImage jP1 = new LogoImage(115, 115);
-            jP1.setBackground(BKGD_DARK_GRAY);
+            jP1.setBackground(color1);
             jP1.setPreferredSize(new Dimension(115, 115));
             jP1.setMaximumSize(new Dimension(115, 115));
             jP1.setAlignmentY(CENTER_ALIGNMENT);
@@ -78,7 +78,7 @@ public class HomePanel extends JPanel {
 
             // Dynamic Banner Content
             JPanel jP2 = new JPanel();
-            jP2.setBackground(BKGD_DARK_GRAY);
+            jP2.setBackground(color1);
             jP2.setPreferredSize(new Dimension(200, 100));
             jP2.setLayout(new GridLayout(2,0));
                 JLabel welcomeLabel = new JLabel("WELCOME");
@@ -102,16 +102,16 @@ public class HomePanel extends JPanel {
 
             // Left Options
             JPanel left = new JPanel();
-            left.setBackground(BKGD_DARK_GRAY);
+            left.setBackground(color1);
             left.setLayout(null);
                 
                 JPanel game = new JPanel();
                 game.setLayout(new GridLayout(2,0));
                 game.setLocation(100, 50);
                 game.setSize(300, 120);
-                game.setBackground(BKGD_LIGHT_GRAY);
+                game.setBackground(color2);
                     // New Game Button
-                    newGameBtn = new AppJButton("START A NEW GAME", 20, BKGD_LIGHT_GRAY, APP_PINK);
+                    newGameBtn = new AppJButton("START A NEW GAME", 20, color2, color3);
                     game.add(newGameBtn);
                     
                     // Difficulty Level
@@ -126,7 +126,7 @@ public class HomePanel extends JPanel {
                 game.setLocation(100, 200);
                 game.setSize(300, 120);
                     // Previous Game Button
-                    viewRulesBtn = new AppJButton("SHOW ME THE RULES", 20, BKGD_LIGHT_GRAY, APP_PINK);
+                    viewRulesBtn = new AppJButton("SHOW ME THE RULES", 20, color2, color3);
                     game.add(viewRulesBtn);
                 left.add(game);
                 
@@ -136,14 +136,14 @@ public class HomePanel extends JPanel {
                 actions.setLocation(0, 370);
                 actions.setSize(115, 30);
                     // Sign out Button
-                    signoutBtn = new AppJButton("SIGN OUT", 14, BKGD_LIGHT_GRAY, APP_PINK);
+                    signoutBtn = new AppJButton("SIGN OUT", 14, color2, color3);
                     actions.add(signoutBtn);
                 left.add(actions);
             main.add(left);
 
             // Right Options
             JPanel right = new JPanel();
-            right.setBackground(BKGD_DARK_GRAY);
+            right.setBackground(color1);
             right.setLayout(null);
                     
                 // High Score Table               
@@ -159,13 +159,13 @@ public class HomePanel extends JPanel {
                 highscores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                 
                 highscores.getTableHeader().setFont(new Font(this.getFont().getFontName(), Font.PLAIN, this.getFont().getSize()));
-                highscores.getTableHeader().setBackground(BKGD_LIGHT_GRAY);
-                highscores.getTableHeader().setForeground(APP_PINK);
+                highscores.getTableHeader().setBackground(color2);
+                highscores.getTableHeader().setForeground(color3);
                 highscores.getTableHeader().setReorderingAllowed(false);
                 highscores.setAutoCreateRowSorter(true);
                 highscores.setFont(new Font("Halvetica Neue", Font.PLAIN, 14));
-                highscores.setBackground(BKGD_LIGHT_GRAY);
-                highscores.setForeground(APP_PINK);
+                highscores.setBackground(color2);
+                highscores.setForeground(color3);
                 highscores.setShowVerticalLines(false);
                 highscores.setShowHorizontalLines(false);
 //                highscores.getRowSorter().toggleSortOrder(0);
@@ -184,7 +184,7 @@ public class HomePanel extends JPanel {
                 scores.setLocation(100, 50);
                 scores.setSize(300, 270);
                 scores.setBorder(new LineBorder(Color.BLACK,0));
-                scores.getViewport().setBackground(BKGD_LIGHT_GRAY);
+                scores.getViewport().setBackground(color2);
                 
                 right.add(scores);
                 

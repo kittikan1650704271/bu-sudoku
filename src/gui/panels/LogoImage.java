@@ -1,6 +1,6 @@
 package gui.panels;
 
-import static gui.SudokuGame.BKGD_DARK_GRAY;
+import static gui.SudokuGame.color1;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -30,7 +30,7 @@ public class LogoImage extends JPanel {
             setPreferredSize(new Dimension(width, width));
         } catch (Exception ex) {
             System.err.println("Error Logo Image: " + ex);
-            setBackground(BKGD_DARK_GRAY);
+            setBackground(color1);
         }
     }
 

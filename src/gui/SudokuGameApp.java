@@ -2,9 +2,9 @@ package gui;
 
 import gui.panels.SoundWavePlayer;
 import gui.model.Player;
-import static gui.SudokuGame.APP_PINK;
-import static gui.SudokuGame.BKGD_DARK_GRAY;
-import static gui.SudokuGame.BKGD_LIGHT_GRAY;
+import static gui.SudokuGame.color1;
+import static gui.SudokuGame.color2;
+import static gui.SudokuGame.color3;
 import gui.panels.SignInPanel;
 import gui.model.Cell;
 import gui.model.CellPosition;
@@ -331,17 +331,17 @@ public class SudokuGameApp extends JFrame{
                 // Highlight Valid Cells
                 for (Cell aCell : view.getGamePanel().getViewCellList()) {
                     if (cell.getPosition().getRow() == aCell.getPosition().getRow()) {
-                        aCell.setBackground(APP_PINK.darker().darker());
+                        aCell.setBackground(color3.darker().darker());
                     }
                     if (cell.getPosition().getColumn() == aCell.getPosition().getColumn()) {
-                        aCell.setBackground(APP_PINK.darker().darker());
+                        aCell.setBackground(color3.darker().darker());
                     }
                     if (cell.getPosition().getSubgrid() == aCell.getPosition().getSubgrid()) {
-                        aCell.setBackground(APP_PINK.darker().darker());
+                        aCell.setBackground(color3.darker().darker());
                     }
                 }
 
-                cell.setBackground(APP_PINK);
+                cell.setBackground(color3);
             }
 
             /**
@@ -356,9 +356,9 @@ public class SudokuGameApp extends JFrame{
                 // Restore Color
                 for (Cell aCell : view.getGamePanel().getViewCellList()) {
                     if (aCell.isLocked()) {
-                        aCell.setBackground(BKGD_DARK_GRAY);
+                        aCell.setBackground(color1);
                     } else {
-                        aCell.setBackground(BKGD_LIGHT_GRAY);
+                        aCell.setBackground(color2);
                     }
                 }
 
@@ -505,7 +505,7 @@ public class SudokuGameApp extends JFrame{
     private void update() {
         // Set for each cell
         for (Cell cell : this.view.getGamePanel().getViewCellList()) {
-            cell.setBackground(BKGD_DARK_GRAY);
+            cell.setBackground(color1);
             cell.setForeground(Color.WHITE);
             cell.setFont(new Font("Halvetica Neue", Font.PLAIN, 36));
             cell.setBorder(new LineBorder(Color.BLACK, 0));
@@ -517,13 +517,13 @@ public class SudokuGameApp extends JFrame{
             // Add subgrid separators
             CellPosition pos = cell.getPosition();
             if (pos.getColumn() == 2 || pos.getColumn() == 5) {
-                cell.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 2, new Color(255, 153, 255)));
+                cell.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 2, color3));
             } else if (pos.getRow() == 2 || pos.getRow() == 5) {
-                cell.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(255, 153, 255)));
+                cell.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, color3));
             }
             if ((pos.getColumn() == 2 && pos.getRow() == 2) || (pos.getColumn() == 5 && pos.getRow() == 5)
                     || (pos.getColumn() == 2 && pos.getRow() == 5) || (pos.getColumn() == 5 && pos.getRow() == 2)) {
-                cell.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 2, new Color(255, 153, 255)));
+                cell.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 2, color3));
             }
 
             // Validate User's Cell Input + Mouse Listeners
@@ -533,7 +533,7 @@ public class SudokuGameApp extends JFrame{
                 cell.setEditable(false);
                 cell.setHighlighter(null);
             } else {
-                cell.setBackground(BKGD_LIGHT_GRAY);
+                cell.setBackground(color2);
                 cell.addMouseListener(cellMouseListener);
                 cell.addKeyListener(cellKeyListener);
             }
@@ -623,7 +623,7 @@ public class SudokuGameApp extends JFrame{
         update();         
         
         levelScore = model.getPuzzle().getDifficulty().getMaxScore();
-        System.out.println(convertToDecimalTime(gameTime));
+//        System.out.println(convertToDecimalTime(gameTime));
         // Award Points
         this.model.increaseScore(scoreCalculate(levelScore, convertToDecimalTime(gameTime)) );
         Object[] options = {"Great!"};

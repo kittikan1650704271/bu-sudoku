@@ -25,7 +25,6 @@ public class SoundWavePlayer {
     
     public void playSound(String music,float sound_level) {
         try {
-            System.out.println("ARE YOU PLAYED?");
             String base = "resources/sound/";
             File wavFile = new File(base + music + ".wav");
 
@@ -117,7 +116,6 @@ public class SoundWavePlayer {
             int randomIndex = random.nextInt(soundList.size());
             String randomSound = soundList.get(randomIndex);
             playSound(randomSound,sound_level);
-            System.out.println(randomSound);
         }
     }
     
@@ -128,7 +126,6 @@ public class SoundWavePlayer {
             int randomIndex = random.nextInt(soundList.size());
             String randomSound = soundList.get(randomIndex);
             playLoopSound(randomSound,sound_level);
-            System.out.println(randomSound);
         }
     } 
 }

@@ -1,8 +1,8 @@
 package gui.panels;
 
 import gui.AppJButton;
-import static gui.SudokuGame.APP_PINK;
-import static gui.SudokuGame.BKGD_DARK_GRAY;
+import static gui.SudokuGame.color1;
+import static gui.SudokuGame.color3;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -33,7 +33,7 @@ public class SignInPanel extends JPanel {
     public SignInPanel() {
 
         this.setLayout(new GridLayout(7, 0));
-        this.setBackground(BKGD_DARK_GRAY);
+        this.setBackground(color1);
 
         // Title Label
         JLabel actionLabel = new JLabel("Sign In");
@@ -51,11 +51,11 @@ public class SignInPanel extends JPanel {
 
         // Name Text Field
         nameText = new JTextField();
-        nameText.setBackground(BKGD_DARK_GRAY);
+        nameText.setBackground(color1);
         nameText.setForeground(Color.white);
         nameText.setHorizontalAlignment(JLabel.CENTER);
         nameText.setFont(new Font("Halvetica Neue", Font.PLAIN, 14));
-        nameText.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, APP_PINK));
+        nameText.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, color3));
         
         this.add(nameText);
 
@@ -68,19 +68,19 @@ public class SignInPanel extends JPanel {
 
         // Password Text Field
         passwordText = new JPasswordField();
-        passwordText.setBackground(BKGD_DARK_GRAY);
+        passwordText.setBackground(color1);
         passwordText.setForeground(Color.white);
         passwordText.setHorizontalAlignment(JLabel.CENTER);
         passwordText.setFont(new Font("Halvetica Neue", Font.PLAIN, 14));
-        passwordText.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, APP_PINK));
+        passwordText.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, color3));
         this.add(passwordText);
 
         // Sign In Button
-        signinButton = new AppJButton("Sign In", 14, APP_PINK, BKGD_DARK_GRAY);
+        signinButton = new AppJButton("Sign In", 14, color3, color1);
         this.add(signinButton);
 
         // Sign Up Button
-        signupButton = new AppJButton("I am not yet registered", 10, BKGD_DARK_GRAY, APP_PINK);
+        signupButton = new AppJButton("I am not yet registered", 10, color1, color3);
         this.add(signupButton);
 
     }
