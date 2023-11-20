@@ -48,7 +48,7 @@ public class LoadingPanel extends JPanel {
         loadingLogo.setBounds(60, 375, 84, 84);
         
         
-        JLabel label = new JLabel( new ImageIcon(getClass().getClassLoader().getResource("loading_resized_84.gif")));
+        JLabel label = new JLabel( new ImageIcon(getClass().getClassLoader().getResource("1490.gif")));
         loadingLogo.add( label );
         this.add(loadingLogo);
     }

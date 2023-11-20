@@ -26,7 +26,7 @@ public class LoadingImage extends JPanel {
      */
     public LoadingImage(int width, int height) {
         try {
-            this.logo = ImageIO.read(getClass().getResource("/loading_resized_84.gif"));
+            this.logo = ImageIO.read(getClass().getResource("/1490.gif"));
             setPreferredSize(new Dimension(width, height));
         } catch (Exception ex) {
             System.err.println("Error Logo Image: " + ex);
