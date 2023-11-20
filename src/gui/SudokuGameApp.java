@@ -14,6 +14,7 @@ import gui.panels.EmptyHeartImage;
 import gui.panels.GamePanel;
 import gui.panels.HeartImage;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -73,7 +74,7 @@ public class SudokuGameApp extends JFrame{
         soundBGM.shuffleLoopSound(-10);
 
         getContentPane().add(this.view);
-        setSize(1000, 550);
+        setSize(1280, 720);
         setResizable(false);
 
         // Fill Difficulty Selector
@@ -125,6 +126,7 @@ public class SudokuGameApp extends JFrame{
         });
 
         // Action Listeners on Home Panel
+        // New Game Button
         this.view.getHomePanel().getNewGameBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -149,6 +151,7 @@ public class SudokuGameApp extends JFrame{
             }
                        
         });
+        // View Rules Button
         this.view.getHomePanel().getViewRulesBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -157,6 +160,17 @@ public class SudokuGameApp extends JFrame{
                 view.getCardLayoutManager().show(view.getContent(), "rules");
             }
         });
+        
+        // Quit Button
+        this.view.getHomePanel().getExitBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                soundBGM.playSound("click_stereo", -10);
+                quitGame();
+            }
+        });
+        
+        // Signout Button
         this.view.getHomePanel().getSignoutBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -174,7 +188,7 @@ public class SudokuGameApp extends JFrame{
                     model.setHintsUsed(0);
                     model.setTimer(null);
                     view.getGamePanel().getHintBtn().setEnabled(true);
-                    view.getHomePanel().getLevelSelector().setSelectedIndex(0);
+                    //view.getHomePanel().getLevelSelector().setSelectedIndex(0);
                 }
             }
         });
@@ -382,19 +396,23 @@ public class SudokuGameApp extends JFrame{
         };
     }
     
+    public void quitGame(){
+        System.exit(0);
+    }
+    
     // Create new Grid and restart time
     public void newGame(){
         // Get Level for the Game
-        Difficulty level = Difficulty.valueOf(view.getHomePanel().getLevelSelector().getSelectedItem().toString().toUpperCase());
-        System.out.println(level);
+        //Difficulty level = Difficulty.valueOf(view.getHomePanel().getLevelSelector().getSelectedItem().toString().toUpperCase());
+        //System.out.println(level);
         // Generate New Game
         Generator puzzle = new Generator();
-        puzzle.generateGrid(level);
+        //puzzle.generateGrid(level);
         model.setPuzzle(puzzle.getGrid());
 
         // Configure View
         view.getGamePanel().setViewCellList(model.getPuzzle().getCellList());
-        view.getGamePanel().getLevelTitle().setText(String.valueOf(level));
+        //view.getGamePanel().getLevelTitle().setText(String.valueOf(level));
         update();
 
         // Switch to Game Panel
@@ -423,7 +441,9 @@ public class SudokuGameApp extends JFrame{
         JFrame frame = new SudokuGameApp("BU Sudoku");
         //ImageIcon img = new ImageIcon("logo.png");
         //frame.setIconImage(img.getImage());
-        
+        frame.setMinimumSize(new Dimension(1050, 550));
+        //frame.setUndecorated(true);
+        frame.setResizable(true);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -639,7 +659,7 @@ public class SudokuGameApp extends JFrame{
         // Award Points
         this.model.increaseScore(scoreCalculate(levelScore, convertToDecimalTime(gameTime)) );
         Object[] options = {"Great!"};
-        JOptionPane.showOptionDialog(this, "You have solved the Puzzle.\n\nGame Time: " + gameTime + "\nHints Used: " + this.model.getStringHintsUsed() + "\n\nYour new score: " + this.model.getPlayer().getScore() + " points.", "Congratulations!", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+        JOptionPane.showOptionDialog(this, "You have solved the Puzzle.\n\nGame Time: " + gameTime + "\nHints Used: " + this.model.getStringHintsUsed() + "\n\nYour got " + scoreCalculate(levelScore, convertToDecimalTime(gameTime)) + " points.", "Congratulations!", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null);
         //reset heart
         view.getGamePanel().setResetHeart(true);
         view.getGamePanel().changeHeart();
