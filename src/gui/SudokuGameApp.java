@@ -128,7 +128,22 @@ public class SudokuGameApp extends JFrame{
         this.view.getHomePanel().getNewGameBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                newGame();
+                view.getCardLayoutManager().show(view.getContent(), "loading");
+        Timer timer = new Timer(600, new ActionListener() {
+                    private int count = 2;
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (count >= 0) {
+                            count--;
+                        } 
+                        else {
+                            newGame();
+                            ((Timer) e.getSource()).stop(); // Stop the timer after 5 iterations
+                        }
+                    }
+                });
+                timer.start();
                 soundBGM.playSound("click_stereo", -10);
 //                view.getGamePanel().showHeart();
             }
@@ -383,23 +398,7 @@ public class SudokuGameApp extends JFrame{
         update();
 
         // Switch to Game Panel
-        view.getCardLayoutManager().show(view.getContent(), "loading");
-        Timer timer = new Timer(600, new ActionListener() {
-                    private int count = 2;
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (count >= 0) {
-                            count--;
-                        } 
-                        else {
-                            view.getCardLayoutManager().show(view.getContent(), "game");
-                            ((Timer) e.getSource()).stop(); // Stop the timer after 5 iterations
-                        }
-                    }
-                });
-                timer.start();
-        
+        view.getCardLayoutManager().show(view.getContent(), "game");
 
         // Set up Game Timer & Start
         long start = Calendar.getInstance().getTimeInMillis() / 1000;
