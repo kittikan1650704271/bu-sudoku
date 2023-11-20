@@ -383,8 +383,22 @@ public class SudokuGameApp extends JFrame{
         update();
 
         // Switch to Game Panel
-        view.getCardLayoutManager().show(view.getContent(), "game");
-        
+        view.getCardLayoutManager().show(view.getContent(), "loading");
+        Timer timer = new Timer(600, new ActionListener() {
+                    private int count = 2;
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (count >= 0) {
+                            count--;
+                        } 
+                        else {
+                            view.getCardLayoutManager().show(view.getContent(), "game");
+                            ((Timer) e.getSource()).stop(); // Stop the timer after 5 iterations
+                        }
+                    }
+                });
+                timer.start();
         
 
         // Set up Game Timer & Start

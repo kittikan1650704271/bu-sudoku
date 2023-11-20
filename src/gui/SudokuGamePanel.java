@@ -3,6 +3,7 @@ package gui;
 import gui.panels.RulesPanel;
 import gui.panels.GamePanel;
 import gui.panels.HomePanel;
+import gui.panels.LoadingPanel;
 import gui.panels.WelcomePanel;
 import java.awt.CardLayout;
 import java.awt.GridLayout;
@@ -22,6 +23,8 @@ public class SudokuGamePanel extends JPanel {
     private final HomePanel homePanel;
     private final GamePanel gamePanel;
     private final RulesPanel rulesPanel;
+    private final LoadingPanel loadingPanel;
+    
 
     /**
      * View Manager Constructor.
@@ -35,12 +38,14 @@ public class SudokuGamePanel extends JPanel {
         this.welcomePanel = new WelcomePanel();
         this.homePanel = new HomePanel();
         this.gamePanel = new GamePanel();
+        this.loadingPanel = new LoadingPanel();
         this.rulesPanel = new RulesPanel();
 
         // Content View Panels
         content.setLayout(cardLayoutManager);
         content.add(this.welcomePanel);
         content.add(this.homePanel);
+        content.add(this.loadingPanel);
         content.add(this.gamePanel);
         content.add(this.rulesPanel);
 
@@ -48,10 +53,12 @@ public class SudokuGamePanel extends JPanel {
         cardLayoutManager.addLayoutComponent(this.welcomePanel, "welcome");
         cardLayoutManager.addLayoutComponent(this.homePanel, "home");
         cardLayoutManager.addLayoutComponent(this.gamePanel, "game");
+        cardLayoutManager.addLayoutComponent(this.loadingPanel, "loading");
         cardLayoutManager.addLayoutComponent(this.rulesPanel, "rules");
 
         // Set Start Up Panel
         cardLayoutManager.show(content, "welcome");
+        
 
         // Add Content
         this.add(content);
