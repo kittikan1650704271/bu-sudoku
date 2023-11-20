@@ -27,7 +27,7 @@ public class QuoteImage extends JPanel {
      */
     public QuoteImage(int width, int height) {
         try {
-            this.logo = ImageIO.read(getClass().getResource("/Quote_650x300.png"));
+            this.logo = ImageIO.read(getClass().getResource("/Einstein_tell.png"));
             setPreferredSize(new Dimension(width, height));
         } catch (Exception ex) {
             System.err.println("Error Logo Image: " + ex);

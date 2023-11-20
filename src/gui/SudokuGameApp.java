@@ -138,6 +138,7 @@ public class SudokuGameApp extends JFrame{
                             count--;
                         } 
                         else {
+                            soundBGM.playSound("pling", -10);
                             newGame();
                             ((Timer) e.getSource()).stop(); // Stop the timer after 5 iterations
                         }
@@ -179,6 +180,7 @@ public class SudokuGameApp extends JFrame{
                 
                 if (result == 1) {
                     soundBGM.playSound("no1", -10);
+                    
                 }
             }
         });
