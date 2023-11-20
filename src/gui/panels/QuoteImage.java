@@ -4,9 +4,14 @@
  */
 package gui.panels;
 import static gui.SudokuGame.color1;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -17,7 +22,10 @@ import javax.swing.JPanel;
 public class QuoteImage extends JPanel {
 
     // Logo Attributes
+    private List<String> quoteList = new ArrayList<>();
     private BufferedImage logo;
+    private CardLayout cl = new CardLayout();
+    private JPanel Quote = new JPanel();
 
     /**
      * Constructs a Logo with the preferred dimensions
@@ -26,8 +34,33 @@ public class QuoteImage extends JPanel {
      * @param height the hight of the logo
      */
     public QuoteImage(int width, int height) {
+        
+        
+        this.setLayout(new GridLayout());
+        JPanel panel1 = new JPanel();
+        JPanel panel2 = new JPanel();
+        JPanel panel3 = new JPanel();
+        
+        Quote.setLayout(cl);
+        
+        Quote.add(panel1, "1");
+        Quote.add(panel2, "2");
+        
+        cl.addLayoutComponent(panel1, "1");
+        cl.addLayoutComponent(panel2, "2");
+        
+        cl.show(Quote, "1");
+        
+        quoteList.add("Einstein_tell");
+        quoteList.add("Elon_tell");
+        quoteList.add("newton_tell");
+        
+        Random random = new Random();
+        int randomIndex = random.nextInt(quoteList.size());
+        String randomQuote = quoteList.get(randomIndex);
+        
         try {
-            this.logo = ImageIO.read(getClass().getResource("/Einstein_tell.png"));
+            this.logo = ImageIO.read(getClass().getResource("/"+randomQuote+".png"));
             setPreferredSize(new Dimension(width, height));
         } catch (Exception ex) {
             System.err.println("Error Logo Image: " + ex);

@@ -107,5 +107,8 @@ public class SudokuGamePanel extends JPanel {
         return rulesPanel;
     }
 
+    public LoadingPanel getLoadingPanel(){
+        return loadingPanel;
+    }
     
 }
