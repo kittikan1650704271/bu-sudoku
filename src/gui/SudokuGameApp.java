@@ -176,6 +176,10 @@ public class SudokuGameApp extends JFrame{
                     view.getGamePanel().getHintBtn().setEnabled(true);
                     view.getHomePanel().getLevelSelector().setSelectedIndex(0);
                 }
+                
+                if (result == 1) {
+                    soundBGM.playSound("no1", -10);
+                }
             }
         });
 
