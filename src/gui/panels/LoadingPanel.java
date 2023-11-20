@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package gui.panels;
 
 import static gui.SudokuGame.color1;
@@ -48,10 +45,9 @@ public class LoadingPanel extends JPanel {
         loadingLogo.setBounds(60, 375, 84, 84);
         
         
-        JLabel label = new JLabel( new ImageIcon(getClass().getClassLoader().getResource("1490.gif")));
+        JLabel label = new JLabel( new ImageIcon(getClass().getClassLoader().getResource("Loading.gif")));
         loadingLogo.add( label );
         this.add(loadingLogo);
     }
-    
-    
+
 }

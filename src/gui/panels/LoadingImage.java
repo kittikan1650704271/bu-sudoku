@@ -1,4 +1,4 @@
-package gui.panels;
+//package gui.panels;
 
 import static gui.SudokuGame.color1;
 import java.awt.Dimension;
@@ -26,7 +26,7 @@ public class LoadingImage extends JPanel {
      */
     public LoadingImage(int width, int height) {
         try {
-            this.logo = ImageIO.read(getClass().getResource("/1490.gif"));
+            this.logo = ImageIO.read(getClass().getResource("/Loading.gif"));
             setPreferredSize(new Dimension(width, height));
         } catch (Exception ex) {
             System.err.println("Error Logo Image: " + ex);
