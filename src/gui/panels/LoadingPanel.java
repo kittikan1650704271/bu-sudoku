@@ -16,6 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.LineBorder;
 import gui.test.ColorFadingAnimation;
+import gui.test.ImagePanel;
+import java.awt.GridLayout;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -29,30 +32,24 @@ public class LoadingPanel extends JPanel {
     public LoadingPanel(){
         this.setLayout(null);
         this.setBounds(0, 0, 1000, 550);
-        this.setBackground(Color.red);
-        
-        //round_border
-        AbstractBorder brdr = new TextBubbleBorder(Color.BLACK,3,16,0);
-        
+        this.setBackground(color1);
+           
         
         // quote-Banner
         JPanel quotePanel = new JPanel();
-        //banner.setLayout(new BoxLayout(banner, BoxLayout.LINE_AXIS));
-        quotePanel.setPreferredSize(new Dimension(650, 300));
-        quotePanel.setAlignmentX(CENTER_ALIGNMENT);
-        //banner.setBounds(0, 0, 1, 1);
+        quotePanel.setLayout(new GridLayout());
         quotePanel.setBackground(Color.blue);
         quotePanel.setBounds(170, 50, 650, 350);
-        quotePanel.setBorder(brdr);
-        
+        quotePanel.add(new QuoteImage(650, 350));
         this.add(quotePanel);
-        
         //loading logo
         JPanel loadingLogo = new JPanel();
-        loadingLogo.setBackground(Color.pink);
+        loadingLogo.setBackground(color1);
         loadingLogo.setBounds(60, 375, 84, 84);
-        loadingLogo.setBorder(brdr);
         
+        
+        JLabel label = new JLabel( new ImageIcon(getClass().getClassLoader().getResource("loading_resized_84.gif")));
+        loadingLogo.add( label );
         this.add(loadingLogo);
     }
     
