@@ -46,6 +46,7 @@ public class GamePanel extends JPanel  {
     private JLabel levelTitle;
     private JLabel timeLabel;
     private JLabel Heart;
+    private JLabel Numbers = new JLabel();
     
     
     /**
@@ -95,6 +96,10 @@ public class GamePanel extends JPanel  {
                 levelTitle.setHorizontalAlignment(JLabel.CENTER);
                 jP2.add(levelTitle);
                 
+            
+                
+                
+                
         // Main Content
         JPanel main = new JPanel();
         main.setLayout(null);
@@ -130,12 +135,35 @@ public class GamePanel extends JPanel  {
             grid.setLocation(260, 50);
             
         showHeart();
-
+        showSideNumbers();
+        
         this.add(jP2);
+        
         this.add(banner);
         this.add(grid);
         this.add(main);
-    }    
+    }
+    public void showSideNumbers() {
+        JPanel jP5 = new JPanel();
+            jP5.setBackground(color1);
+            jP5.setPreferredSize(new Dimension(200, 100));
+            jP5.setBounds(215,50,40,315);
+            jP5.setLayout(new GridLayout(9,0));
+            
+            JLabel[] numbers = new JLabel[9];
+            for(int i = 0; i < 9; i++){
+                numbers[i] = new JLabel(""+(i+1));
+                numbers[i].setFont(new Font("Avenir", Font.PLAIN, 20));
+                numbers[i].setForeground(Color.WHITE);
+                numbers[i].setVerticalAlignment(JLabel.BOTTOM);
+                numbers[i].setHorizontalAlignment(JLabel.CENTER);
+                jP5.add(numbers[i]);
+                this.add(jP5);
+            }
+    }
+    
+    
+    
     /**
      * Add heart to Game Panel.
      */

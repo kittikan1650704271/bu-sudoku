@@ -52,7 +52,7 @@ public class LoadingPanel extends JPanel {
         //loading logo
         JPanel loadingLogo = new JPanel();
         loadingLogo.setBackground(color1);
-        loadingLogo.setBounds(60, 375, 84, 84);
+        loadingLogo.setBounds(45, 400, 84, 84);
         
         
         JLabel label = new JLabel( new ImageIcon(getClass().getClassLoader().getResource("Loading.gif")));

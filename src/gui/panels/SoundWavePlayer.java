@@ -13,18 +13,14 @@ public class SoundWavePlayer {
     private List<String> soundList = new ArrayList<>();
     
     public SoundWavePlayer() {
-        // Initialize the list of sound filenames
-        soundList.add("bgm1");
-        soundList.add("bgm2");
-        soundList.add("bgm3");
-        soundList.add("bgm4");
-        soundList.add("bgm5");
-        soundList.add("bgm6");
-        // Add more sounds as needed
+        for(int i = 1; i < 10; i++){
+            soundList.add("bgm" + i);
+        }
     }
     
     public void playSound(String music,float sound_level) {
         try {
+            System.out.println(music);
             String base = "resources/sound/";
             File wavFile = new File(base + music + ".wav");
 
@@ -59,6 +55,7 @@ public class SoundWavePlayer {
     
     public void playLoopSound(String music,float sound_level) {
         try {
+            System.out.println(music);
             String base = "resources/sound/";
             File wavFile = new File(base + music + ".wav");
 

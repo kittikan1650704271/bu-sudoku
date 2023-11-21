@@ -18,6 +18,7 @@ public class SudokuGame {
     public static final Color color1 = new Color(42, 54, 63);
     public static final Color color2 = new Color(62, 74, 83);
     public static final Color color3 = new Color(255, 153, 255);
+    public static final Color color4 = new Color(32, 44, 53);
 
     // Sudoku Model Attributes
     private final Database sudokuDB;

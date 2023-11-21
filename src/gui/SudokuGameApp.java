@@ -5,6 +5,7 @@ import gui.model.Player;
 import static gui.SudokuGame.color1;
 import static gui.SudokuGame.color2;
 import static gui.SudokuGame.color3;
+import static gui.SudokuGame.color4;
 import gui.panels.SignInPanel;
 import gui.model.Cell;
 import gui.model.CellPosition;
@@ -105,10 +106,26 @@ public class SudokuGameApp extends JFrame{
             }
         });
         this.view.getWelcomePanel().getSignInPanel().getSigninButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                signInEvt();
-                
+                 
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    soundBGM.playSound("click_stereo", -10);
+                    view.getCardLayoutManager().show(view.getContent(), "loading");
+                    Timer timer = new Timer(600, new ActionListener() {
+                        private int count = 2;
+
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            if (count >= 0) {
+                                count--;
+                            } 
+                            else {
+                                signInEvt();
+                                ((Timer) e.getSource()).stop(); // Stop the timer after 5 iterations
+                            }
+                        }
+                    });
+                    timer.start();
             }
         });
         this.view.getWelcomePanel().getSignInPanel().getSignupButton().addActionListener(new ActionListener() {
@@ -262,6 +279,7 @@ public class SudokuGameApp extends JFrame{
                         System.out.println("this is view fail "+view.getGamePanel().getFailed_count());
                         soundBGM.playSound("pop", -10);
                         view.getGamePanel().changeHeart();
+                        
                         
                         if(FailCount  == 3 ){
                             String[] options = { "Yes, Come on baby!", "No, I'm scare~"};
@@ -446,6 +464,12 @@ public class SudokuGameApp extends JFrame{
      * them.
      */
     private void signInEvt() {
+        
+        Random random = new Random();
+        int randomIndex = random.nextInt(14);
+        String strRandomIndex = String.valueOf(randomIndex);
+        System.out.println("qute num "+strRandomIndex);
+        view.getLoadingPanel().getCardLayoutManager().show(view.getLoadingPanel().getQuotepanel(), strRandomIndex);
         // Retrieve Details
         String name = this.view.getWelcomePanel().getSignInPanel().getNameText().getText().trim();
         String password = new String(this.view.getWelcomePanel().getSignInPanel().getPasswordText().getPassword()).trim();
@@ -535,7 +559,7 @@ public class SudokuGameApp extends JFrame{
             cell.setFont(new Font("Halvetica Neue", Font.PLAIN, 36));
             cell.setBorder(new LineBorder(Color.BLACK, 0));
             cell.setHorizontalAlignment(JTextField.CENTER);
-            cell.setCaretColor(new Color(32, 44, 53));
+            cell.setCaretColor(color4);
             cell.setDragEnabled(false);
             cell.setTransferHandler(null);
 
@@ -550,6 +574,7 @@ public class SudokuGameApp extends JFrame{
                     || (pos.getColumn() == 2 && pos.getRow() == 5) || (pos.getColumn() == 5 && pos.getRow() == 2)) {
                 cell.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 2, color3));
             }
+            
 
             // Validate User's Cell Input + Mouse Listeners
             cell.removeKeyListener(cellKeyListener);
@@ -652,7 +677,7 @@ public class SudokuGameApp extends JFrame{
         // Award Points
         this.model.increaseScore(scoreCalculate(levelScore, convertToDecimalTime(gameTime)) );
         Object[] options = {"Great!"};
-        JOptionPane.showOptionDialog(this, "You have solved the Puzzle.\n\nGame Time: " + gameTime + "\nHints Used: " + this.model.getStringHintsUsed() + "\n\nYour new score: " + this.model.getPlayer().getScore() + " points.", "Congratulations!", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+        JOptionPane.showOptionDialog(this, "You have solved the Puzzle.\n\nGame Time: " + gameTime + "\nHints Used: " + this.model.getStringHintsUsed() + "\n\nYour got: " + scoreCalculate(levelScore, convertToDecimalTime(gameTime)) + " points.", "Congratulations!", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null);
         //reset heart
         view.getGamePanel().setResetHeart(true);
         view.getGamePanel().changeHeart();

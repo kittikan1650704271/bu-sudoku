@@ -32,7 +32,7 @@ public class QuoteImage extends JPanel {
         
          
         try {
-            this.logo = ImageIO.read(getClass().getResource("/Quote/Quotes"+i+".png"));
+            this.logo = ImageIO.read(getClass().getResource("/Quotes/Quote"+i+".png"));
             setPreferredSize(new Dimension(width, height));
         } catch (Exception ex) {
             System.err.println("Error Logo Image: " + ex);

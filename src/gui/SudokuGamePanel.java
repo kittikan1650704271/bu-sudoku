@@ -57,7 +57,8 @@ public class SudokuGamePanel extends JPanel {
         cardLayoutManager.addLayoutComponent(this.rulesPanel, "rules");
 
         // Set Start Up Panel
-        cardLayoutManager.show(content, "welcome");
+           cardLayoutManager.show(content, "welcome");
+        
         
 
         // Add Content
