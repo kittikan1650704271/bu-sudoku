@@ -58,7 +58,7 @@ public class SudokuGameApp extends JFrame{
     private final KeyListener cellKeyListener;
     private final MouseListener cellMouseListener;
     private GamePanel gamepanel;
-    
+    private int currentMusic;
 
 
     /**
@@ -72,7 +72,8 @@ public class SudokuGameApp extends JFrame{
         this.model = new SudokuGame();
         this.view = new SudokuGamePanel();
         soundBGM = new SoundWavePlayer();
-        soundBGM.shuffleLoopSound(-10);
+//        soundBGM.shuffleLoopSound(-10);
+//        currentMusic = soundBGM.getIndexMusicPlay();
 
         getContentPane().add(this.view);
         setSize(1000, 550);
@@ -158,11 +159,15 @@ public class SudokuGameApp extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e){
             String value = (String) view.getHomePanel().getMusicSelector().getSelectedItem();
+            view.getHomePanel().getStopSound();
             for(int i = 1; i < 10; i++){
                 if(value.equals("BGM "+i)){
-                    System.out.println("I'm play!");
+//                    System.out.println("I'm play!");
                     soundBGM.stopSound();
                     soundBGM.playLoopSound("bgm"+i, -10);
+                }
+                else {
+                    soundBGM.stopSound();
                 }
             }
         }
@@ -420,7 +425,7 @@ public class SudokuGameApp extends JFrame{
         Random random = new Random();
         int randomIndex = random.nextInt(14);
         String strRandomIndex = String.valueOf(randomIndex);
-        System.out.println("qute num "+strRandomIndex);
+        System.out.println("qute nummmm "+strRandomIndex);
         view.getLoadingPanel().getCardLayoutManager().show(view.getLoadingPanel().getQuotepanel(), strRandomIndex);
         
         // Get Level for the Game
@@ -736,5 +741,6 @@ public class SudokuGameApp extends JFrame{
 
     public void setFailCount(int FailCount) {
         this.FailCount = FailCount;
-    }   
+    }
+
 }

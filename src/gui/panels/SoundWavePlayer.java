@@ -49,7 +49,6 @@ public class SoundWavePlayer {
             // Update the current music
             currentMusic = music;
             
-            System.out.println("Now play " + this.getNameMusicPlayToString());
 
             // Start playing the clip
             clip.start();
@@ -98,7 +97,8 @@ public class SoundWavePlayer {
             
             // Update the current music
             currentMusic = music;
-            System.out.println("Now play "+currentMusic);
+            System.out.println(this.getNameMusicPlayToString());
+            System.out.println(this.getIndexMusicPlay());
 
             // Start playing the clip
             clip1.start();
@@ -120,6 +120,14 @@ public class SoundWavePlayer {
     
     public String getNameMusicPlay() {
         return currentMusic;
+    }
+    
+    public int getIndexMusicPlay() {
+        if (currentMusic != null && !soundList.isEmpty()) {
+            return soundList.indexOf(currentMusic);
+        } else {
+            return -1; // Return -1 if no music is playing or if the soundList is empty
+        }
     }
     
     public String getNameMusicPlayToString() {

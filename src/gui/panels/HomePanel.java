@@ -23,12 +23,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import gui.panels.SoundWavePlayer;
 
-import javax.sound.sampled.*;
-import java.io.File;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JComponent;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.table.TableRowSorter;
@@ -53,6 +50,8 @@ public class HomePanel extends JPanel {
     private final JComboBox musicSelector;
     private JLabel nameLabel;
     private JPanel topRight;
+    private SoundWavePlayer soundBGM = new SoundWavePlayer();;
+    private int currentMusic;
     
     
     
@@ -61,11 +60,7 @@ public class HomePanel extends JPanel {
      */
     public HomePanel() {
         this.setLayout(new BorderLayout());
-        SoundWavePlayer soundBGM = new SoundWavePlayer();
-        String currentMusic = soundBGM.getNameMusicPlay();
-        
-        
-        
+
         // Banner
         JPanel banner = new JPanel();
         banner.setLayout(new BoxLayout(banner, BoxLayout.LINE_AXIS));
@@ -111,18 +106,18 @@ public class HomePanel extends JPanel {
             topRight.setBackground(color1);
             
             // Music Select
+            soundBGM.shuffleLoopSound(-10);
+            currentMusic = soundBGM.getIndexMusicPlay();
             musicSelector = new JComboBox();
             List<String> albumBgm = new ArrayList<>();
             for(int i = 1; i< 10; i++){
             albumBgm.add("BGM "+i);
             }
+            albumBgm.add("NO BGM");
             for(String Bgm : albumBgm){
                 musicSelector.addItem(Bgm);   
             }
-            musicSelector.setSelectedItem("BGM3");
-            
-            System.out.println(currentMusic);
-            
+            musicSelector.setSelectedIndex(currentMusic);
             musicSelector.setBounds(100,20,150,50);
             
             topRight.add(musicSelector);
@@ -300,4 +295,11 @@ public class HomePanel extends JPanel {
         return musicSelector;
     }
     
+    public void setCurrentMusic(int currentMusic) {
+        this.currentMusic = currentMusic;
+    }
+    
+    public void getStopSound() {
+        soundBGM.stopSound();
+    }
 }
