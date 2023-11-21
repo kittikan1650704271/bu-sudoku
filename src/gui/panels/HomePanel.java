@@ -119,7 +119,7 @@ public class HomePanel extends JPanel {
             for(String Bgm : albumBgm){
                 musicSelector.addItem(Bgm);   
             }
-            musicSelector.setSelectedItem(currentMusic);
+            musicSelector.setSelectedItem("BGM3");
             
             System.out.println(currentMusic);
             
