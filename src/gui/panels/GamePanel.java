@@ -143,6 +143,7 @@ public class GamePanel extends JPanel  {
         this.add(grid);
         this.add(main);
     }
+    
     public void showSideNumbers() {
         JPanel jP5 = new JPanel();
             jP5.setBackground(color1);
@@ -160,6 +161,10 @@ public class GamePanel extends JPanel  {
                 jP5.add(numbers[i]);
                 this.add(jP5);
             }
+    }
+    
+    public void remmoveSideNumbers() {
+        
     }
     
     
