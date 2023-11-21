@@ -11,6 +11,7 @@ public class SoundWavePlayer {
     private Clip clip;
     private Clip clip1;
     private List<String> soundList = new ArrayList<>();
+    private String currentMusic; // Variable to store the current music name
     
     public SoundWavePlayer() {
         for(int i = 1; i < 10; i++){
@@ -18,9 +19,8 @@ public class SoundWavePlayer {
         }
     }
     
-    public void playSound(String music,float sound_level) {
+    public void playSound(String music, float sound_level) {
         try {
-            System.out.println(music);
             String base = "resources/sound/";
             File wavFile = new File(base + music + ".wav");
 
@@ -46,6 +46,11 @@ public class SoundWavePlayer {
             float volume = sound_level; // Adjust this value to set the desired volume
             gainControl.setValue(volume);
 
+            // Update the current music
+            currentMusic = music;
+            
+            System.out.println("Now play " + this.getNameMusicPlayToString());
+
             // Start playing the clip
             clip.start();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
@@ -53,9 +58,8 @@ public class SoundWavePlayer {
         }
     }
     
-    public void playLoopSound(String music,float sound_level) {
+    public void playLoopSound(String music, float sound_level) {
         try {
-            System.out.println(music);
             String base = "resources/sound/";
             File wavFile = new File(base + music + ".wav");
 
@@ -92,6 +96,10 @@ public class SoundWavePlayer {
                 }
             });
             
+            // Update the current music
+            currentMusic = music;
+            System.out.println("Now play "+currentMusic);
+
             // Start playing the clip
             clip1.start();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
@@ -110,13 +118,25 @@ public class SoundWavePlayer {
         }
     }
     
+    public String getNameMusicPlay() {
+        return currentMusic;
+    }
+    
+    public String getNameMusicPlayToString() {
+        if (currentMusic != null) {
+            return "Currently playing: " + currentMusic;
+        } else {
+            return "No music is currently playing.";
+        }
+    }
+    
     public void shuffleSound(float sound_level) {
         // Play a random sound from the list
         if (!soundList.isEmpty()) {
             Random random = new Random();
             int randomIndex = random.nextInt(soundList.size());
             String randomSound = soundList.get(randomIndex);
-            playSound(randomSound,sound_level);
+            playSound(randomSound, sound_level);
         }
     }
     
@@ -126,7 +146,7 @@ public class SoundWavePlayer {
             Random random = new Random();
             int randomIndex = random.nextInt(soundList.size());
             String randomSound = soundList.get(randomIndex);
-            playLoopSound(randomSound,sound_level);
+            playLoopSound(randomSound, sound_level);
         }
-    } 
+    }
 }

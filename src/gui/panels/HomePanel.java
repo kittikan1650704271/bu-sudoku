@@ -21,6 +21,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import gui.panels.SoundWavePlayer;
 
 import javax.sound.sampled.*;
 import java.io.File;
@@ -60,7 +61,8 @@ public class HomePanel extends JPanel {
      */
     public HomePanel() {
         this.setLayout(new BorderLayout());
-        
+        SoundWavePlayer soundBGM = new SoundWavePlayer();
+        String currentMusic = soundBGM.getNameMusicPlay();
         
         
         
@@ -117,7 +119,10 @@ public class HomePanel extends JPanel {
             for(String Bgm : albumBgm){
                 musicSelector.addItem(Bgm);   
             }
-            musicSelector.setSelectedItem(null);
+            musicSelector.setSelectedItem(currentMusic);
+            
+            System.out.println(currentMusic);
+            
             musicSelector.setBounds(100,20,150,50);
             
             topRight.add(musicSelector);

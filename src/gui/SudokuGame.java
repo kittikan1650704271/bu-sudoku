@@ -27,6 +27,8 @@ public class SudokuGame {
     private Grid puzzle;
     private int hintsUsed;
     private Timer timer;
+    
+    
 
     /**
      * Default Sudoku Model Constructor.
@@ -71,6 +73,8 @@ public class SudokuGame {
      * @return the puzzle
      */
     public Grid getPuzzle() {
+        System.out.println(puzzle);
+        
         return puzzle;
     }
 

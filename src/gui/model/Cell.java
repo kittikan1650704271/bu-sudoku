@@ -107,8 +107,6 @@ public class Cell extends JTextField {
     @Override
     public String toString() {
         if (this.isLocked()) {
-            // Uncomment the following line if you don't use NetBeans:
-            //return "[" + getUserValue() + "]";
 
             // NetBeans only! Print locked/generated cells in red (irrelevamt for GUI):
             return "[" + COLOUR_RED + getUserValue() + COLOUR_RESET + "]";

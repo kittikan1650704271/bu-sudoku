@@ -99,6 +99,7 @@ public class Generator {
                     getGrid().fetchCellProvision();
                 } else {
                     cell.storeProvisionalValue();
+                    
                 }
             }
         }
@@ -147,5 +148,6 @@ public class Generator {
      */
     private void setGrid(Grid newGrid) {
         this.newGrid = newGrid;
+        System.out.println(newGrid);
     }
 }
