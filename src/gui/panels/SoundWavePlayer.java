@@ -104,6 +104,10 @@ public class SoundWavePlayer {
             clip.stop();
             clip.close();
         }
+        if (clip1 != null && clip1.isRunning()) {
+            clip1.stop();
+            clip1.close();
+        }
     }
     
     public void shuffleSound(float sound_level) {

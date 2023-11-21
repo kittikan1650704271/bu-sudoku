@@ -25,7 +25,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComponent;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.table.TableRowSorter;
@@ -47,7 +49,9 @@ public class HomePanel extends JPanel {
     private DefaultTableModel tableModel;
     private DefaultComboBoxModel levelSelectionModel = new DefaultComboBoxModel();
     private final JComboBox levelSelector;
+    private final JComboBox musicSelector;
     private JLabel nameLabel;
+    private JPanel topRight;
     
     
     
@@ -57,12 +61,17 @@ public class HomePanel extends JPanel {
     public HomePanel() {
         this.setLayout(new BorderLayout());
         
+        
+        
+        
         // Banner
         JPanel banner = new JPanel();
         banner.setLayout(new BoxLayout(banner, BoxLayout.LINE_AXIS));
         banner.setPreferredSize(new Dimension(1000, 115));
         banner.setBackground(color1);
         banner.setAlignmentX(CENTER_ALIGNMENT);
+        
+        
             
             // Logo
             LogoImage jP1 = new LogoImage(115, 115);
@@ -94,7 +103,26 @@ public class HomePanel extends JPanel {
                 jP2.add(nameLabel);
             banner.add(jP2);
             
-        this.add(banner, BorderLayout.NORTH);
+            topRight = new JPanel();
+            topRight.setLayout(null);
+            topRight.setBounds(0, 0, 100, 100);
+            topRight.setBackground(color1);
+            
+            // Music Select
+            musicSelector = new JComboBox();
+            List<String> albumBgm = new ArrayList<>();
+            for(int i = 1; i< 10; i++){
+            albumBgm.add("BGM "+i);
+            }
+            for(String Bgm : albumBgm){
+                musicSelector.addItem(Bgm);   
+            }
+            musicSelector.setSelectedItem(null);
+            musicSelector.setBounds(100,20,150,50);
+            
+            topRight.add(musicSelector);
+            banner.add(topRight);
+            this.add(banner, BorderLayout.NORTH);
 
         // Main Content
         JPanel main = new JPanel();
@@ -261,6 +289,10 @@ public class HomePanel extends JPanel {
      */
     public DefaultComboBoxModel getLevelSelectionModel() {
         return levelSelectionModel;
+    }
+    
+    public JComboBox getMusicSelector(){
+        return musicSelector;
     }
     
 }

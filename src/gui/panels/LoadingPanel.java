@@ -67,9 +67,6 @@ public class LoadingPanel extends JPanel {
             quoteList.add(strI);
         }
         
-//        quoteList.add("Quotes1");
-//        quoteList.add("Quotes2");
-//        quoteList.add("Quotes3");
 
         
         quotePanel.setLayout(cardLayoutManager);
