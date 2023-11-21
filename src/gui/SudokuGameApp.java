@@ -173,53 +173,12 @@ public class SudokuGameApp extends JFrame{
         @Override
         public void actionPerformed(ActionEvent e){
             String value = (String) view.getHomePanel().getMusicSelector().getSelectedItem();
-            if(value.equals("BGM 1")){
-                System.out.println("I'm play!");
-                soundBGM.stopSound();
-                soundBGM.playLoopSound("bgm1", -10);
-            }
-            else if(value.equals("BGM 2")){
-                System.out.println("I'm play!");
-                soundBGM.stopSound();
-                soundBGM.playLoopSound("bgm2", -10);
-            }
-            else if(value.equals("BGM 3")){
-                System.out.println("I'm play!");
-                soundBGM.stopSound();
-                soundBGM.playLoopSound("bgm3", -10);
-            }
-            else if(value.equals("BGM 4")){
-                System.out.println("I'm play!");
-                soundBGM.stopSound();
-                soundBGM.playLoopSound("bgm4", -10);
-            }
-            else if(value.equals("BGM 5")){
-                System.out.println("I'm play!");
-                soundBGM.stopSound();
-                soundBGM.playLoopSound("bgm5", -10);
-            }
-            else if(value.equals("BGM 6")){
-                System.out.println("I'm play!");
-                soundBGM.stopSound();
-                soundBGM.playLoopSound("bgm6", -10);
-            }
-            else if(value.equals("BGM 7")){
-                System.out.println("I'm play!");
-                soundBGM.stopSound();
-                soundBGM.playLoopSound("bgm7", -10);
-            }
-            else if(value.equals("BGM 8")){
-                System.out.println("I'm play!");
-                soundBGM.stopSound();
-                soundBGM.playLoopSound("bgm8", -10);
-            }
-            else if(value.equals("BGM 9")){
-                System.out.println("I'm play!");
-                soundBGM.stopSound();
-                soundBGM.playLoopSound("bgm9", -10);
-            }
-            else{
-                System.out.println("do nothing");
+            for(int i = 1; i < 10; i++){
+                if(value.equals("BGM "+i)){
+                    System.out.println("I'm play!");
+                    soundBGM.stopSound();
+                    soundBGM.playLoopSound("bgm"+i, -10);
+                }
             }
         }
     });
