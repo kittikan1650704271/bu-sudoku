@@ -132,6 +132,11 @@ public class SudokuGameApp extends JFrame{
         this.view.getHomePanel().getNewGameBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Random random = new Random();
+                int randomIndex = random.nextInt(14);
+                String strRandomIndex = String.valueOf(randomIndex);
+                System.out.println("qute num2 "+strRandomIndex);
+                view.getLoadingPanel().getCardLayoutManager().show(view.getLoadingPanel().getQuotepanel(), strRandomIndex);
                 view.getCardLayoutManager().show(view.getContent(), "loading");
         Timer timer = new Timer(600, new ActionListener() {
                     private int count = 2;
@@ -150,7 +155,6 @@ public class SudokuGameApp extends JFrame{
                 });
                 timer.start();
                 soundBGM.playSound("click_stereo", -10);
-//                view.getGamePanel().showHeart();
             }
                        
         });
@@ -425,7 +429,7 @@ public class SudokuGameApp extends JFrame{
         Random random = new Random();
         int randomIndex = random.nextInt(14);
         String strRandomIndex = String.valueOf(randomIndex);
-        System.out.println("qute nummmm "+strRandomIndex);
+        System.out.println("qute num3 "+strRandomIndex);
         view.getLoadingPanel().getCardLayoutManager().show(view.getLoadingPanel().getQuotepanel(), strRandomIndex);
         
         // Get Level for the Game
@@ -481,7 +485,8 @@ public class SudokuGameApp extends JFrame{
         Random random = new Random();
         int randomIndex = random.nextInt(14);
         String strRandomIndex = String.valueOf(randomIndex);
-        System.out.println("qute num "+strRandomIndex);
+        System.out.println("qute num1 "+strRandomIndex);
+        view.getLoadingPanel().getCardLayoutManager().show(view.getLoadingPanel().getQuotepanel(), strRandomIndex);
         
         // Retrieve Details
         String name = this.view.getWelcomePanel().getSignInPanel().getNameText().getText().trim();
