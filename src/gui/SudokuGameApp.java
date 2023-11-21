@@ -110,23 +110,8 @@ public class SudokuGameApp extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     soundBGM.playSound("click_stereo", -10);
-                    view.getCardLayoutManager().show(view.getContent(), "loading");
-                    Timer timer = new Timer(600, new ActionListener() {
-                        private int count = 2;
-
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            if (count >= 0) {
-                                count--;
-                            } 
-                            else {
-                                signInEvt();
-                                ((Timer) e.getSource()).stop(); // Stop the timer after 5 iterations
-                            }
-                        }
-                    });
-                    timer.start();
-            }
+                    signInEvt();
+                }
         });
         this.view.getWelcomePanel().getSignInPanel().getSignupButton().addActionListener(new ActionListener() {
             @Override
@@ -492,7 +477,7 @@ public class SudokuGameApp extends JFrame{
         int randomIndex = random.nextInt(14);
         String strRandomIndex = String.valueOf(randomIndex);
         System.out.println("qute num "+strRandomIndex);
-        view.getLoadingPanel().getCardLayoutManager().show(view.getLoadingPanel().getQuotepanel(), strRandomIndex);
+        
         // Retrieve Details
         String name = this.view.getWelcomePanel().getSignInPanel().getNameText().getText().trim();
         String password = new String(this.view.getWelcomePanel().getSignInPanel().getPasswordText().getPassword()).trim();
@@ -505,11 +490,25 @@ public class SudokuGameApp extends JFrame{
                     // Clear Fields
                     view.getWelcomePanel().getSignInPanel().clear();
                     // Show Home Screen
-                    refreshHomePanel();
-                    
-                    soundBGM.playSound("open",-10);
-                    
-                    view.getCardLayoutManager().show(view.getContent(), "home");
+                    view.getCardLayoutManager().show(view.getContent(), "loading");
+                    Timer timer = new Timer(600, new ActionListener() {
+                        private int count = 2;
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            
+                            if (count >= 0) {
+                                count--;
+                            } 
+                            else {
+                                refreshHomePanel();
+                                soundBGM.playSound("open",-10);
+                                view.getCardLayoutManager().show(view.getContent(), "home");
+                                ((Timer) e.getSource()).stop(); // Stop the timer after 5 iterations
+                            }
+                        }
+                    });
+                        timer.start();
+
                 } else {
                     Object[] options = {"OK"};
                     JOptionPane.showOptionDialog(this, "An error occured during sign in, please try again.", "Sign In Error", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE, null, options, null);
