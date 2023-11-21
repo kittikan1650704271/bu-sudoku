@@ -232,7 +232,14 @@ public class SudokuGameApp extends JFrame{
                     System.err.println("HINT USED: " + model.getStringHintsUsed());
                     if (model.getHintsUsed() == model.getPuzzle().getDifficulty().getMaxHints()) {
                         view.getGamePanel().getHintBtn().setEnabled(false);
-                        JOptionPane.showOptionDialog(getParent(), "Let's not make it too easy!\nThat was the last hint for this game.\n\nDid you Know?\nSudokus can likely prevent Alzheimer's disease\nand Dementia, so don't make it too easy.", "Out of Hints", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                        int alzimer = JOptionPane.showOptionDialog(getParent(), "Let's not make it too easy!\nThat was the last hint for this game.\n\nDid you Know?\nSudokus can likely prevent Alzheimer's disease\nand Dementia, so don't make it too easy.", "Out of Hints", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                        if(alzimer == JOptionPane.YES_OPTION){
+                        soundBGM.playSound("yes2", -10);
+                    }
+                    else{
+                        soundBGM.playSound("no2", -10);
+                    }
+                        
                     }
                     checkGridCompletion();
                 }
@@ -694,6 +701,7 @@ public class SudokuGameApp extends JFrame{
         this.model.increaseScore(scoreCalculate(levelScore, convertToDecimalTime(gameTime)) );
         Object[] options = {"Great!"};
         JOptionPane.showOptionDialog(this, "You have solved the Puzzle.\n\nGame Time: " + gameTime + "\nHints Used: " + this.model.getStringHintsUsed() + "\n\nYour got: " + scoreCalculate(levelScore, convertToDecimalTime(gameTime)) + " points.", "Congratulations!", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+
         //reset heart
         view.getGamePanel().setResetHeart(true);
         view.getGamePanel().changeHeart();
