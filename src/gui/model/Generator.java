@@ -35,7 +35,7 @@ public class Generator {
         // Get a solution for the grid
         this.setGrid(new Grid(diff));
         this.solution.solveFor(getGrid()).findSolution(getGrid().getCellList(), 1);
-
+        
         // Set the solution value for each cell
         for (Cell cell : getGrid()) {
             cell.setSolutionValue();
@@ -44,7 +44,7 @@ public class Generator {
         // Remove some digits from the grid
         setNumEmpty(diff.numEmptyCells());
         emptyCells(getNumEmpty());
-
+        
         // Save & return a valid grid with open cells 
         this.getGrid().provisionCells();
         return this.getGrid();

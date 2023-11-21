@@ -18,7 +18,7 @@ public enum Difficulty {
     
 
     // Difficulty Attributes
-    private final int variance = 2;
+    private final int variance = 0;
     private final int maxHints;
     private final int emptyCells;
     private final int maxScore;
@@ -31,6 +31,7 @@ public enum Difficulty {
      */
     Difficulty(int averageBlanks, int maxHints, int maxScore) {
         this.emptyCells = new Random().nextInt(((averageBlanks + variance) - (averageBlanks - variance)) + 1) + (averageBlanks - variance);
+        System.out.println("this is random blank "+this.emptyCells);
         this.maxHints = maxHints;
         this.maxScore = maxScore;
     }

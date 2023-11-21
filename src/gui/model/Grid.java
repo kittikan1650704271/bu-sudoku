@@ -43,6 +43,7 @@ public class Grid implements Iterable<Cell> {
                 this.cells[row][column] = cell;
                 this.cellList.add(cell);
                 this.subgrids.get(cell.getPosition().getSubgrid()).add(cell);
+                
             }
         }
     }
@@ -59,7 +60,7 @@ public class Grid implements Iterable<Cell> {
         }
         return gridList;
     }
-
+    
     /**
      * @return a list of all cells in this grid
      */
@@ -89,8 +90,8 @@ public class Grid implements Iterable<Cell> {
      */
     public void hint(boolean entireGrid) {
         ArrayList<Cell> emptyCells = new ArrayList();
-
         for (Cell cell : cellList) {
+            //System.out.println("this is get celllist "+getSubgrids().get(0).get(0));
             if (cell.isEmpty()) {
                 emptyCells.add(cell);
             }
@@ -130,6 +131,7 @@ public class Grid implements Iterable<Cell> {
     public void provisionCells() {
         for (Cell cell : this) {
             cell.storeProvisionalValue();
+            
         }
     }
 
@@ -155,7 +157,7 @@ public class Grid implements Iterable<Cell> {
         }
         return true;
     }
-
+    
     /**
      * Check if the user's value meets the constraints of the placement rules
      *
@@ -178,7 +180,8 @@ public class Grid implements Iterable<Cell> {
      */
     private boolean checkRow(int row, int value) {
         for (Cell cell : cells[row]) {
-            if (value == cell.getUserValue()) {
+//            System.out.print(cell);
+            if (value == cell.getUserValue()) {  
                 return false;
             }
         }
@@ -194,6 +197,7 @@ public class Grid implements Iterable<Cell> {
      */
     private boolean checkColumn(int column, int value) {
         for (Cell[] columnCells : cells) {
+//            System.out.println(columnCells[column]);
             if (value == columnCells[column].getUserValue()) {
                 //System.err.println("CELL col: " + columnCells[column].getPosition() + " conflicts.");
                 return false;

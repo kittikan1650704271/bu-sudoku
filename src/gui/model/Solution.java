@@ -40,23 +40,29 @@ public class Solution {
      * @return the true solution
      */
     public int findSolution(List<Cell> emptyCells, int numEmpty) {
+        //System.out.println("this is the empty Cells : " + emptyCells.size());
         if (getLoop() < emptyCells.size()) {
             for (int digit : shuffleValues()) {
                 if (grid.meetsConstraints(emptyCells.get(getLoop()), digit)) {
                     emptyCells.get(getLoop()).setUserValue(digit);
                     setLoop(getLoop() + 1);
                     if (findSolution(emptyCells, numEmpty) >= numEmpty) {
-                        return result;
+                        
+//                        System.out.println("this is result from solution if true " + result);
+                        return result;         
                     }
                 }
             }
             emptyCells.get(getLoop()).setUserValue(0);
             setLoop(getLoop() - 1);
+//            System.out.println("this is result from solution if true empty " + result);
             return result;
         } else {
             setLoop(getLoop() - 1);
+//            System.out.println("this is result from solution if else " + result);
             return ++result;
         }
+        
     }
 
     /**
@@ -67,6 +73,7 @@ public class Solution {
     public List<Integer> shuffleValues() {
         List<Integer> possibleValues = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
         Collections.shuffle(possibleValues);
+        //System.out.println("this is possibleValues : "+possibleValues);
         return possibleValues;
     }
 

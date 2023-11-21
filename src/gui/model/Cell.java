@@ -56,6 +56,7 @@ public class Cell extends JTextField {
      * 0)
      */
     public boolean isEmpty() {
+        //System.out.println(getUserValue());
         return getUserValue() == 0;
     }
 

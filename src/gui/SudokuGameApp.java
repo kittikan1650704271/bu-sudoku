@@ -286,7 +286,7 @@ public class SudokuGameApp extends JFrame{
                     System.out.println("Input: " + evt.getKeyChar() + " was rejected.");
                     evt.consume();
                     
-
+                    
                        
                 } else {
                     // Check if input meets contraints
@@ -343,6 +343,20 @@ public class SudokuGameApp extends JFrame{
                         cell.setUserValue(Integer.valueOf(String.valueOf(evt.getKeyChar()).trim()));
                         //Play draw number sound
                         soundBGM.playSound("drawmap1", -10);
+                        int k =1;
+                        for(int i = 0; i < 9; i++){
+                            for(int j = 0; j < 9; j++){
+                                if(model.getPuzzle().getSubgrids().get(i).get(j).getText().equals(String.valueOf(cell.getUserValue()))){
+                                    k++;
+                                    System.out.println(k);
+                                    if(k == 9){
+                                        System.out.println(String.valueOf(cell.getUserValue())+" is out!");
+                                        view.getGamePanel().checkDoneNumber(cell.getUserValue()-1);
+                                    }
+                                }
+                            }
+                            
+                        }
                         
                     }
                     checkGridCompletion();
@@ -591,7 +605,7 @@ public class SudokuGameApp extends JFrame{
             cell.setFont(new Font("Halvetica Neue", Font.PLAIN, 36));
             cell.setBorder(new LineBorder(Color.BLACK, 0));
             cell.setHorizontalAlignment(JTextField.CENTER);
-            cell.setCaretColor(color4);
+            cell.setCaretColor(color3);
             cell.setDragEnabled(false);
             cell.setTransferHandler(null);
 
@@ -614,8 +628,10 @@ public class SudokuGameApp extends JFrame{
             if (cell.isLocked()) {
                 cell.setEditable(false);
                 cell.setHighlighter(null);
+                cell.setCaretColor(color1);
             } else {
                 cell.setBackground(color2);
+                cell.setHighlighter(null);
                 cell.addMouseListener(cellMouseListener);
                 cell.addKeyListener(cellKeyListener);
             }

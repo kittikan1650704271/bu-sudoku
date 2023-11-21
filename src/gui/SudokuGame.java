@@ -73,7 +73,7 @@ public class SudokuGame {
      * @return the puzzle
      */
     public Grid getPuzzle() {
-        System.out.println(puzzle);
+        //System.out.println(puzzle);
         
         return puzzle;
     }

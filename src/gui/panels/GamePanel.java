@@ -47,6 +47,7 @@ public class GamePanel extends JPanel  {
     private JLabel levelTitle;
     private JLabel timeLabel;
     private JLabel Heart;
+    private JLabel[] numbers = new JLabel[9];
     
     
     
@@ -146,7 +147,7 @@ public class GamePanel extends JPanel  {
         jP5.setPreferredSize(new Dimension(200, 100));
         jP5.setBounds(215,50,40,315);
         jP5.setLayout(new GridLayout(9,0));
-        JLabel[] numbers = new JLabel[9];
+        
         for(int i = 0; i < 9; i++){
             numbers[i] = new JLabel(""+(i+1));
             numbers[i].setFont(new Font("Avenir", Font.PLAIN, 20));
@@ -156,6 +157,11 @@ public class GamePanel extends JPanel  {
             jP5.add(numbers[i]);
             this.add(jP5);
         }
+    }
+    
+    public void checkDoneNumber(int i){
+            getNumbers()[i].setVisible(false);
+        
     }
     
     public void remmoveSideNumbers() {
@@ -334,7 +340,9 @@ public class GamePanel extends JPanel  {
         this.resetHeart = resetHeart;
     }
 
-    
+    public JLabel[] getNumbers(){
+        return numbers;
+    }
     
     
     
