@@ -17,7 +17,7 @@ import javax.swing.JPanel;
  *
  * @author kaann
  */
-public class QuoteImage extends JPanel {
+public class QuoteImage_1 extends JPanel {
 
     // Logo Attributes
     private BufferedImage logo;
@@ -28,11 +28,10 @@ public class QuoteImage extends JPanel {
      * @param width the width of the logo
      * @param height the hight of the logo
      */
-    public QuoteImage(int width, int height,String i) {
-        
-         
+    public QuoteImage_1(int width, int height) {
+
         try {
-            this.logo = ImageIO.read(getClass().getResource("/Quote/Quotes"+i+".png"));
+            this.logo = ImageIO.read(getClass().getResource("/Quote/Quotes2.png"));
             setPreferredSize(new Dimension(width, height));
         } catch (Exception ex) {
             System.err.println("Error Logo Image: " + ex);

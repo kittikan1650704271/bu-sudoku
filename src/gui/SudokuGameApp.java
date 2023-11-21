@@ -27,6 +27,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -390,6 +391,12 @@ public class SudokuGameApp extends JFrame{
     
     // Create new Grid and restart time
     public void newGame(){
+        Random random = new Random();
+        int randomIndex = random.nextInt(14);
+        String strRandomIndex = String.valueOf(randomIndex);
+        System.out.println("qute num "+strRandomIndex);
+        view.getLoadingPanel().getCardLayoutManager().show(view.getLoadingPanel().getQuotepanel(), strRandomIndex);
+        
         // Get Level for the Game
         Difficulty level = Difficulty.valueOf(view.getHomePanel().getLevelSelector().getSelectedItem().toString().toUpperCase());
         System.out.println(level);

@@ -14,7 +14,11 @@ import javax.swing.border.AbstractBorder;
 import javax.swing.border.LineBorder;
 import gui.test.ColorFadingAnimation;
 import gui.test.ImagePanel;
+import java.awt.CardLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import javax.swing.ImageIcon;
 
 /**
@@ -22,7 +26,13 @@ import javax.swing.ImageIcon;
  * @author kaann
  */
 public class LoadingPanel extends JPanel {
-    private JLabel quote;
+    
+
+    private final CardLayout cardLayoutManager = new CardLayout();
+    private JPanel quotePanel = new JPanel();
+    private List<String> quoteList = new ArrayList<>();
+    private QuoteImage[] gen_qoute_pack = new QuoteImage[14];
+
     
     
     
@@ -33,12 +43,12 @@ public class LoadingPanel extends JPanel {
            
         
         // quote-Banner
-        JPanel quotePanel = new JPanel();
-        quotePanel.setLayout(new GridLayout());
+        QuoteShuffle();
         quotePanel.setBackground(Color.blue);
         quotePanel.setBounds(170, 50, 650, 350);
-        quotePanel.add(new QuoteImage(650, 350));
+        //quotePanel.add(new QuoteImage(650, 350));
         this.add(quotePanel);
+        
         //loading logo
         JPanel loadingLogo = new JPanel();
         loadingLogo.setBackground(color1);
@@ -49,5 +59,43 @@ public class LoadingPanel extends JPanel {
         loadingLogo.add( label );
         this.add(loadingLogo);
     }
+    
+    public void QuoteShuffle(){
+        for(int i = 0; i<14; i++){
+            String strI = String.valueOf(i+1);
+            gen_qoute_pack[i] = new QuoteImage(650,350,strI);
+            quoteList.add(strI);
+        }
+        
+//        quoteList.add("Quotes1");
+//        quoteList.add("Quotes2");
+//        quoteList.add("Quotes3");
 
+        
+        quotePanel.setLayout(cardLayoutManager);
+        for(int i = 0; i<14; i++){
+            String strII = String.valueOf(i+1);
+            quotePanel.add(gen_qoute_pack[i]);
+            cardLayoutManager.addLayoutComponent(gen_qoute_pack[i], strII);
+        }
+
+        
+        randomQuote();
+    }
+    
+    public void randomQuote(){
+        Random random = new Random();
+        int randomIndex = random.nextInt(quoteList.size());
+        String strRandomIndex = String.valueOf(randomIndex);
+        System.out.println(strRandomIndex);
+        cardLayoutManager.show(quotePanel, strRandomIndex);
+    }
+    
+    public CardLayout getCardLayoutManager(){
+        return cardLayoutManager;
+    }
+    
+    public JPanel getQuotepanel(){
+        return quotePanel;
+    }
 }
