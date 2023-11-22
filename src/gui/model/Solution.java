@@ -47,9 +47,9 @@ public class Solution {
                     emptyCells.get(getLoop()).setUserValue(digit);
                     setLoop(getLoop() + 1);
                     if (findSolution(emptyCells, numEmpty) >= numEmpty) {
-                        
+
 //                        System.out.println("this is result from solution if true " + result);
-                        return result;         
+                        return result;
                     }
                 }
             }
@@ -62,7 +62,7 @@ public class Solution {
 //            System.out.println("this is result from solution if else " + result);
             return ++result;
         }
-        
+
     }
 
     /**

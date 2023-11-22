@@ -46,9 +46,9 @@ public class LoadingPanel extends JPanel {
         
         // quote-Banner
         QuoteShuffle();
-        quotePanel.setBackground(Color.blue);
+        quotePanel.setBackground(color3);
         quotePanel.setBounds(170, 50, 650, 350);
-        quotePanel.setBorder(BorderFactory.createLineBorder(Color.red, 4));
+        quotePanel.setBorder(BorderFactory.createLineBorder(color3, 4));
         //quotePanel.add(new QuoteImage(650, 350));
         this.add(quotePanel);
         

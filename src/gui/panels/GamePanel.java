@@ -27,12 +27,12 @@ import javax.swing.border.LineBorder;
 
 /**
  * View for a Sudoku Game Panel
- * 
+ *
  * @author masahiro
  * @version 1.0
  */
-public class GamePanel extends JPanel  {
-    
+public class GamePanel extends JPanel {
+
     // Game Panel Attributes
     private List<Cell> viewCellList;
     private final JButton endGameBtn;
@@ -53,14 +53,11 @@ public class GamePanel extends JPanel  {
     private JLabel[] numbers = new JLabel[9];
     private JLabel leftClick = new JLabel();
     private JLabel leftClickAction = new JLabel();
-    
+
     private JLabel rightClick = new JLabel();
     private JLabel rightClickAction = new JLabel();
-    
+
     //private JLabel numbers = new JLabel();
-    
-    
-    
     /**
      * Constructs a Game Panel.
      */
@@ -69,28 +66,28 @@ public class GamePanel extends JPanel  {
         jP6.setBackground(color2);
         jP6.setBorder(BorderFactory.createLineBorder(color3));
         //jP6.setPreferredSize(new Dimension(200, 100));
-        jP6.setBounds(805,350,200,200);
-        jP6.setLayout(new GridLayout(2,0));
-        
+        jP6.setBounds(805, 350, 200, 200);
+        jP6.setLayout(new GridLayout(2, 0));
+
         JPanel jpleftClick = new JPanel();
-        jpleftClick.setLayout(new GridLayout(0,2));
+        jpleftClick.setLayout(new GridLayout(0, 2));
         jpleftClick.setBackground(color2);
         leftClick.setText("Select :");
         leftClick.setFont(new Font("Avenir", Font.PLAIN, 18));
         leftClick.setForeground(Color.white);
         leftClick.setHorizontalAlignment(JLabel.CENTER);
         jpleftClick.add(leftClick);
-        
+
         leftClickAction.setText("Left Click");
         leftClickAction.setFont(new Font("Avenir", Font.PLAIN, 18));
         leftClickAction.setForeground(Color.white);
         leftClickAction.setHorizontalAlignment(JLabel.LEFT);
         jpleftClick.add(leftClickAction);
-        
+
         jP6.add(jpleftClick);
-        
+
         JPanel jprightClick = new JPanel();
-        jprightClick.setLayout(new GridLayout(0,2));
+        jprightClick.setLayout(new GridLayout(0, 2));
         jprightClick.setBackground(color2);
         rightClick.setText("Delete :");
         rightClick.setFont(new Font("Avenir", Font.PLAIN, 18));
@@ -98,126 +95,132 @@ public class GamePanel extends JPanel  {
         rightClick.setHorizontalAlignment(JLabel.CENTER);
         rightClick.setVerticalAlignment(JLabel.TOP);
         jprightClick.add(rightClick);
-        
+
         rightClickAction.setText("Right Click");
         rightClickAction.setFont(new Font("Avenir", Font.PLAIN, 18));
         rightClickAction.setForeground(Color.white);
         rightClickAction.setHorizontalAlignment(JLabel.LEFT);
         rightClickAction.setVerticalAlignment(JLabel.TOP);
         jprightClick.add(rightClickAction);
-        
-        
-        
+
         jP6.add(jprightClick);
 
         this.add(jP6);
-        
+
         // Banner
         JPanel banner = new JPanel();
         banner.setLayout(new BoxLayout(banner, BoxLayout.LINE_AXIS));
-        banner.setBounds(0,0, 115, 115);
+        banner.setBounds(0, 0, 115, 115);
         banner.setPreferredSize(new Dimension(115, 115));
         banner.setBackground(color1);
         banner.setAlignmentX(CENTER_ALIGNMENT);
-        
-        
-            // Sudoku Logo
-            LogoImage jP1 = new LogoImage(115, 115);
-            jP1.setBackground(color1);
-            jP1.setPreferredSize(new Dimension(115, 115));
-            jP1.setMaximumSize(new Dimension(115, 115));
-            jP1.setAlignmentY(CENTER_ALIGNMENT);
-            
-            // Spacing
-            banner.add(Box.createRigidArea(new Dimension(5,0)));
-            banner.add(jP1, BorderLayout.NORTH);
-            
-            // Dynamic Banner Content
-            JPanel jP2 = new JPanel();
-            jP2.setBackground(color1);
-            jP2.setPreferredSize(new Dimension(200, 100));
-            jP2.setBounds(800,25,200,115);
-            jP2.setLayout(new GridLayout(2,0));
-            //jP2.setLocation(800, 50);
-            
-                timeLabel = new JLabel();
-                timeLabel.setFont(new Font("Avenir", Font.PLAIN, 36));
-                timeLabel.setForeground(Color.WHITE);
-                timeLabel.setVerticalAlignment(JLabel.BOTTOM);
-                timeLabel.setHorizontalAlignment(JLabel.CENTER);
-                jP2.add(timeLabel);
 
-                levelTitle = new JLabel();
-                levelTitle.setFont(new Font("Avenir", Font.PLAIN, 24));
-                levelTitle.setForeground(Color.WHITE);
-                levelTitle.setVerticalAlignment(JLabel.TOP);
-                levelTitle.setHorizontalAlignment(JLabel.CENTER);
-                jP2.add(levelTitle);
-                
+        // Sudoku Logo
+        LogoImage jP1 = new LogoImage(115, 115);
+        jP1.setBackground(color1);
+        jP1.setPreferredSize(new Dimension(115, 115));
+        jP1.setMaximumSize(new Dimension(115, 115));
+        jP1.setAlignmentY(CENTER_ALIGNMENT);
+
+        // Spacing
+        banner.add(Box.createRigidArea(new Dimension(5, 0)));
+        banner.add(jP1, BorderLayout.NORTH);
+
+        // Dynamic Banner Content
+        JPanel jP2 = new JPanel();
+        jP2.setBackground(color1);
+        jP2.setPreferredSize(new Dimension(200, 100));
+        jP2.setBounds(800, 25, 200, 115);
+        jP2.setLayout(new GridLayout(2, 0));
+        //jP2.setLocation(800, 50);
+
+        timeLabel = new JLabel();
+        timeLabel.setFont(new Font("Avenir", Font.PLAIN, 36));
+        timeLabel.setForeground(Color.WHITE);
+        timeLabel.setVerticalAlignment(JLabel.BOTTOM);
+        timeLabel.setHorizontalAlignment(JLabel.CENTER);
+        jP2.add(timeLabel);
+
+        levelTitle = new JLabel();
+        levelTitle.setFont(new Font("Avenir", Font.PLAIN, 24));
+        levelTitle.setForeground(Color.WHITE);
+        levelTitle.setVerticalAlignment(JLabel.TOP);
+        levelTitle.setHorizontalAlignment(JLabel.CENTER);
+        jP2.add(levelTitle);
+
         // Main Content
         JPanel main = new JPanel();
         main.setLayout(null);
-        main.setBackground(color1);           
-                       
-            JPanel actions = new JPanel();
-            actions.setLayout(new GridLayout(3,1));
-            actions.setSize(135, 90);
-            actions.setLocation(0, 400 - actions.getHeight());
+        main.setBackground(color1);
 
-                // Get Hint Button
-                hintBtn = new AppJButton("HINT: 3", 14, color2, color3);
-                actions.add(hintBtn);
-            
-                // View Rules Button
-                viewRulesBtn = new AppJButton("VIEW RULES", 14, color2, color3);
-                actions.add(viewRulesBtn);
-            
-                // Sign Out Button
-                endGameBtn = new AppJButton("END GAME", 14, color2, color3);
-                actions.add(endGameBtn);
-            main.add(actions, BorderLayout.WEST);
-            
-            // Game Grid Panel
-            grid = new JPanel();
-            grid.setLayout(new GridLayout(9, 9));
-            grid.setPreferredSize(new Dimension(120, 120));
-            grid.setMaximumSize(new Dimension(433, 433));
-            grid.setBorder(new LineBorder(color3, 2));
-            grid.setBackground(color1.darker());
-            grid.setForeground(Color.white);
-            grid.setBounds(285,0,400,400);
-            grid.setLocation(260, 50);
-            
+        JPanel actions = new JPanel();
+        actions.setLayout(new GridLayout(3, 1));
+        actions.setSize(135, 90);
+        actions.setLocation(0, 400 - actions.getHeight());
+
+        // Get Hint Button
+        hintBtn = new AppJButton("HINT: 3", 14, color2, color3);
+        actions.add(hintBtn);
+
+        // View Rules Button
+        viewRulesBtn = new AppJButton("VIEW RULES", 14, color2, color3);
+        actions.add(viewRulesBtn);
+
+        // Sign Out Button
+        endGameBtn = new AppJButton("END GAME", 14, color2, color3);
+        actions.add(endGameBtn);
+        main.add(actions, BorderLayout.WEST);
+
+        // Game Grid Panel
+        grid = new JPanel();
+        grid.setLayout(new GridLayout(9, 9));
+        grid.setPreferredSize(new Dimension(120, 120));
+        grid.setMaximumSize(new Dimension(433, 433));
+        grid.setBorder(new LineBorder(color3, 2));
+        grid.setBackground(color1.darker());
+        grid.setForeground(Color.white);
+        grid.setBounds(285, 0, 400, 400);
+        grid.setLocation(260, 50);
+
         showHeart();
         showSideNumbers();
-        
+
         this.add(jP2);
-        
+
         this.add(banner);
         this.add(grid);
         this.add(main);
     }
-    
-    public void leftClickHL(){
+
+    public void leftClickHL() {
         leftClickAction.setForeground(color3);
     }
-    public void leftClickReset(){
+
+    public void leftClickReset() {
         leftClickAction.setForeground(Color.white);
     }
     
-    public void updateHintNumber(String number){
-
-        hintBtn.setText(" HINT: "+number);
+    public void rightClickHL() {
+        rightClickAction.setForeground(color3);
     }
-    
+
+    public void rightClickReset() {
+        rightClickAction.setForeground(Color.white);
+    }
+
+    public void updateHintNumber(String number) {
+
+        hintBtn.setText(" HINT: " + number);
+    }
+
     public void showSideNumbers() {
         jP5.setBackground(color1);
         jP5.setPreferredSize(new Dimension(200, 100));
-        jP5.setBounds(215,50,40,315);
-        jP5.setLayout(new GridLayout(9,0));
-        
-        for(int i = 0; i < 9; i++){
-            numbers[i] = new JLabel(""+(i+1));
+        jP5.setBounds(215, 50, 40, 315);
+        jP5.setLayout(new GridLayout(9, 0));
+
+        for (int i = 0; i < 9; i++) {
+            numbers[i] = new JLabel("" + (i + 1));
             numbers[i].setFont(new Font("Avenir", Font.PLAIN, 20));
             numbers[i].setForeground(Color.WHITE);
             numbers[i].setVerticalAlignment(JLabel.BOTTOM);
@@ -226,25 +229,23 @@ public class GamePanel extends JPanel  {
             this.add(jP5);
         }
     }
-    
-    public void checkDoneNumber(int i){
-            getNumbers()[i].setVisible(false);
-        
+
+    public void checkDoneNumber(int i) {
+        getNumbers()[i].setVisible(false);
+
     }
-    
+
     public void resetSideNumbers() {
-        for(int i = 0; i < 9; i++){
+        for (int i = 0; i < 9; i++) {
             getNumbers()[i].setVisible(true);
         }
     }
-    
-    
-    
+
     /**
      * Add heart to Game Panel.
      */
     public void showHeart() {
-        for(int i = 0 ; i < 3; i++){
+        for (int i = 0; i < 3; i++) {
             // Heart Logo
             jP3[i] = new HeartImage(32, 32);
             jP3[i].setPreferredSize(new Dimension(32, 96));
@@ -254,68 +255,67 @@ public class GamePanel extends JPanel  {
             jP4[i].setPreferredSize(new Dimension(32, 96));
             jP4[i].setMaximumSize(new Dimension(32, 96));
             //Heart Panel
-                heart[i] = new JPanel();
-                heart[i].setLayout(new BoxLayout(heart[i], BoxLayout.LINE_AXIS));
-                heart[i].setBounds(675,50+(i * 35), 32, 32);
-                heart[i].setBackground(color1);
-                heart[i].add(jP3[i]);
-                this.add(heart[i]);
+            heart[i] = new JPanel();
+            heart[i].setLayout(new BoxLayout(heart[i], BoxLayout.LINE_AXIS));
+            heart[i].setBounds(675, 50 + (i * 35), 32, 32);
+            heart[i].setBackground(color1);
+            heart[i].add(jP3[i]);
+            this.add(heart[i]);
             //Empty_Heart Panel
-                Empty_heart[i] = new JPanel();
-                Empty_heart[i].setLayout(new BoxLayout(Empty_heart[i], BoxLayout.LINE_AXIS));
-                Empty_heart[i].setBounds(675,50+(i * 35), 32, 32);
-                Empty_heart[i].setBackground(color1);
-                Empty_heart[i].add(jP4[i]);
-                this.add(Empty_heart[i]);
-            }
+            Empty_heart[i] = new JPanel();
+            Empty_heart[i].setLayout(new BoxLayout(Empty_heart[i], BoxLayout.LINE_AXIS));
+            Empty_heart[i].setBounds(675, 50 + (i * 35), 32, 32);
+            Empty_heart[i].setBackground(color1);
+            Empty_heart[i].add(jP4[i]);
+            this.add(Empty_heart[i]);
+        }
     }
+
     /**
      * Change heart to empty heart.
      */
-    
+
     public void changeHeart() {
-            //Set heart visible false heart
-            if(failed_count > 0 && failed_count < 4){
-                heart[failed_count-1].setVisible(false);
-                Timer timer = new Timer(65, new ActionListener() {
-                    private int count = 1;
+        //Set heart visible false heart
+        if (failed_count > 0 && failed_count < 4) {
+            heart[failed_count - 1].setVisible(false);
+            Timer timer = new Timer(65, new ActionListener() {
+                private int count = 1;
 
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (count >= 0) {
-                            grid.setBorder(new LineBorder(Color.red, 2));
-                            count--;
-                        } 
-                        else {
-                            grid.setBorder(new LineBorder(color3, 2));
-                            ((Timer) e.getSource()).stop(); // Stop the timer after 5 iterations
-                        }
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (count >= 0) {
+                        grid.setBorder(new LineBorder(Color.red, 2));
+                        count--;
+                    } else {
+                        grid.setBorder(new LineBorder(color3, 2));
+                        ((Timer) e.getSource()).stop(); // Stop the timer after 5 iterations
                     }
-                });
-                timer.start();
-                
-                
-            }
-            if(resetHeart){
-                    Timer timer = new Timer(300, new ActionListener() {
-                    private int count = 2;
+                }
+            });
+            timer.start();
 
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (count >= 0) {
-                            heart[count].setVisible(true);
-                            count--;
-                        } else {
-                            ((Timer) e.getSource()).stop(); // Stop the timer after 5 iterations
-                        }
+        }
+        if (resetHeart) {
+            Timer timer = new Timer(300, new ActionListener() {
+                private int count = 2;
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (count >= 0) {
+                        heart[count].setVisible(true);
+                        count--;
+                    } else {
+                        ((Timer) e.getSource()).stop(); // Stop the timer after 5 iterations
                     }
-                });
-                timer.start();
-            }         
-            // Trigger a repaint to update the panel
-            repaint();
+                }
+            });
+            timer.start();
+        }
+        // Trigger a repaint to update the panel
+        repaint();
     }
-    
+
     /**
      * @return the endGameBtn
      */
@@ -385,7 +385,7 @@ public class GamePanel extends JPanel  {
     public void setViewCellList(List<Cell> viewCellList) {
         this.viewCellList = viewCellList;
     }
-    
+
     public int getFailed_count() {
         return failed_count;
     }
@@ -410,10 +410,8 @@ public class GamePanel extends JPanel  {
         this.resetHeart = resetHeart;
     }
 
-    public JLabel[] getNumbers(){
+    public JLabel[] getNumbers() {
         return numbers;
     }
-    
-    
-    
+
 }

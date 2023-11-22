@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.awt.Graphics;
 import java.awt.Container;
+
 /**
  * Information about the Sudoku Grid
  *
@@ -28,9 +29,8 @@ public class Grid implements Iterable<Cell> {
 //    private  SudokuGamePanel view = new SudokuGamePanel();
 //    private  SudokuGame model = new SudokuGame();
     private final GamePanel gamePanel = new GamePanel();
+    private final SudokuGameApp main = new SudokuGameApp();
 
-    
-    
     /**
      * Constructs a Grid object
      *
@@ -104,6 +104,7 @@ public class Grid implements Iterable<Cell> {
         ArrayList<Cell> emptyCells = new ArrayList();
         for (Cell cell : cellList) {
             //System.out.println("this is get celllist "+getSubgrids().get(0).get(0));
+            //main.getSudokuGameApp().checkFilledNum(cell);
             if (cell.isEmpty()) {
                 emptyCells.add(cell);
             }
@@ -121,8 +122,8 @@ public class Grid implements Iterable<Cell> {
                 return;
             }
         }
+        //checkFilledNum(new Cell);
     }
-    
 
     /**
      * Checks whether the current grid is solved (by user)
