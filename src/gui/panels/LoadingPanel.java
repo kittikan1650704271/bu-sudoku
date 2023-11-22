@@ -2,6 +2,7 @@
 package gui.panels;
 
 import static gui.SudokuGame.color1;
+import static gui.SudokuGame.color3;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import static java.awt.Component.CENTER_ALIGNMENT;
@@ -19,6 +20,7 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 
 /**
@@ -46,6 +48,7 @@ public class LoadingPanel extends JPanel {
         QuoteShuffle();
         quotePanel.setBackground(Color.blue);
         quotePanel.setBounds(170, 50, 650, 350);
+        quotePanel.setBorder(BorderFactory.createLineBorder(Color.red, 4));
         //quotePanel.add(new QuoteImage(650, 350));
         this.add(quotePanel);
         

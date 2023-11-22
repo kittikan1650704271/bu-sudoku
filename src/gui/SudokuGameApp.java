@@ -221,6 +221,7 @@ public class SudokuGameApp extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 // User wants a hint, check if game has unused hints
                 soundBGM.playSound("click_stereo", -10);
+                view.getGamePanel().updateHintNumber(Integer.toString((3-model.getHintsUsed())-1));
                 if (model.getHintsUsed() < model.getPuzzle().getDifficulty().getMaxHints()) {
                     model.getPuzzle().hint(false);
                     model.setHintsUsed(model.getHintsUsed() + 1);

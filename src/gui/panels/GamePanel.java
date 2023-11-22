@@ -15,12 +15,14 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 /**
@@ -44,10 +46,12 @@ public class GamePanel extends JPanel  {
     public final JPanel[] Empty_heart = new JPanel[3];
     private final EmptyHeartImage[] jP4 = new EmptyHeartImage[3];
     private final JPanel jP5 = new JPanel();
+    private final JPanel jP6 = new JPanel();
     private JLabel levelTitle;
     private JLabel timeLabel;
     private JLabel Heart;
     private JLabel[] numbers = new JLabel[9];
+    //private JLabel numbers = new JLabel();
     
     
     
@@ -56,6 +60,13 @@ public class GamePanel extends JPanel  {
      */
     public GamePanel() {
         this.setLayout(new BorderLayout());
+        jP6.setBackground(color2);
+        jP6.setBorder(BorderFactory.createLineBorder(color3));
+        //jP6.setPreferredSize(new Dimension(200, 100));
+        jP6.setBounds(805,350,200,200);
+        jP6.setLayout(new GridLayout(2,0));
+        this.add(jP6);
+        
         // Banner
         JPanel banner = new JPanel();
         banner.setLayout(new BoxLayout(banner, BoxLayout.LINE_AXIS));
@@ -109,7 +120,7 @@ public class GamePanel extends JPanel  {
             actions.setLocation(0, 400 - actions.getHeight());
 
                 // Get Hint Button
-                hintBtn = new AppJButton("HINT", 14, color2, color3);
+                hintBtn = new AppJButton("HINT: 3", 14, color2, color3);
                 actions.add(hintBtn);
             
                 // View Rules Button
@@ -140,6 +151,10 @@ public class GamePanel extends JPanel  {
         this.add(banner);
         this.add(grid);
         this.add(main);
+    }
+    
+    public void updateHintNumber(String number){
+        hintBtn.setText(" HINT: "+number);
     }
     
     public void showSideNumbers() {
