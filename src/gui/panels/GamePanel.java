@@ -51,6 +51,9 @@ public class GamePanel extends JPanel  {
     private JLabel timeLabel;
     private JLabel Heart;
     private JLabel[] numbers = new JLabel[9];
+    private JLabel leftClick = new JLabel();
+    private JLabel rightClick = new JLabel();
+    
     //private JLabel numbers = new JLabel();
     
     
@@ -65,6 +68,23 @@ public class GamePanel extends JPanel  {
         //jP6.setPreferredSize(new Dimension(200, 100));
         jP6.setBounds(805,350,200,200);
         jP6.setLayout(new GridLayout(2,0));
+        
+        leftClick.setText("Select : Left Click");
+        leftClick.setFont(new Font("Avenir", Font.PLAIN, 18));
+        leftClick.setForeground(Color.white);
+        leftClick.setHorizontalAlignment(JLabel.CENTER);
+        
+        rightClick.setText("Delete : Right Click");
+        rightClick.setFont(new Font("Avenir", Font.PLAIN, 18));
+        rightClick.setForeground(Color.white);
+
+        rightClick.setHorizontalAlignment(JLabel.CENTER);
+        rightClick.setVerticalAlignment(JLabel.TOP);
+
+        
+        
+        jP6.add(leftClick);
+        jP6.add(rightClick);
         this.add(jP6);
         
         // Banner
@@ -154,6 +174,7 @@ public class GamePanel extends JPanel  {
     }
     
     public void updateHintNumber(String number){
+
         hintBtn.setText(" HINT: "+number);
     }
     

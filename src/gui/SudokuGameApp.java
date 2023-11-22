@@ -448,7 +448,7 @@ public class SudokuGameApp extends JFrame{
     
     // Create new Grid and restart time
     public void newGame(){
-        
+        view.getGamePanel().updateHintNumber(Integer.toString((3-model.getHintsUsed())));
         view.getGamePanel().resetSideNumbers();
         Random random = new Random();
         int randomIndex = random.nextInt(14);
