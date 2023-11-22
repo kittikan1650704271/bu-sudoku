@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
-
+import java.awt.Graphics;
+import java.awt.Container;
 /**
  * Information about the Sudoku Grid
  *
@@ -26,7 +27,7 @@ public class Grid implements Iterable<Cell> {
     //private final SudokuGameApp main;
 //    private  SudokuGamePanel view = new SudokuGamePanel();
 //    private  SudokuGame model = new SudokuGame();
-    private GamePanel gamePanel = new GamePanel();
+    private final GamePanel gamePanel = new GamePanel();
 
     
     
@@ -99,8 +100,7 @@ public class Grid implements Iterable<Cell> {
      * revealed
      */
     public void hint(boolean entireGrid) {
-        
-        
+
         ArrayList<Cell> emptyCells = new ArrayList();
         for (Cell cell : cellList) {
             //System.out.println("this is get celllist "+getSubgrids().get(0).get(0));
@@ -116,27 +116,13 @@ public class Grid implements Iterable<Cell> {
                 cell.userValue = cell.getSolutionValue();
                 cell.setLocked(true);
             } else if (!entireGrid && cell.isEmpty()) {
-                System.out.println(cell.getSolutionValue());
-                System.out.println(cell.getUserValue());
-                int k = 1;
-                for (int i = 0; i < 9; i++) {
-                    for (int j = 0; j < 9; j++) {
-                        if (getSubgrids().get(i).get(j).getText().equals(String.valueOf(cell.getSolutionValue()))) {
-                            k++;
-                            System.out.println(k);
-                            if (k == 9) {
-                                System.out.println(String.valueOf(cell.getSolutionValue()) + " is out!");
-                                gamePanel.checkDoneNumber(cell.getSolutionValue() - 1);
-                            }
-                        }
-                    }
-                }
                 cell.setUserValue(cell.getSolutionValue());
                 cell.setLocked(true);
                 return;
             }
         }
     }
+    
 
     /**
      * Checks whether the current grid is solved (by user)

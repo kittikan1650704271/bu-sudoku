@@ -28,6 +28,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -59,6 +61,7 @@ public class SudokuGameApp extends JFrame{
     private final MouseListener cellMouseListener;
     private GamePanel gamepanel;
     private int currentMusic;
+    private List<Cell> cellList;
 
 
     /**
@@ -214,7 +217,7 @@ public class SudokuGameApp extends JFrame{
                 }
             }
         });
-
+                                    
         // Actions Listeners on Game & Rules Panel
         this.view.getGamePanel().getHintBtn().addActionListener(new ActionListener() {
             @Override
@@ -345,7 +348,7 @@ public class SudokuGameApp extends JFrame{
                         cell.setUserValue(0);
                         evt.consume();
                     } else {
-                        cell.setUserValue(Integer.valueOf(String.valueOf(evt.getKeyChar()).trim()));
+                        cell.setUserValue(Integer.parseInt(String.valueOf(evt.getKeyChar()).trim()));
                         //Play draw number sound
                         soundBGM.playSound("drawmap1", -10);
                         
@@ -360,20 +363,38 @@ public class SudokuGameApp extends JFrame{
                                         System.out.println(String.valueOf(cell.getUserValue())+" is out!");
                                         view.getGamePanel().checkDoneNumber(cell.getUserValue()-1);
                                         soundBGM.playSound("no3", -10);
+                                        System.out.println(model.getPuzzle().getSubgrids().get(0).get(0).getClass());
+                                        
+                                        for(int p = 0; p < 9; p++){
+                                            for(int q = 0; q < 9; q++){
+                                                if(model.getPuzzle().getSubgrids().get(p).get(q).getText().equals(String.valueOf(cell.getUserValue()))){
+                                                    cell.setText(String.valueOf(cell.getUserValue()));
+                                                        
+                                                    model.getPuzzle().getSubgrids().get(p).get(q).setEnabled(false);
+                                                    model.getPuzzle().getSubgrids().get(p).get(q).setLocked(true);
+                                                    update();
+
+                                                } 
+                                            }
+                                            
+                                        }
+                                        
                                     }
                                 }
                             }
                             
                         }
                         
-                    }
+                    }    
                     checkGridCompletion();
                     
                 }
-                
             }
             
         };
+        
+        
+        
         this.cellMouseListener = new MouseAdapter() {
             // Cell Hover Attribute
             private Color preActionColor;
@@ -394,6 +415,16 @@ public class SudokuGameApp extends JFrame{
                 }
 
                 cell.selectAll();
+                
+                if(evt.getButton() == MouseEvent.BUTTON1){
+                    view.getGamePanel().leftClickHL();
+                }
+            }
+            
+            public void mouseReleased(MouseEvent e){
+                if(e.getButton() == MouseEvent.BUTTON1){
+                    view.getGamePanel().leftClickReset();
+                }
             }
 
             /**
@@ -765,6 +796,10 @@ public class SudokuGameApp extends JFrame{
             this.view.getGamePanel().getGrid().remove(cell);
         }
     }
-
+    public ArrayList<Cell> shuffleCells() {
+        ArrayList<Cell> shuffledCells = new ArrayList<>(cellList);
+        Collections.shuffle(shuffledCells);
+        return shuffledCells;
+    }
 
 }
