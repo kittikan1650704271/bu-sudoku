@@ -67,6 +67,8 @@ public class SudokuGameApp extends JFrame{
      * @param name title of the application window
      */
     
+    
+    
     public SudokuGameApp(String name) {
         super(name);
         this.model = new SudokuGame();
@@ -258,6 +260,7 @@ public class SudokuGameApp extends JFrame{
         this.view.getGamePanel().getEndGameBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                
                 soundBGM.playSound("click_stereo", -10);
                 Object[] options = {"That's it", "Cancel"};
                 int result = JOptionPane.showOptionDialog(getParent(), "Are you sure you want to end the game?\n\nThis Sudoku is best played in one sitting,\nand can't be continued later.", "Exit?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
@@ -267,6 +270,7 @@ public class SudokuGameApp extends JFrame{
                     view.getGamePanel().setResetHeart(false);
                     view.getCardLayoutManager().show(view.getContent(), "home");
                     destroyGameInstance();
+                    
                 }
             }
         });
@@ -343,6 +347,8 @@ public class SudokuGameApp extends JFrame{
                         cell.setUserValue(Integer.valueOf(String.valueOf(evt.getKeyChar()).trim()));
                         //Play draw number sound
                         soundBGM.playSound("drawmap1", -10);
+                        
+                        //Check Number in table
                         int k =1;
                         for(int i = 0; i < 9; i++){
                             for(int j = 0; j < 9; j++){
@@ -352,6 +358,7 @@ public class SudokuGameApp extends JFrame{
                                     if(k == 9){
                                         System.out.println(String.valueOf(cell.getUserValue())+" is out!");
                                         view.getGamePanel().checkDoneNumber(cell.getUserValue()-1);
+                                        soundBGM.playSound("no3", -10);
                                     }
                                 }
                             }
@@ -440,6 +447,8 @@ public class SudokuGameApp extends JFrame{
     
     // Create new Grid and restart time
     public void newGame(){
+        
+        view.getGamePanel().resetSideNumbers();
         Random random = new Random();
         int randomIndex = random.nextInt(14);
         String strRandomIndex = String.valueOf(randomIndex);
@@ -756,12 +765,5 @@ public class SudokuGameApp extends JFrame{
         }
     }
 
-    public int getFailCount() {
-        return FailCount;
-    }
-
-    public void setFailCount(int FailCount) {
-        this.FailCount = FailCount;
-    }
 
 }

@@ -1,5 +1,9 @@
 package gui.model;
 
+import gui.SudokuGame;
+import gui.SudokuGameApp;
+import gui.SudokuGamePanel;
+import gui.panels.GamePanel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +23,13 @@ public class Grid implements Iterable<Cell> {
     private final List<Cell> cellList;
     private final List<List<Cell>> subgrids;
     private final Difficulty difficulty;
+    //private final SudokuGameApp main;
+//    private  SudokuGamePanel view = new SudokuGamePanel();
+//    private  SudokuGame model = new SudokuGame();
+    private GamePanel gamePanel = new GamePanel();
 
+    
+    
     /**
      * Constructs a Grid object
      *
@@ -43,7 +53,7 @@ public class Grid implements Iterable<Cell> {
                 this.cells[row][column] = cell;
                 this.cellList.add(cell);
                 this.subgrids.get(cell.getPosition().getSubgrid()).add(cell);
-                
+
             }
         }
     }
@@ -60,7 +70,7 @@ public class Grid implements Iterable<Cell> {
         }
         return gridList;
     }
-    
+
     /**
      * @return a list of all cells in this grid
      */
@@ -89,6 +99,8 @@ public class Grid implements Iterable<Cell> {
      * revealed
      */
     public void hint(boolean entireGrid) {
+        
+        
         ArrayList<Cell> emptyCells = new ArrayList();
         for (Cell cell : cellList) {
             //System.out.println("this is get celllist "+getSubgrids().get(0).get(0));
@@ -104,6 +116,21 @@ public class Grid implements Iterable<Cell> {
                 cell.userValue = cell.getSolutionValue();
                 cell.setLocked(true);
             } else if (!entireGrid && cell.isEmpty()) {
+                System.out.println(cell.getSolutionValue());
+                System.out.println(cell.getUserValue());
+                int k = 1;
+                for (int i = 0; i < 9; i++) {
+                    for (int j = 0; j < 9; j++) {
+                        if (getSubgrids().get(i).get(j).getText().equals(String.valueOf(cell.getSolutionValue()))) {
+                            k++;
+                            System.out.println(k);
+                            if (k == 9) {
+                                System.out.println(String.valueOf(cell.getSolutionValue()) + " is out!");
+                                gamePanel.checkDoneNumber(cell.getSolutionValue() - 1);
+                            }
+                        }
+                    }
+                }
                 cell.setUserValue(cell.getSolutionValue());
                 cell.setLocked(true);
                 return;
@@ -131,7 +158,7 @@ public class Grid implements Iterable<Cell> {
     public void provisionCells() {
         for (Cell cell : this) {
             cell.storeProvisionalValue();
-            
+
         }
     }
 
@@ -157,7 +184,7 @@ public class Grid implements Iterable<Cell> {
         }
         return true;
     }
-    
+
     /**
      * Check if the user's value meets the constraints of the placement rules
      *
@@ -181,7 +208,7 @@ public class Grid implements Iterable<Cell> {
     private boolean checkRow(int row, int value) {
         for (Cell cell : cells[row]) {
 //            System.out.print(cell);
-            if (value == cell.getUserValue()) {  
+            if (value == cell.getUserValue()) {
                 return false;
             }
         }

@@ -164,8 +164,10 @@ public class GamePanel extends JPanel  {
         
     }
     
-    public void remmoveSideNumbers() {
-        
+    public void resetSideNumbers() {
+        for(int i = 0; i < 9; i++){
+            getNumbers()[i].setVisible(true);
+        }
     }
     
     
