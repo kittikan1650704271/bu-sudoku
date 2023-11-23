@@ -101,7 +101,7 @@ public class SudokuGameApp extends JFrame {
 
         // Action Listeners on Welcome Panel
         
-        KeyListener keyListener = new KeyListener() {
+        KeyListener signInListener = new KeyListener() {
             @Override
           public void keyPressed(KeyEvent keyEvent) {
             System.out.println("Pressed :" + keyEvent.getKeyText(keyEvent.getKeyCode()));
@@ -118,9 +118,30 @@ public class SudokuGameApp extends JFrame {
 //            printIt("Typed", keyEvent);
           }
         };
-        this.view.getWelcomePanel().getSignInPanel().getNameText().addKeyListener(keyListener);
-        this.view.getWelcomePanel().getSignInPanel().getPasswordText().addKeyListener(keyListener);
-
+        
+        KeyListener signUpListener = new KeyListener() {
+            @Override
+          public void keyPressed(KeyEvent keyEvent) {
+            System.out.println("Pressed :" + keyEvent.getKeyText(keyEvent.getKeyCode()));
+            if(keyEvent.getKeyText(keyEvent.getKeyCode()) == "Enter"){
+                signUpEvt();
+            }
+          }
+            @Override
+          public void keyReleased(KeyEvent keyEvent) {
+//            printIt("Released", keyEvent);
+          }
+            @Override
+          public void keyTyped(KeyEvent keyEvent) {
+//            printIt("Typed", keyEvent);
+          }
+        };
+        this.view.getWelcomePanel().getSignInPanel().getNameText().addKeyListener(signInListener);
+        this.view.getWelcomePanel().getSignInPanel().getPasswordText().addKeyListener(signInListener);
+        
+        this.view.getWelcomePanel().getSignUpPanel().getFullnameText().addKeyListener(signUpListener);
+        this.view.getWelcomePanel().getSignUpPanel().getEmailText().addKeyListener(signUpListener);
+        this.view.getWelcomePanel().getSignUpPanel().getPasswordText().addKeyListener(signUpListener);
         
         this.view.getWelcomePanel().getSignUpPanel().getSigninButton().addActionListener(new ActionListener() {
             @Override
