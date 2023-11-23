@@ -52,8 +52,6 @@ public class SudokuGameApp extends JFrame {
     private String rulesCaller; // -> Tells us where the back button on the rules pane should redirect to based on its caller
     private KeyListener cellKeyListener;
     private MouseListener cellMouseListener;
-    private GamePanel gamepanel;
-    private int currentMusic;
     private List<Cell> cellList;
 
     /**
@@ -65,12 +63,12 @@ public class SudokuGameApp extends JFrame {
         //super(name);
         this.model = new SudokuGame();
         this.view = new SudokuGamePanel();
-        soundBGM = new SoundWavePlayer();
+//        soundBGM = new SoundWavePlayer();
         
-        setTitle("BU SUDOKU");
-        getContentPane().add(this.view);
-        setSize(1000, 550);
-        setResizable(false);
+//        setTitle("BU SUDOKU");
+//        getContentPane().add(this.view);
+//        setSize(1000, 550);
+//        setResizable(false);
 
         // Fill Difficulty Selector
         for (Difficulty diff : Difficulty.values()) {
@@ -128,8 +126,8 @@ public class SudokuGameApp extends JFrame {
 //            printIt("Typed", keyEvent);
           }
         };
-        this.view.getWelcomePanel().getSignInPanel().getNameText().addKeyListener(signInListener);
-        this.view.getWelcomePanel().getSignInPanel().getPasswordText().addKeyListener(signInListener);
+        this.view.getLoginAndRegisterPanel().getUsernameText().addKeyListener(signInListener);
+        this.view.getLoginAndRegisterPanel().getPasswordText().addKeyListener(signInListener);
         
         this.view.getWelcomePanel().getSignUpPanel().getFullnameText().addKeyListener(signUpListener);
         this.view.getWelcomePanel().getSignUpPanel().getEmailText().addKeyListener(signUpListener);
@@ -142,7 +140,7 @@ public class SudokuGameApp extends JFrame {
                 view.getWelcomePanel().getCardLayoutManager().next(view.getWelcomePanel().getSlider());
             }
         });
-        this.view.getWelcomePanel().getSignInPanel().getSigninButton().addActionListener(new ActionListener() {
+        this.view.getLoginAndRegisterPanel().getBtnSignin().addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -150,7 +148,7 @@ public class SudokuGameApp extends JFrame {
                 signInEvt();
             }
         });
-        this.view.getWelcomePanel().getSignInPanel().getSignupButton().addActionListener(new ActionListener() {
+        this.view.getLoginAndRegisterPanel().getBtnSignin().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 soundBGM.playSound("click_stereo", -10);
@@ -528,8 +526,8 @@ public class SudokuGameApp extends JFrame {
         // Retrieve Details
             
         
-        String name = this.view.getWelcomePanel().getSignInPanel().getNameText().getText().trim();
-        String password = new String(this.view.getWelcomePanel().getSignInPanel().getPasswordText().getPassword()).trim();
+        String name = this.view.getLoginAndRegisterPanel().getUsernameinText().getText().trim();
+        String password = new String(this.view.getLoginAndRegisterPanel().getPasswordinText().getPassword()).trim();
         if (!name.equals("") && !password.equals("")) {
             if (model.getSudokuDB().checkLogin(name, password)) {
                 // Set Player
@@ -537,7 +535,7 @@ public class SudokuGameApp extends JFrame {
                 if (player != null) {
                     model.setPlayer(model.getSudokuDB().loadPlayer(name, password));
                     // Clear Fields
-                    view.getWelcomePanel().getSignInPanel().clear();
+                    view.getLoginAndRegisterPanel().clearSignin();
                     // Show Home Screen
                     view.getCardLayoutManager().show(view.getContent(), "loading");
                     Timer timer = new Timer(600, new ActionListener() {
@@ -578,16 +576,16 @@ public class SudokuGameApp extends JFrame {
     private void signUpEvt() {
         String emailRegex = "(?:[a-z0-9!#$%@&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
         // Get User Details
-        String fullname = this.view.getWelcomePanel().getSignUpPanel().getFullnameText().getText().trim();
-        String email = this.view.getWelcomePanel().getSignUpPanel().getEmailText().getText().trim();
-        String password = new String(this.view.getWelcomePanel().getSignUpPanel().getPasswordText().getPassword()).trim();
+        String username = this.view.getLoginAndRegisterPanel().getUsernameupText().getText().trim();
+        String email = this.view.getLoginAndRegisterPanel().getEmailupText().getText().trim();
+        String password = new String(this.view.getLoginAndRegisterPanel().getPasswordinText().getPassword()).trim();
 
-        if (!fullname.equals("") && !email.equals("") && !password.equals("")) {
+        if (!username.equals("") && !email.equals("") && !password.equals("")) {
             if (email.matches(emailRegex)) {
-                if (model.getSudokuDB().registerUser(fullname, email, password)) {
+                if (model.getSudokuDB().registerUser(username, email, password)) {
                     view.getWelcomePanel().getCardLayoutManager().next(view.getWelcomePanel().getSlider());
                     // Clear Fields
-                    view.getWelcomePanel().getSignUpPanel().clear();
+                    view.getLoginAndRegisterPanel().clearSignup();
                     Object[] options = {"OK"};
                     JOptionPane.showOptionDialog(this, "Your registration was successful!\n You can now sign in to your account.", "Successful Registration", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null);
                 } else {

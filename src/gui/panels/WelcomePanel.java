@@ -51,14 +51,14 @@ public class WelcomePanel extends JPanel {
     /**
      * @return the signUpPanel
      */
-    public SignUpPanel getSignUpPanel() {
+    public SignUpPanel getSignUpPanel1() {
         return signUpPanel;
     }
 
     /**
      * @return the signInPanel
      */
-    public SignInPanel getSignInPanel() {
+    public SignInPanel getSignInPanel1() {
         return signInPanel;
     }
 }
