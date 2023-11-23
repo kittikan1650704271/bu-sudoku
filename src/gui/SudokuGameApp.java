@@ -5,15 +5,11 @@ import gui.model.Player;
 import static gui.SudokuGame.color1;
 import static gui.SudokuGame.color2;
 import static gui.SudokuGame.color3;
-import static gui.SudokuGame.color4;
-import gui.panels.SignInPanel;
 import gui.model.Cell;
 import gui.model.CellPosition;
 import gui.model.Difficulty;
 import gui.model.Generator;
-import gui.panels.EmptyHeartImage;
 import gui.panels.GamePanel;
-import gui.panels.HeartImage;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -33,11 +29,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.YES_NO_OPTION;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.border.LineBorder;
@@ -73,9 +66,8 @@ public class SudokuGameApp extends JFrame {
         this.model = new SudokuGame();
         this.view = new SudokuGamePanel();
         soundBGM = new SoundWavePlayer();
-//        soundBGM.shuffleLoopSound(-10);
-//        currentMusic = soundBGM.getIndexMusicPlay();
-
+        
+        setTitle("BU SUDOKU");
         getContentPane().add(this.view);
         setSize(1000, 550);
         setResizable(false);
@@ -522,21 +514,6 @@ public class SudokuGameApp extends JFrame {
     }
 
     /**
-     * Application entry point.
-     *
-     * @param args Optional startup arguments
-     */
-    public static void main(String[] args) {
-        SudokuGameApp frame = new SudokuGameApp();
-        frame.SudokuGameAppMain();
-        //ImageIcon img = new ImageIcon("logo.png");
-        //frame.setIconImage(img.getImage());
-
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
-
-    /**
      * Signs the user into the application on correct credentials, else rejects
      * them.
      */
@@ -882,4 +859,6 @@ public class SudokuGameApp extends JFrame {
     public SudokuGameApp getSudokuGameApp() {
         return this;
     }
+    
+    
 }
