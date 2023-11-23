@@ -15,6 +15,7 @@ import gui.panels.EmptyHeartImage;
 import gui.panels.GamePanel;
 import gui.panels.HeartImage;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -99,6 +100,28 @@ public class SudokuGameApp extends JFrame {
         });
 
         // Action Listeners on Welcome Panel
+        
+        KeyListener keyListener = new KeyListener() {
+            @Override
+          public void keyPressed(KeyEvent keyEvent) {
+            System.out.println("Pressed :" + keyEvent.getKeyText(keyEvent.getKeyCode()));
+            if(keyEvent.getKeyText(keyEvent.getKeyCode()) == "Enter"){
+                signInEvt();
+            }
+          }
+            @Override
+          public void keyReleased(KeyEvent keyEvent) {
+//            printIt("Released", keyEvent);
+          }
+            @Override
+          public void keyTyped(KeyEvent keyEvent) {
+//            printIt("Typed", keyEvent);
+          }
+        };
+        this.view.getWelcomePanel().getSignInPanel().getNameText().addKeyListener(keyListener);
+        this.view.getWelcomePanel().getSignInPanel().getPasswordText().addKeyListener(keyListener);
+
+        
         this.view.getWelcomePanel().getSignUpPanel().getSigninButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -362,7 +385,7 @@ public class SudokuGameApp extends JFrame {
             @Override
             public void mousePressed(MouseEvent evt) {
                 Cell cell = (Cell) evt.getSource();
-
+                
                 // On Right-Click, clear cell
                 if (evt.getButton() == MouseEvent.BUTTON3) {
                     cell.setText("");
@@ -371,7 +394,7 @@ public class SudokuGameApp extends JFrame {
                 }
 
                 cell.selectAll();
-
+                
                 if (evt.getButton() == MouseEvent.BUTTON1) {
                     view.getGamePanel().leftClickHL();
                 }
@@ -396,7 +419,7 @@ public class SudokuGameApp extends JFrame {
             public void mouseEntered(MouseEvent evt) {
                 Cell cell = (Cell) evt.getSource();
                 preActionColor = cell.getBackground();
-
+                cell.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 // Highlight Valid Cells
                 for (Cell aCell : view.getGamePanel().getViewCellList()) {
                     if (cell.getPosition().getRow() == aCell.getPosition().getRow()) {
@@ -408,8 +431,9 @@ public class SudokuGameApp extends JFrame {
                     if (cell.getPosition().getSubgrid() == aCell.getPosition().getSubgrid()) {
                         aCell.setBackground(color3.darker().darker());
                     }
-                }
-
+                    checkFilledNum(cell);
+                    
+                }         
                 cell.setBackground(color3);
             }
 
@@ -504,6 +528,8 @@ public class SudokuGameApp extends JFrame {
         view.getLoadingPanel().getCardLayoutManager().show(view.getLoadingPanel().getQuotepanel(), strRandomIndex);
 
         // Retrieve Details
+            
+        
         String name = this.view.getWelcomePanel().getSignInPanel().getNameText().getText().trim();
         String password = new String(this.view.getWelcomePanel().getSignInPanel().getPasswordText().getPassword()).trim();
         if (!name.equals("") && !password.equals("")) {
@@ -594,6 +620,40 @@ public class SudokuGameApp extends JFrame {
         updateHighscores(model.getHighscores());
     }
 
+//    public void highlightNum(Cell cell){
+//        int k = 1;
+//        for (int i = 0; i < 9; i++) {
+//            for (int j = 0; j < 9; j++) {
+//                if (model.getPuzzle().getSubgrids().get(i).get(j).getText().equals(String.valueOf(cell.getUserValue()))) {
+//                    k++;
+//                    System.out.println(k);
+//                    if (k == 9) {
+//                        
+//                        System.out.println(String.valueOf(cell.getUserValue()) + " is out!");
+//                        view.getGamePanel().checkDoneNumber(cell.getUserValue() - 1);
+//                        soundBGM.playSound("no3", -10);
+//                        System.out.println(model.getPuzzle().getSubgrids().get(0).get(0).getClass());
+//                        for (int p = 0; p < 9; p++) {
+//                            for (int q = 0; q < 9; q++) {
+//                                if (model.getPuzzle().getSubgrids().get(p).get(q).getText().equals(String.valueOf(cell.getUserValue()))) {
+//                                    
+//          
+//                                    cell.setText(String.valueOf(cell.getUserValue()));
+//                                    update();
+//
+//                                }
+//                            }
+//
+//                        }
+//
+//                    }
+//                }
+//            }
+//
+//        }
+//    }
+    
+    
     public void checkFilledNum(Cell cell) {
         int k = 1;
         for (int i = 0; i < 9; i++) {
@@ -606,14 +666,13 @@ public class SudokuGameApp extends JFrame {
                         view.getGamePanel().checkDoneNumber(cell.getUserValue() - 1);
                         soundBGM.playSound("no3", -10);
                         System.out.println(model.getPuzzle().getSubgrids().get(0).get(0).getClass());
-
                         for (int p = 0; p < 9; p++) {
                             for (int q = 0; q < 9; q++) {
                                 if (model.getPuzzle().getSubgrids().get(p).get(q).getText().equals(String.valueOf(cell.getUserValue()))) {
-                                    cell.setText(String.valueOf(cell.getUserValue()));
-
                                     model.getPuzzle().getSubgrids().get(p).get(q).setEnabled(false);
                                     model.getPuzzle().getSubgrids().get(p).get(q).setLocked(true);
+          
+                                    cell.setText(String.valueOf(cell.getUserValue()));
                                     update();
 
                                 }
@@ -663,6 +722,8 @@ public class SudokuGameApp extends JFrame {
                 cell.setEditable(false);
                 cell.setHighlighter(null);
                 cell.setCaretColor(color1);
+                
+
             } else {
                 cell.setBackground(color2);
                 cell.setHighlighter(null);
@@ -677,7 +738,6 @@ public class SudokuGameApp extends JFrame {
 
             // Adds cell to the view's grid
             this.view.getGamePanel().getGrid().add(cell);
-            
         }
         
     }

@@ -11,10 +11,8 @@ package gui.test;
 public class array {
     public static void main(String[] args){
         
-        String[] stray = new String[0];
-        stray[0] = "dd";
-        stray[1] = "d";
-        stray[2] = "gg";
+        String[] stray = {"1","2","3","4","5","6","7","8","9"};
+        
         
         System.out.println(stray[0]);
     }
