@@ -5,11 +5,15 @@ import gui.model.Player;
 import static gui.SudokuGame.color1;
 import static gui.SudokuGame.color2;
 import static gui.SudokuGame.color3;
+import static gui.SudokuGame.color4;
+import gui.panels.SignInPanel;
 import gui.model.Cell;
 import gui.model.CellPosition;
 import gui.model.Difficulty;
 import gui.model.Generator;
+import gui.panels.EmptyHeartImage;
 import gui.panels.GamePanel;
+import gui.panels.HeartImage;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -29,8 +33,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.border.LineBorder;
@@ -44,6 +51,7 @@ import javax.swing.border.LineBorder;
 public class SudokuGameApp extends JFrame {
 
     // Local Model-View Link Variables
+    private boolean active = false;
     private SoundWavePlayer soundBGM;
     private int levelScore;
     private int FailCount = 0;
@@ -52,6 +60,8 @@ public class SudokuGameApp extends JFrame {
     private String rulesCaller; // -> Tells us where the back button on the rules pane should redirect to based on its caller
     private KeyListener cellKeyListener;
     private MouseListener cellMouseListener;
+    private GamePanel gamepanel;
+    private int currentMusic;
     private List<Cell> cellList;
 
     /**
@@ -63,12 +73,13 @@ public class SudokuGameApp extends JFrame {
         //super(name);
         this.model = new SudokuGame();
         this.view = new SudokuGamePanel();
-//        soundBGM = new SoundWavePlayer();
-        
-//        setTitle("BU SUDOKU");
-//        getContentPane().add(this.view);
-//        setSize(1000, 550);
-//        setResizable(false);
+        soundBGM = new SoundWavePlayer();
+//        soundBGM.shuffleLoopSound(-10);
+//        currentMusic = soundBGM.getIndexMusicPlay();
+
+        getContentPane().add(this.view);
+        setSize(1000, 550);
+        setResizable(false);
 
         // Fill Difficulty Selector
         for (Difficulty diff : Difficulty.values()) {
@@ -126,8 +137,8 @@ public class SudokuGameApp extends JFrame {
 //            printIt("Typed", keyEvent);
           }
         };
-        this.view.getLoginAndRegisterPanel().getUsernameText().addKeyListener(signInListener);
-        this.view.getLoginAndRegisterPanel().getPasswordText().addKeyListener(signInListener);
+        this.view.getWelcomePanel().getSignInPanel().getNameText().addKeyListener(signInListener);
+        this.view.getWelcomePanel().getSignInPanel().getPasswordText().addKeyListener(signInListener);
         
         this.view.getWelcomePanel().getSignUpPanel().getFullnameText().addKeyListener(signUpListener);
         this.view.getWelcomePanel().getSignUpPanel().getEmailText().addKeyListener(signUpListener);
@@ -140,7 +151,7 @@ public class SudokuGameApp extends JFrame {
                 view.getWelcomePanel().getCardLayoutManager().next(view.getWelcomePanel().getSlider());
             }
         });
-        this.view.getLoginAndRegisterPanel().getBtnSignin().addActionListener(new ActionListener() {
+        this.view.getWelcomePanel().getSignInPanel().getSigninButton().addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -148,7 +159,7 @@ public class SudokuGameApp extends JFrame {
                 signInEvt();
             }
         });
-        this.view.getLoginAndRegisterPanel().getBtnSignin().addActionListener(new ActionListener() {
+        this.view.getWelcomePanel().getSignInPanel().getSignupButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 soundBGM.playSound("click_stereo", -10);
@@ -197,7 +208,7 @@ public class SudokuGameApp extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String value = (String) view.getHomePanel().getMusicSelector().getSelectedItem();
                 view.getHomePanel().getStopSound();
-                for (int i = 1; i < 10; i++) {
+                for (int i = 1; i < 12; i++) {
                     if (value.equals("BGM " + i)) {
 //                    System.out.println("I'm play!");
                         soundBGM.stopSound();
@@ -375,7 +386,9 @@ public class SudokuGameApp extends JFrame {
                         soundBGM.playSound("drawmap1", -10);
 
                         //Check Number in table
+                        setActive(true);
                         checkFilledNum(cell);
+                        setActive(false);
                     }
                     checkGridCompletion();
 
@@ -512,6 +525,21 @@ public class SudokuGameApp extends JFrame {
     }
 
     /**
+     * Application entry point.
+     *
+     * @param args Optional startup arguments
+     */
+    public static void main(String[] args) {
+        SudokuGameApp frame = new SudokuGameApp();
+        frame.SudokuGameAppMain();
+        //ImageIcon img = new ImageIcon("logo.png");
+        //frame.setIconImage(img.getImage());
+
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+
+    /**
      * Signs the user into the application on correct credentials, else rejects
      * them.
      */
@@ -526,8 +554,8 @@ public class SudokuGameApp extends JFrame {
         // Retrieve Details
             
         
-        String name = this.view.getLoginAndRegisterPanel().getUsernameinText().getText().trim();
-        String password = new String(this.view.getLoginAndRegisterPanel().getPasswordinText().getPassword()).trim();
+        String name = this.view.getWelcomePanel().getSignInPanel().getNameText().getText().trim();
+        String password = new String(this.view.getWelcomePanel().getSignInPanel().getPasswordText().getPassword()).trim();
         if (!name.equals("") && !password.equals("")) {
             if (model.getSudokuDB().checkLogin(name, password)) {
                 // Set Player
@@ -535,7 +563,7 @@ public class SudokuGameApp extends JFrame {
                 if (player != null) {
                     model.setPlayer(model.getSudokuDB().loadPlayer(name, password));
                     // Clear Fields
-                    view.getLoginAndRegisterPanel().clearSignin();
+                    view.getWelcomePanel().getSignInPanel().clear();
                     // Show Home Screen
                     view.getCardLayoutManager().show(view.getContent(), "loading");
                     Timer timer = new Timer(600, new ActionListener() {
@@ -576,16 +604,16 @@ public class SudokuGameApp extends JFrame {
     private void signUpEvt() {
         String emailRegex = "(?:[a-z0-9!#$%@&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
         // Get User Details
-        String username = this.view.getLoginAndRegisterPanel().getUsernameupText().getText().trim();
-        String email = this.view.getLoginAndRegisterPanel().getEmailupText().getText().trim();
-        String password = new String(this.view.getLoginAndRegisterPanel().getPasswordinText().getPassword()).trim();
+        String fullname = this.view.getWelcomePanel().getSignUpPanel().getFullnameText().getText().trim();
+        String email = this.view.getWelcomePanel().getSignUpPanel().getEmailText().getText().trim();
+        String password = new String(this.view.getWelcomePanel().getSignUpPanel().getPasswordText().getPassword()).trim();
 
-        if (!username.equals("") && !email.equals("") && !password.equals("")) {
+        if (!fullname.equals("") && !email.equals("") && !password.equals("")) {
             if (email.matches(emailRegex)) {
-                if (model.getSudokuDB().registerUser(username, email, password)) {
+                if (model.getSudokuDB().registerUser(fullname, email, password)) {
                     view.getWelcomePanel().getCardLayoutManager().next(view.getWelcomePanel().getSlider());
                     // Clear Fields
-                    view.getLoginAndRegisterPanel().clearSignup();
+                    view.getWelcomePanel().getSignUpPanel().clear();
                     Object[] options = {"OK"};
                     JOptionPane.showOptionDialog(this, "Your registration was successful!\n You can now sign in to your account.", "Successful Registration", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null);
                 } else {
@@ -616,38 +644,6 @@ public class SudokuGameApp extends JFrame {
         updateHighscores(model.getHighscores());
     }
 
-//    public void highlightNum(Cell cell){
-//        int k = 1;
-//        for (int i = 0; i < 9; i++) {
-//            for (int j = 0; j < 9; j++) {
-//                if (model.getPuzzle().getSubgrids().get(i).get(j).getText().equals(String.valueOf(cell.getUserValue()))) {
-//                    k++;
-//                    System.out.println(k);
-//                    if (k == 9) {
-//                        
-//                        System.out.println(String.valueOf(cell.getUserValue()) + " is out!");
-//                        view.getGamePanel().checkDoneNumber(cell.getUserValue() - 1);
-//                        soundBGM.playSound("no3", -10);
-//                        System.out.println(model.getPuzzle().getSubgrids().get(0).get(0).getClass());
-//                        for (int p = 0; p < 9; p++) {
-//                            for (int q = 0; q < 9; q++) {
-//                                if (model.getPuzzle().getSubgrids().get(p).get(q).getText().equals(String.valueOf(cell.getUserValue()))) {
-//                                    
-//          
-//                                    cell.setText(String.valueOf(cell.getUserValue()));
-//                                    update();
-//
-//                                }
-//                            }
-//
-//                        }
-//
-//                    }
-//                }
-//            }
-//
-//        }
-//    }
     
     
     public void checkFilledNum(Cell cell) {
@@ -657,10 +653,11 @@ public class SudokuGameApp extends JFrame {
                 if (model.getPuzzle().getSubgrids().get(i).get(j).getText().equals(String.valueOf(cell.getUserValue()))) {
                     k++;
                     System.out.println(k);
-                    if (k == 9) {
+                    if (k == 9 && getActive() == true)  {
                         System.out.println(String.valueOf(cell.getUserValue()) + " is out!");
                         view.getGamePanel().checkDoneNumber(cell.getUserValue() - 1);
                         soundBGM.playSound("no3", -10);
+                        
                         System.out.println(model.getPuzzle().getSubgrids().get(0).get(0).getClass());
                         for (int p = 0; p < 9; p++) {
                             for (int q = 0; q < 9; q++) {
@@ -670,6 +667,7 @@ public class SudokuGameApp extends JFrame {
           
                                     cell.setText(String.valueOf(cell.getUserValue()));
                                     update();
+                                    
 
                                 }
                             }
@@ -858,5 +856,11 @@ public class SudokuGameApp extends JFrame {
         return this;
     }
     
+    public boolean getActive(){
+        return active;
+    }
     
+    public void setActive(boolean check){
+        this.active = check;
+    }
 }

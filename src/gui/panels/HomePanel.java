@@ -110,7 +110,7 @@ public class HomePanel extends JPanel {
             currentMusic = soundBGM.getIndexMusicPlay();
             musicSelector = new JComboBox();
             List<String> albumBgm = new ArrayList<>();
-            for(int i = 1; i< 10; i++){
+            for(int i = 1; i< 12; i++){
             albumBgm.add("BGM "+i);
             }
             albumBgm.add("NO BGM");

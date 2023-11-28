@@ -1,22 +1,13 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package gui;
 
 /**
  *
- * @author masahiro
+ * @author kaann
  */
 public class main {
-    
-    /**
-     * Application entry point.
-     *
-     * @param args Optional startup arguments
-     */
-//     public static void main(String[] args) {
-//        SudokuGameApp frame = new SudokuGameApp();
-//        frame.SudokuGameAppMain();
-//
-//        frame.setLocationRelativeTo(null);
-//        frame.setVisible(true);
-//    }
-    
+
 }

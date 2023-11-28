@@ -14,7 +14,7 @@ public class SoundWavePlayer {
     private String currentMusic; // Variable to store the current music name
     
     public SoundWavePlayer() {
-        for(int i = 1; i < 10; i++){
+        for(int i = 1; i < 12; i++){
             soundList.add("bgm" + i);
         }
     }
@@ -153,6 +153,7 @@ public class SoundWavePlayer {
         if (!soundList.isEmpty()) {
             Random random = new Random();
             int randomIndex = random.nextInt(soundList.size());
+            System.out.println("Random music int"+randomIndex);
             String randomSound = soundList.get(randomIndex);
             playLoopSound(randomSound, sound_level);
         }
