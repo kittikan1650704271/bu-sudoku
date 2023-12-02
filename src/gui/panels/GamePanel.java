@@ -234,6 +234,12 @@ public class GamePanel extends JPanel {
         getNumbers()[i].setVisible(false);
 
     }
+    
+    public void hightlightDoneNumber(int i){
+        getNumbers()[i].setForeground(color3);
+        getNumbers()[i].setFont(new Font("Avenir", Font.PLAIN, 30));
+
+    }
 
     public void resetSideNumbers() {
         for (int i = 0; i < 9; i++) {
@@ -412,6 +418,10 @@ public class GamePanel extends JPanel {
 
     public JLabel[] getNumbers() {
         return numbers;
+    }
+    
+    public JPanel getSideNumber(){
+        return jP5;
     }
 
 }

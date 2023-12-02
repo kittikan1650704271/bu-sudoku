@@ -386,6 +386,9 @@ public class SudokuGameApp extends JFrame {
                         soundBGM.playSound("drawmap1", -10);
 
                         //Check Number in table
+                        while(getActive() == true){
+                            CheckEveryFilledNum(cell);
+                        }
                         setActive(true);
                         checkFilledNum(cell);
                         setActive(false);
@@ -444,7 +447,7 @@ public class SudokuGameApp extends JFrame {
                 Cell cell = (Cell) evt.getSource();
                 preActionColor = cell.getBackground();
                 cell.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                // Highlight Valid Cells
+                
                 for (Cell aCell : view.getGamePanel().getViewCellList()) {
                     if (cell.getPosition().getRow() == aCell.getPosition().getRow()) {
                         aCell.setBackground(color3.darker().darker());
@@ -457,7 +460,8 @@ public class SudokuGameApp extends JFrame {
                     }
                     checkFilledNum(cell);
                     
-                }         
+                }
+                
                 cell.setBackground(color3);
             }
 
@@ -644,7 +648,42 @@ public class SudokuGameApp extends JFrame {
         updateHighscores(model.getHighscores());
     }
 
-    
+    public void CheckEveryFilledNum(Cell cell){
+    int k = 1;
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (model.getPuzzle().getSubgrids().get(i).get(j).getText().equals(String.valueOf(i+1))) {
+                    k++;
+                    //System.out.println(k);
+                    if (k == 9 && getActive() == true)  {
+                        //System.out.println(String.valueOf(cell.getUserValue()) + " is out!");
+                        view.getGamePanel().checkDoneNumber((i+1) - 1);
+                        soundBGM.playSound("no3", -10);
+                        
+                        //System.out.println(model.getPuzzle().getSubgrids().get(0).get(0).getClass());
+                        for (int p = 0; p < 9; p++) {
+                            for (int q = 0; q < 9; q++) {
+                                if (model.getPuzzle().getSubgrids().get(p).get(q).getText().equals(String.valueOf(i+1))) {
+                                    model.getPuzzle().getSubgrids().get(p).get(q).setEnabled(false);
+                                    model.getPuzzle().getSubgrids().get(p).get(q).setLocked(true);
+                                    if(p == 9 && q == 9){
+                                        setActive(false);
+                                    }
+//
+                                    update();
+                                    
+
+                                }
+                            }
+
+                        }
+
+                    }
+                }
+            }
+
+        }
+}
     
     public void checkFilledNum(Cell cell) {
         int k = 1;
@@ -654,18 +693,39 @@ public class SudokuGameApp extends JFrame {
                     k++;
                     System.out.println(k);
                     if (k == 9 && getActive() == true)  {
-                        System.out.println(String.valueOf(cell.getUserValue()) + " is out!");
-                        view.getGamePanel().checkDoneNumber(cell.getUserValue() - 1);
+                        //System.out.println(String.valueOf(cell.getUserValue()) + " is out!");
+                        Timer timer = new Timer(250, new ActionListener() {
+                        private int count = 1;
+
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            if (count >= 0) {
+                                view.getGamePanel().hightlightDoneNumber(cell.getUserValue() - 1);
+                                System.out.println("Change!!");
+                                count--;
+                            } else {
+                                view.getGamePanel().getSideNumber().setBackground(color1);
+                                view.getGamePanel().checkDoneNumber(cell.getUserValue() - 1);
+                                ((Timer) e.getSource()).stop(); // Stop the timer after 5 iterations
+                            }
+                        }
+                    });
+                    timer.start();
+                        
                         soundBGM.playSound("no3", -10);
                         
-                        System.out.println(model.getPuzzle().getSubgrids().get(0).get(0).getClass());
+                        //System.out.println(model.getPuzzle().getSubgrids().get(0).get(0).getClass());
                         for (int p = 0; p < 9; p++) {
                             for (int q = 0; q < 9; q++) {
                                 if (model.getPuzzle().getSubgrids().get(p).get(q).getText().equals(String.valueOf(cell.getUserValue()))) {
                                     model.getPuzzle().getSubgrids().get(p).get(q).setEnabled(false);
                                     model.getPuzzle().getSubgrids().get(p).get(q).setLocked(true);
-          
-                                    cell.setText(String.valueOf(cell.getUserValue()));
+                                    
+//                                    if (cell.isEmpty()) {
+//                                        cell.setText("");
+//                                    } else {
+//                                        cell.setText(String.valueOf(cell.getUserValue()));
+//                                    }
                                     update();
                                     
 
