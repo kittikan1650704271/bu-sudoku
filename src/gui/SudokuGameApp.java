@@ -666,7 +666,7 @@ public class SudokuGameApp extends JFrame {
                                     if(p == 9 && q == 9){
                                         setActive(false);
                                     }
-//
+//                                  //locknumber
                                     cell.removeKeyListener(cellKeyListener);
                                     cell.removeMouseListener(cellMouseListener);
                                     cell.setEditable(false);
