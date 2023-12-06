@@ -60,8 +60,6 @@ public class SudokuGameApp extends JFrame {
     private String rulesCaller; // -> Tells us where the back button on the rules pane should redirect to based on its caller
     private KeyListener cellKeyListener;
     private MouseListener cellMouseListener;
-    private GamePanel gamepanel;
-    private int currentMusic;
     private List<Cell> cellList;
 
     /**
@@ -386,11 +384,9 @@ public class SudokuGameApp extends JFrame {
                         soundBGM.playSound("drawmap1", -10);
 
                         //Check Number in table
-                        while(getActive() == true){
-                            CheckEveryFilledNum(cell);
-                        }
                         setActive(true);
                         checkFilledNum(cell);
+//                        CheckEveryFilledNum(cell);
                         setActive(false);
                     }
                     checkGridCompletion();
@@ -493,6 +489,7 @@ public class SudokuGameApp extends JFrame {
     public void newGame() {
         view.getGamePanel().updateHintNumber(Integer.toString((3 - model.getHintsUsed())));
         view.getGamePanel().resetSideNumbers();
+        view.getGamePanel().resethightlightDoneNumber();
         Random random = new Random();
         int randomIndex = random.nextInt(14);
         String strRandomIndex = String.valueOf(randomIndex);
@@ -654,7 +651,7 @@ public class SudokuGameApp extends JFrame {
             for (int j = 0; j < 9; j++) {
                 if (model.getPuzzle().getSubgrids().get(i).get(j).getText().equals(String.valueOf(i+1))) {
                     k++;
-                    //System.out.println(k);
+                    System.out.println("Check fill"+k);
                     if (k == 9 && getActive() == true)  {
                         //System.out.println(String.valueOf(cell.getUserValue()) + " is out!");
                         view.getGamePanel().checkDoneNumber((i+1) - 1);
@@ -670,7 +667,13 @@ public class SudokuGameApp extends JFrame {
                                         setActive(false);
                                     }
 //
-                                    update();
+                                    cell.removeKeyListener(cellKeyListener);
+                                    cell.removeMouseListener(cellMouseListener);
+                                    cell.setEditable(false);
+                                    cell.setEnabled(false);
+                                    cell.setLocked(true);
+                                    cell.setHighlighter(null);
+                                    cell.setCaretColor(color1);
                                     
 
                                 }
@@ -726,7 +729,14 @@ public class SudokuGameApp extends JFrame {
 //                                    } else {
 //                                        cell.setText(String.valueOf(cell.getUserValue()));
 //                                    }
-                                    update();
+                                    cell.setText(String.valueOf(cell.getUserValue()));
+                                    cell.removeKeyListener(cellKeyListener);
+                                    cell.removeMouseListener(cellMouseListener);
+                                    cell.setEditable(false);
+                                    cell.setEnabled(false);
+                                    cell.setLocked(true);
+                                    cell.setHighlighter(null);
+                                    cell.setCaretColor(color1);
                                     
 
                                 }

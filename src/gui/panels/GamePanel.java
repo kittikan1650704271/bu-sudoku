@@ -235,17 +235,26 @@ public class GamePanel extends JPanel {
 
     }
     
-    public void hightlightDoneNumber(int i){
-        getNumbers()[i].setForeground(color3);
-        getNumbers()[i].setFont(new Font("Avenir", Font.PLAIN, 30));
-
-    }
-
+    
     public void resetSideNumbers() {
         for (int i = 0; i < 9; i++) {
             getNumbers()[i].setVisible(true);
         }
     }
+    
+    public void hightlightDoneNumber(int i){
+        getNumbers()[i].setForeground(color3);
+        getNumbers()[i].setFont(new Font("Avenir", Font.PLAIN, 30));
+
+    }
+    
+    public void resethightlightDoneNumber() {
+        for (int i = 0; i < 9; i++) {
+            getNumbers()[i].setForeground(Color.WHITE);
+            getNumbers()[i].setFont(new Font("Avenir", Font.PLAIN, 20));
+        }
+    }
+
 
     /**
      * Add heart to Game Panel.
