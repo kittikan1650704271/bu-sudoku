@@ -386,7 +386,7 @@ public class SudokuGameApp extends JFrame {
                         //Check Number in table
                         setActive(true);
                         checkFilledNum(cell);
-//                        CheckEveryFilledNum(cell);
+                        CheckEveryFilledNum(cell);
                         setActive(false);
                     }
                     checkGridCompletion();
@@ -667,6 +667,7 @@ public class SudokuGameApp extends JFrame {
                                         setActive(false);
                                     }
 //                                  //locknumber
+                                    cell.setText(String.valueOf(cell.getUserValue()));
                                     cell.removeKeyListener(cellKeyListener);
                                     cell.removeMouseListener(cellMouseListener);
                                     cell.setEditable(false);
@@ -674,6 +675,7 @@ public class SudokuGameApp extends JFrame {
                                     cell.setLocked(true);
                                     cell.setHighlighter(null);
                                     cell.setCaretColor(color1);
+                                    update();
                                     
 
                                 }
@@ -737,7 +739,8 @@ public class SudokuGameApp extends JFrame {
                                     cell.setLocked(true);
                                     cell.setHighlighter(null);
                                     cell.setCaretColor(color1);
-                                    
+                                    update();
+
 
                                 }
                             }
@@ -881,7 +884,7 @@ public class SudokuGameApp extends JFrame {
         update();
 
         levelScore = model.getPuzzle().getDifficulty().getMaxScore();
-//        System.out.println(convertToDecimalTime(gameTime));
+        System.out.println(convertToDecimalTime(gameTime));
         // Award Points
         this.model.increaseScore(scoreCalculate(levelScore, convertToDecimalTime(gameTime)));
         Object[] options = {"Great!"};
