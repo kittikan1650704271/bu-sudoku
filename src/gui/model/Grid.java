@@ -194,8 +194,8 @@ public class Grid implements Iterable<Cell> {
      */
     private boolean checkRow(int row, int value) {
         for (Cell cell : cells[row]) {
-//            System.out.print(cell);
             if (value == cell.getUserValue()) {
+//                System.out.println(cell.getUserValue());
                 return false;
             }
         }

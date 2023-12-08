@@ -13,7 +13,7 @@ public class Cell extends JTextField {
 
     // Cell Attributes
     protected int userValue;
-    protected int solutionValue;
+    private int solutionValue;
     protected int provisionalValue;
     private boolean locked;
     private final CellPosition position;
@@ -154,4 +154,5 @@ public class Cell extends JTextField {
         hash = 79 * hash + Objects.hashCode(this.position);
         return hash;
     }
+    
 }

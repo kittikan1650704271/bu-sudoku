@@ -68,17 +68,13 @@ public class SudokuGameApp extends JFrame {
      * @param name title of the application window
      */
     public void SudokuGameAppMain() {
-        //super(name);
         this.model = new SudokuGame();
         this.view = new SudokuGamePanel();
         soundBGM = new SoundWavePlayer();
-//        soundBGM.shuffleLoopSound(-10);
-//        currentMusic = soundBGM.getIndexMusicPlay();
 
         getContentPane().add(this.view);
         setSize(1000, 550);
         setResizable(false);
-
         // Fill Difficulty Selector
         for (Difficulty diff : Difficulty.values()) {
             view.getHomePanel().getLevelSelectionModel().addElement(diff);
@@ -330,7 +326,7 @@ public class SudokuGameApp extends JFrame {
 
                 } else {
                     // Check if input meets contraints
-                    if (!model.getPuzzle().meetsConstraints(cell, Integer.valueOf(String.valueOf(evt.getKeyChar()).trim()))) {
+                    if (Integer.parseInt(String.valueOf(evt.getKeyChar()).trim()) != cell.getSolutionValue()) {
                         FailCount++;
                         view.getGamePanel().setFailed_count(FailCount);
                         System.out.println("this is view fail " + view.getGamePanel().getFailed_count());
